@@ -1,0 +1,436 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#3f1f9c"><title>AppHub</title><script defer src="https://sdk.minepi.com/pi-sdk.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f3fb;--surface:#ffffff;--surface-alt:#faf8ff;--ink:#181527;--ink-soft:#4c4760;--mut:#84809333;
+  --mut2:#817d90;--line:#e9e5f4;--line-strong:#dcd5ee;
+  --p:#6d3fe6;--p2:#8b63ff;--pd:#3f1f9c;--p-soft:#efe9ff;
+  --gold:#c9861a;--gold-soft:#fbf0da;--ok:#0f9e73;--ok-soft:#e1f8ee;--bad:#e0475b;--bad-soft:#ffe7ea;
+  --r-lg:24px;--r-md:16px;--r-sm:12px;--r-pill:999px;
+  --shadow:0 14px 36px -16px rgba(31,14,79,.22);--shadow-sm:0 6px 16px -8px rgba(31,14,79,.16);
+  --font-d:'Sora',system-ui,sans-serif;--font-b:'Inter',system-ui,sans-serif;--font-m:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-b);background:var(--bg);color:var(--ink);padding-bottom:104px;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--font-d)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+::selection{background:var(--p-soft);color:var(--pd)}
+
+/* header */
+.top{position:sticky;top:0;z-index:30;background:#fffffff2;backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.topin{max-width:1080px;margin:auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--font-d);font-weight:800;font-size:19px;letter-spacing:-.02em}
+.mark{width:32px;height:32px;border-radius:10px;background:conic-gradient(from 220deg,var(--p2),var(--pd),var(--p2));display:grid;place-items:center;color:#fff;font-family:var(--font-d);font-weight:800;font-size:16px;box-shadow:0 4px 12px #6d3fe655;flex:0 0 auto}
+
+.siteBrand{display:inline-flex;align-items:center;min-width:0;text-decoration:none;flex:0 1 210px;height:42px}
+.siteBrandLogo{display:block;width:100%;height:100%;object-fit:contain;object-position:left center}
+@media(max-width:420px){.siteBrand{flex-basis:155px;height:36px}}
+
+.login{border:0;border-radius:var(--r-pill);background:var(--pd);background:linear-gradient(135deg,var(--p2),var(--pd));color:#fff;padding:10px 16px;font-weight:700;font-size:13.5px;max-width:52vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 6px 16px -6px #3f1f9c66}
+
+/* layout */
+.page{display:none;max-width:1080px;margin:auto;padding:20px 16px 10px}
+.page.active{display:block}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:radial-gradient(120% 140% at 15% 0%,#8a5df0 0%,#5324c4 46%,#2a1268 100%);color:#fff;border-radius:var(--r-lg);padding:30px 26px;margin-bottom:18px;box-shadow:var(--shadow)}
+.hero::before{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;border:1px solid #ffffff26;pointer-events:none}
+.hero::after{content:"";position:absolute;right:-10px;top:20px;width:150px;height:150px;border-radius:50%;border:1px solid #ffffff1f;pointer-events:none}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-m);font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:#ffffff1c;border:1px solid #ffffff2a;padding:6px 11px;border-radius:var(--r-pill);margin-bottom:14px}
+.hero .eyebrow i{width:6px;height:6px;border-radius:50%;background:#7cf5b0;display:inline-block;box-shadow:0 0 0 3px #7cf5b02c}
+.hero h1{font-size:clamp(26px,6.4vw,42px);line-height:1.08;margin:0 0 10px;letter-spacing:-.03em;max-width:520px}
+.hero p{margin:0;opacity:.82;max-width:440px;line-height:1.6;font-size:14.5px}
+
+/* filter bar */
+.filterBar{margin:16px 0 6px}
+.segment{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);padding:4px;gap:2px;box-shadow:var(--shadow-sm)}
+.segment .chip{border:0}
+.network{margin-bottom:12px}
+.cats{display:flex;gap:8px;overflow:auto;padding:2px 2px 12px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap;border:1px solid var(--line);background:var(--surface);border-radius:var(--r-pill);padding:9px 15px;font-weight:600;font-size:13px;color:var(--ink-soft);transition:.15s}
+.chip.active{background:var(--pd);background:linear-gradient(135deg,var(--p2),var(--pd));color:#fff;border-color:transparent;box-shadow:0 6px 14px -6px #3f1f9c66}
+
+.search{position:relative;margin:4px 0 16px}
+.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:var(--mut2);fill:none;stroke-width:2}
+.search input{width:100%;border:1px solid var(--line);border-radius:var(--r-md);padding:14px 14px 14px 42px;background:var(--surface);outline:none;font-size:14.5px;transition:.15s}
+.search input:focus{border-color:var(--p);box-shadow:0 0 0 4px var(--p-soft)}
+
+.sectionTitle{display:flex;justify-content:space-between;align-items:end;margin:22px 0 12px}
+.sectionTitle h2{margin:0;font-size:19px;letter-spacing:-.01em}
+.sectionTitle .meta{color:var(--mut2);font-size:12.5px;font-family:var(--font-m)}
+
+/* app list/grid - shared card() template from JS */
+.grid{display:grid;grid-template-columns:1fr;gap:10px}
+.listShell{background:transparent;border:0;padding:0}
+@media(min-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+
+.appRow{display:grid;grid-template-columns:60px minmax(0,1fr) auto;align-items:center;gap:13px;padding:13px;border-radius:var(--r-md);background:var(--surface);border:1px solid var(--line);cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+.appRow:hover{border-color:var(--line-strong);box-shadow:var(--shadow-sm);transform:translateY(-1px)}
+.appRow:active{transform:translateY(0) scale(.99)}
+.appRowLogo{width:60px;height:60px;border-radius:16px;object-fit:cover;background:var(--p-soft);border:1px solid var(--line);transition:transform .25s ease;transform-style:preserve-3d}
+@media(hover:hover) and (pointer:fine){.appRow{perspective:600px}.appRow:hover .appRowLogo{transform:rotateY(-10deg) rotateX(6deg) scale(1.06)}}
+.appRowInfo{min-width:0}
+.appRowTitleLine{display:flex;align-items:center;gap:7px;min-width:0;flex-wrap:wrap}
+.appRowTitle{margin:0;font-size:15.5px;line-height:1.25;font-weight:700;font-family:var(--font-d);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.appRowDesc{margin:4px 0 0;color:var(--mut2);font-size:12.5px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.appMeta{display:flex;gap:10px;margin-top:6px;color:var(--mut2);font-size:10.5px;font-family:var(--font-m)}.verifiedBadge{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--ok);color:#fff;font-size:11px;font-weight:900}.analytics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.metric{background:var(--surface-alt);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}.metric b{display:block;font-size:16px}.metric span{font-size:10px;color:var(--mut2)}
+.networkPill{display:inline-flex;align-items:center;border-radius:var(--r-pill);padding:3px 9px;font-size:9.5px;font-family:var(--font-m);font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:var(--ok-soft);color:var(--ok);border:1px solid #a7e5cf;flex:0 0 auto}
+.networkPill.testnet{background:var(--gold-soft);color:var(--gold);border-color:#efd49d}
+.getBtn{border:0;border-radius:var(--r-pill);background:var(--p-soft);color:var(--pd);padding:10px 18px;font-weight:800;font-size:13.5px;min-width:64px;transition:.15s}
+.appRow:hover .getBtn{background:var(--pd);color:#fff}
+.adBadge{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:17px;padding:0 7px;border-radius:var(--r-pill);background:linear-gradient(135deg,#f7c948,#d99a08);color:#4b3200;font-family:var(--font-m);font-size:9px;font-weight:800;letter-spacing:.06em;flex:0 0 auto}
+.empty{padding:44px 20px;text-align:center;background:var(--surface);border:1px dashed var(--line-strong);border-radius:var(--r-lg);color:var(--mut2);font-size:13.5px}
+
+/* forms */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;margin-bottom:15px;box-shadow:var(--shadow-sm)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:grid;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;font-weight:700;color:var(--ink-soft)}
+.field input,.field select,.field textarea{border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 13px;outline:none;background:var(--surface-alt);font-size:14px;transition:.15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--p);box-shadow:0 0 0 4px var(--p-soft);background:#fff}
+.field textarea{min-height:96px;resize:vertical}
+.previewRow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.preview{aspect-ratio:1;border-radius:var(--r-md);background:var(--surface-alt);border:1.5px dashed var(--line-strong);overflow:hidden;display:grid;place-items:center;color:var(--mut2);font-size:10.5px;text-align:center;position:relative;transition:.15s}
+.preview:hover{border-color:var(--p)}
+.preview .previewText{padding:6px;font-weight:600}
+.preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.preview input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+.preview .removeImage{position:absolute;z-index:3;top:6px;right:6px;width:28px;height:28px;border:0;border-radius:50%;background:#211b2ccc;color:#fff;font-size:18px;line-height:1;display:none;place-items:center;cursor:pointer}
+.preview.has-image .removeImage{display:grid}
+.preview.is-processing::after{content:'Compressing…';position:absolute;inset:auto 7px 7px 7px;z-index:4;padding:6px 8px;border-radius:9px;background:#211b2cdd;color:#fff;font-size:9px;font-weight:800;text-align:center;animation:pulseText 1s ease-in-out infinite}
+.imageSaving{font-size:11px;color:var(--ok);margin-top:7px;font-weight:700}
+.rejectionNote{margin:10px 0 2px;padding:12px 14px;border:1px solid #ffc9d1;background:var(--bad-soft);border-radius:13px;color:#9f2437;font-size:13px;line-height:1.6}.rejectionNote b{display:block;margin-bottom:3px}
+@keyframes pulseText{50%{opacity:.65}}
+.preview.optional .previewText::after{content:' (optional)';font-weight:500;color:var(--mut2)}
+.primary,.ghost,.danger{border:0;border-radius:var(--r-md);padding:13px 16px;font-weight:750;font-size:14px;transition:.15s}
+.primary{background:linear-gradient(135deg,var(--p2),var(--pd));color:#fff;box-shadow:0 8px 18px -8px #3f1f9c66}
+.primary:active{transform:scale(.98)}
+.primary:disabled{opacity:.6}
+.ghost{background:var(--p-soft);color:var(--pd)}
+.danger{background:var(--bad-soft);color:var(--bad)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.notice{padding:13px 14px;border-radius:var(--r-sm);background:var(--p-soft);color:var(--pd);font-size:12.5px;margin:12px 0;line-height:1.5}
+.full{width:100%}
+
+/* profile / status */
+.badge{display:inline-block;border-radius:var(--r-pill);padding:5px 10px;font-size:10px;font-weight:800;background:var(--p-soft);color:var(--pd);margin-right:5px;font-family:var(--font-m)}
+.status-pending{background:var(--gold-soft);color:var(--gold)}
+.status-published{background:var(--ok-soft);color:var(--ok)}
+.status-rejected,.status-suspended{background:var(--bad-soft);color:var(--bad)}
+.promoteBtn{background:var(--gold-soft);color:var(--gold)}
+.adminStats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px}
+.stat b{font-size:28px;display:block}
+
+/* bottom nav */
+.bottom{position:fixed;z-index:40;bottom:14px;left:14px;right:14px;background:#ffffffee;backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:26px;box-shadow:0 16px 40px -14px rgba(31,14,79,.28);display:grid;grid-template-columns:repeat(4,1fr);gap:2px;padding:7px max(7px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom))}
+.navbtn{border:0;background:transparent;color:var(--mut2);display:grid;place-items:center;gap:3px;font-size:10px;font-weight:700;min-width:0;padding:8px 2px;border-radius:16px;transition:.15s}
+.navbtn svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.navbtn.active{color:var(--pd);background:var(--p-soft)}
+.navbtn.add{background:linear-gradient(135deg,var(--p2),var(--pd));color:#fff;box-shadow:0 8px 18px -6px #3f1f9c77}
+.navbtn.add.active{background:linear-gradient(135deg,var(--p2),var(--pd));color:#fff}
+
+/* modals */
+.modal{display:none;position:fixed;inset:0;background:#16111dd9;z-index:50;padding:18px;place-items:center}
+.modal.open{display:grid}
+.modalCard{background:var(--surface);border-radius:var(--r-lg);padding:22px;max-width:820px;width:100%;max-height:90vh;overflow:auto}
+.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px}
+.gallery img{width:100%;height:180px;object-fit:cover;border-radius:var(--r-md)}
+.detailHeader{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.detailLogo{width:72px;height:72px;border-radius:18px;object-fit:cover}
+.detailHeader h2{margin:0;font-size:20px}
+.slider{position:relative;overflow:hidden;border-radius:18px;background:var(--surface-alt)}
+.sliderTrack{display:flex;transition:transform .3s ease}
+.sliderTrack img{min-width:100%;height:260px;object-fit:cover}
+.sliderDots{display:flex;justify-content:center;gap:6px;margin:10px 0}
+.sliderDots button{width:8px;height:8px;border:0;border-radius:50%;padding:0;background:var(--line-strong)}
+.sliderDots button.active{background:var(--p)}
+.promoModal .modalCard{max-width:520px}
+.planGrid{display:grid;gap:10px}
+.plan{border:1px solid var(--line);background:var(--surface);border-radius:var(--r-md);padding:15px;text-align:left;transition:.15s}
+.plan:hover{border-color:var(--p);box-shadow:var(--shadow-sm)}
+.plan b{display:block;font-size:17px;font-family:var(--font-d)}
+.plan small{color:var(--mut2)}
+.toast{position:fixed;bottom:112px;left:50%;transform:translateX(-50%) translateY(20px);background:#211b2c;color:#fff;padding:12px 18px;border-radius:var(--r-pill);opacity:0;pointer-events:none;transition:.2s;z-index:90;font-size:13.5px;box-shadow:0 12px 30px -10px #00000055}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* branded confirmation dialog */
+.confirmModal{z-index:120}
+.confirmCard{max-width:430px;text-align:center;padding:28px 24px 22px;border:1px solid var(--line);box-shadow:0 28px 80px -28px rgba(31,14,79,.55);animation:dialogIn .18s ease-out}
+.confirmIcon{width:62px;height:62px;margin:0 auto 16px;border-radius:22px;display:grid;place-items:center;background:var(--bad-soft);color:var(--bad);font-size:29px;font-weight:900;box-shadow:inset 0 0 0 1px rgba(200,50,74,.08)}
+.confirmCard h3{margin:0 0 8px;font:800 22px/1.2 var(--font-d);color:var(--text)}
+.confirmCard p{margin:0 auto 22px;color:var(--mut2);line-height:1.65;max-width:340px}
+.confirmActions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.confirmActions button{min-height:46px}
+.confirmDanger{border:0;border-radius:var(--r-sm);background:linear-gradient(135deg,#ef5b72,#b91c3b);color:#fff;font-weight:800;box-shadow:0 12px 24px -12px rgba(185,28,59,.7)}
+.confirmDanger:hover{transform:translateY(-1px);filter:brightness(1.03)}
+@keyframes dialogIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+@media(max-width:480px){.confirmCard{padding:24px 18px 18px}.confirmActions{grid-template-columns:1fr}.confirmActions .confirmDanger{order:-1}}
+
+
+@media(max-width:600px){
+  .page{padding:16px 12px 8px}
+  .hero{padding:22px 18px}
+  .form{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .previewRow{grid-template-columns:repeat(2,1fr)}
+  .appRow{grid-template-columns:52px minmax(0,1fr) auto;gap:10px;padding:11px}
+  .appRowLogo{width:52px;height:52px;border-radius:14px}
+  .appRowTitle{font-size:14px}
+  .appRowDesc{font-size:11.5px}
+  .getBtn{padding:9px 14px;font-size:12.5px;min-width:56px}
+  .sectionTitle h2{font-size:17px}
+  .adminStats{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* v16 responsive, performance and loading UX */
+html{scroll-behavior:smooth;text-size-adjust:100%}
+body{min-height:100dvh;overflow-x:hidden}
+img{max-width:100%;content-visibility:auto}
+button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid color-mix(in srgb,var(--p,#6d3fe6) 28%,transparent);outline-offset:2px}
+.app-loading-bar{position:fixed;z-index:9999;top:0;left:0;height:3px;width:100%;pointer-events:none;opacity:0;transition:opacity .2s;background:linear-gradient(90deg,transparent,var(--p,#6d3fe6),#a887ff,transparent);background-size:220% 100%;animation:loadingSlide 1s linear infinite}
+.app-loading-bar.show{opacity:1}
+.page-loader{position:fixed;inset:0;z-index:9998;display:grid;place-items:center;background:color-mix(in srgb,var(--bg,#f5f3fb) 92%,white);transition:opacity .28s,visibility .28s}
+.page-loader.hide{opacity:0;visibility:hidden}
+.loader-card{display:grid;justify-items:center;gap:13px;padding:24px;color:var(--ink-soft,#4c4760);font-weight:700;font-size:13px}
+.loader-orbit{width:52px;height:52px;border-radius:50%;border:4px solid color-mix(in srgb,var(--p,#6d3fe6) 15%,transparent);border-top-color:var(--p,#6d3fe6);animation:spin .75s linear infinite;box-shadow:0 8px 28px -12px rgba(63,31,156,.4)}
+.is-busy{position:relative;pointer-events:none;opacity:.78}
+.is-busy::after{content:"";display:inline-block;width:14px;height:14px;margin-inline-start:8px;vertical-align:-2px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .65s linear infinite}
+.skeleton{position:relative;overflow:hidden;background:color-mix(in srgb,var(--line,#e9e5f4) 66%,white);border-radius:14px;min-height:84px}
+.skeleton::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);animation:shimmer 1.25s infinite}
+.skeleton-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{100%{transform:translateX(100%)}}
+@keyframes loadingSlide{to{background-position:-220% 0}}
+@media(max-width:719px){
+  .topin{padding-inline:max(12px,env(safe-area-inset-left)) max(12px,env(safe-area-inset-right))}
+  .page,.wrap{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right))}
+  .hero{border-radius:20px;padding:23px 18px}
+  .hero h1{font-size:clamp(25px,9vw,34px)}
+  .form{grid-template-columns:1fr!important}.field{grid-column:1/-1!important}
+  .previewRow{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .row{flex-wrap:wrap}.row>.primary,.row>.ghost,.row>.danger{min-height:46px}
+  .appRow{grid-template-columns:54px minmax(0,1fr) auto;gap:10px;padding:11px}
+  .appRowLogo{width:54px;height:54px;border-radius:14px}.getBtn{padding:9px 13px;min-width:56px}
+  .analytics{grid-template-columns:repeat(2,1fr)}
+  .modalCard{width:min(100% - 16px,620px);max-height:calc(100dvh - 20px);overflow:auto;border-radius:20px}
+  .bottom{padding-bottom:max(8px,env(safe-area-inset-bottom))}
+  .navbtn{min-width:0;font-size:10px}.navbtn svg{width:21px;height:21px}
+  .skeleton-grid{grid-template-columns:1fr}
+}
+@media(max-width:420px){
+  .brand{font-size:16px}.mark{width:29px;height:29px}.login,.account{max-width:46vw;padding:9px 11px}
+  .previewRow{gap:8px}.preview{border-radius:13px}
+  .sectionTitle{align-items:flex-start;gap:8px}.sectionTitle h2{font-size:18px}
+  .appHead{grid-template-columns:72px minmax(0,1fr)!important}.appHead>.get{grid-column:1/-1;width:100%;margin-top:2px}
+  .stats{grid-template-columns:repeat(2,1fr)!important}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.loader-orbit,.app-loading-bar,.skeleton::after,.is-busy::after{animation-duration:1.5s}}
+
+</style></head><body><div class="app-loading-bar" id="appLoadingBar" aria-hidden="true"></div><div class="page-loader" id="pageLoader" role="status" aria-live="polite"><div class="loader-card"><div class="loader-orbit"></div><span>Loading AppHub…</span></div></div>
+<header class="top"><div class="topin"><a class="siteBrand" href="/" aria-label="AppHub home"><img class="siteBrandLogo" src="/assets/site-logo.png" alt="AppHub"></a><button class="login" id="loginBtn" onclick="handleAccountButton()">Sign in with Pi</button></div></header>
+<main>
+<section class="page active" id="homePage">
+  <div class="hero"><span class="eyebrow"><i></i>Curated Pi ecosystem</span><h1>Discover the best Pi apps.</h1><p>Browse reviewed Mainnet and Testnet apps, shops, AI tools and services from the Pi ecosystem.</p></div>
+  <div class="filterBar">
+    <div class="network segment" id="networkChips"></div>
+    <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg><input id="search" placeholder="Search Shop, AI, Games..." oninput="renderPublic()"></div>
+    <div class="cats" id="categoryChips"></div>
+  </div>
+  <div class="sectionTitle"><h2>All programs</h2><span class="meta" id="count"></span></div>
+  <div class="grid listShell" id="homeGrid"></div>
+</section>
+<section class="page" id="appsPage"><div class="sectionTitle"><div><h2>Apps</h2><div class="meta">A visual gallery of approved Pi applications.</div></div></div><div class="grid listShell" id="appsGrid"></div></section>
+<section class="page" id="addPage"><div class="sectionTitle"><div><h2 id="formTitle">Add App +</h2><div class="meta" id="formSubtitle">Your app remains pending until an admin approves it.</div></div></div><form class="panel form" id="appForm"><input type="hidden" id="editingAppId"><div class="field"><label>App name</label><input name="name" required maxlength="80"></div><div class="field"><label>Category</label><select name="category"><option>Shop</option><option>AI</option><option>Games</option><option>Business</option><option>Tools</option><option>Finance</option><option>Social</option></select></div><div class="field"><label>Network</label><select name="network"><option value="mainnet">Mainnet</option><option value="testnet">Testnet</option></select></div><div class="field"><label>Website URL</label><input name="websiteUrl" type="url" required></div><div class="field full"><label>Description</label><textarea name="shortDescription" required minlength="10"></textarea></div><div class="field"><label>Developer name</label><input name="developerName" required></div><div class="field"><label>Developer email (optional)</label><input name="contactEmail" type="email"></div><div class="field full"><label>Logo + screenshots (logo and screenshot 1 required)</label><div class="previewRow"><label class="preview" id="logoPreview"><span class="previewText">Logo</span><img alt="" hidden><button class="removeImage" type="button" onclick="removeImage(event,'logoPreview')" aria-label="Remove logo">×</button><input id="logoFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewFile(this,'logoPreview')"></label><label class="preview" id="shot1Preview"><span class="previewText">Screenshot 1</span><img alt="" hidden><button class="removeImage" type="button" onclick="removeImage(event,'shot1Preview')" aria-label="Remove screenshot 1">×</button><input class="shotFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewFile(this,'shot1Preview')"></label><label class="preview optional" id="shot2Preview"><span class="previewText">Screenshot 2</span><img alt="" hidden><button class="removeImage" type="button" onclick="removeImage(event,'shot2Preview')" aria-label="Remove screenshot 2">×</button><input class="shotFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewFile(this,'shot2Preview')"></label><label class="preview optional" id="shot3Preview"><span class="previewText">Screenshot 3</span><img alt="" hidden><button class="removeImage" type="button" onclick="removeImage(event,'shot3Preview')" aria-label="Remove screenshot 3">×</button><input class="shotFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewFile(this,'shot3Preview')"></label></div></div><div class="notice full" id="paymentNotice">Submission fee: <b>1 Pi</b>. The payment is approved and completed server-side before the app is stored for review.</div><div class="row full"><button class="primary" style="flex:1" type="submit" id="submitAppBtn">Pay 1 Pi & Submit</button><button class="ghost" type="button" id="cancelEditBtn" style="display:none" onclick="resetAppForm()">Cancel edit</button></div></form></section>
+<section class="page" id="profilePage"><div class="sectionTitle"><div><h2>Profile</h2><div class="meta" id="profileName">Sign in to manage your apps.</div></div><button class="ghost" onclick="loadMyApps()">Refresh</button></div><div id="myApps" class="grid"></div><div id="adminArea" style="display:none" class="panel"><b>Admin account</b><p class="meta">Open the separate admin dashboard to review submitted apps and revenue.</p><a class="primary" href="/admin.html" style="display:inline-block;text-decoration:none;margin-top:10px">Open Admin Dashboard</a></div></section>
+</main>
+<nav class="bottom"><button class="navbtn active" onclick="showPage('home',this)" aria-label="Home"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"></path><path d="M5.5 10.5V20h13v-9.5"></path><path d="M9.5 20v-6h5v6"></path></svg>Home</button><button class="navbtn" onclick="showPage('apps',this)" aria-label="Apps"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>Apps</button><button class="navbtn add" onclick="showPage('add',this)" aria-label="Add App"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>Add App</button><button class="navbtn" onclick="showPage('profile',this)" aria-label="Profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4.5 20c.8-4 3.4-6 7.5-6s6.7 2 7.5 6"></path></svg>Profile</button></nav>
+<div class="modal" id="details"><div class="modalCard"><div class="row" style="justify-content:flex-end"><button class="ghost" onclick="closeDetails()">Close</button></div><div class="detailHeader"><img id="detailLogo" class="detailLogo" alt=""><div><h2 id="detailTitle"></h2><div><span class="badge" id="detailCat"></span><span class="badge" id="detailNet"></span></div></div></div><div class="slider"><div class="sliderTrack" id="detailGallery"></div></div><div class="sliderDots" id="sliderDots"></div><p id="detailDesc"></p><button class="primary" id="openApp">Open website</button></div></div>
+
+<div class="modal confirmModal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
+  <div class="modalCard confirmCard">
+    <div class="confirmIcon" id="confirmIcon">!</div>
+    <h3 id="confirmTitle">Are you sure?</h3>
+    <p id="confirmMessage">This action cannot be undone.</p>
+    <div class="confirmActions">
+      <button class="ghost" type="button" id="confirmCancel">Cancel</button>
+      <button class="confirmDanger" type="button" id="confirmAccept">Delete</button>
+    </div>
+  </div>
+</div>
+<div class="modal promoModal" id="promoteModal"><div class="modalCard"><div class="row" style="justify-content:space-between"><h2>Promote App</h2><button class="ghost" onclick="closePromote()">Close</button></div><p class="meta">Featured apps appear above regular apps until the promotion expires.</p><div class="planGrid"><button class="plan" onclick="buyPromotion(3,10)"><b>3 Days — 10 Pi</b><small>Short featured boost</small></button><button class="plan" onclick="buyPromotion(14,20)"><b>14 Days — 20 Pi</b><small>Two-week promotion</small></button><button class="plan" onclick="buyPromotion(30,30)"><b>30 Days — 30 Pi</b><small>Maximum visibility</small></button></div></div></div><div class="toast" id="toast"></div>
+<script>
+const API={interactions:'/api/app-interactions',promote:'/api/promotion-complete',apps:'/api/apps',login:'/api/pi-login',upload:'/api/upload-image',submit:'/api/submit-app',mine:'/api/my-apps',manage:'/api/manage-app',admin:'/api/admin-apps',stats:'/api/admin-apps?mode=stats',approve:'/api/payment-approve',complete:'/api/payment-complete'};
+const cats=['All','Shop','AI','Games','Business','Tools','Finance','Social'];let auth=JSON.parse(localStorage.getItem('apphub_auth')||'null'),piAuth=null,apps=[],category='All',network='mainnet';
+addEventListener('DOMContentLoaded',async()=>{if(window.Pi)Pi.init({version:'2.0',sandbox:false});restoreAuth();renderFilters();await loadApps()});
+function headers(){return{'Content-Type':'application/json',...(auth?.token?{Authorization:'Bearer '+auth.token}:{})}}function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),3000)}
+function appConfirm({title='Are you sure?',message='This action cannot be undone.',confirmText='Confirm',icon='!' }={}){return new Promise(resolve=>{const modal=document.getElementById('confirmModal'),accept=document.getElementById('confirmAccept'),cancel=document.getElementById('confirmCancel');document.getElementById('confirmTitle').textContent=title;document.getElementById('confirmMessage').textContent=message;document.getElementById('confirmIcon').textContent=icon;accept.textContent=confirmText;modal.classList.add('open');document.body.style.overflow='hidden';const finish=value=>{modal.classList.remove('open');document.body.style.overflow='';accept.onclick=null;cancel.onclick=null;modal.onclick=null;document.removeEventListener('keydown',onKey);resolve(value)};const onKey=e=>{if(e.key==='Escape')finish(false);if(e.key==='Enter')finish(true)};accept.onclick=()=>finish(true);cancel.onclick=()=>finish(false);modal.onclick=e=>{if(e.target===modal)finish(false)};document.addEventListener('keydown',onKey);setTimeout(()=>cancel.focus(),0)})}
+function restoreAuth(){if(auth?.user){loginBtn.textContent='@'+auth.user.username;loginBtn.title='Tap to sign out';profileName.textContent='@'+auth.user.username;if(['admin','moderator'].includes(auth.user.role))adminArea.style.display='block'}else{loginBtn.textContent='Sign in with Pi';loginBtn.title='';profileName.textContent='Sign in to manage your apps.';adminArea.style.display='none'}}
+function handleAccountButton(){if(auth?.token)return logout();return loginWithPi()}
+function logout(){auth=null;localStorage.removeItem('apphub_auth');localStorage.removeItem('apphub_pending_submission');restoreAuth();myApps.innerHTML='';toast('Signed out successfully');showPage('home',document.querySelectorAll('.navbtn')[0])}
+function onIncompletePaymentFound(payment){console.warn('Incomplete Pi payment found:',payment)}
+async function authenticatePi(){
+  if(!window.Pi)throw Error('Open inside Pi Browser');
+  piAuth=await Pi.authenticate(['username','payments'],onIncompletePaymentFound);
+  if(!piAuth?.accessToken)throw Error('Pi authentication did not return an access token');
+  return piAuth;
+}
+async function ensurePiPaymentsAuth(){
+  const a=await authenticatePi();
+  const r=await fetch(API.login,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({accessToken:a.accessToken})
+  });
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok)throw Error(d.error||'Unable to refresh Pi sign-in');
+  auth=d;
+  localStorage.setItem('apphub_auth',JSON.stringify(auth));
+  restoreAuth();
+  return a;
+}
+async function loginWithPi(){
+  try{
+    const a=await authenticatePi();
+    const r=await fetch(API.login,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({accessToken:a.accessToken})});
+    const d=await r.json();
+    if(!r.ok)throw Error(d.error||'Pi sign-in failed');
+    auth=d;
+    localStorage.setItem('apphub_auth',JSON.stringify(auth));
+    restoreAuth();
+    toast('Signed in with payment permission');
+    return auth;
+  }catch(e){toast(e.message||'Sign-in failed');throw e}
+}
+function renderFilters(){networkChips.innerHTML=['mainnet','testnet'].map(n=>`<button class="chip ${n===network?'active':''}" onclick="network='${n}';renderFilters();renderPublic()">${n==='mainnet'?'Mainnet':'Testnet'}</button>`).join('');categoryChips.innerHTML=cats.map(c=>`<button class="chip ${c===category?'active':''}" onclick="category='${c}';renderFilters();renderPublic()">${c}</button>`).join('')}
+async function loadApps(){homeGrid.innerHTML='<div class="skeleton-grid">'+Array(4).fill('<div class="skeleton"></div>').join('')+'</div>';try{const r=await fetch(API.apps),d=await r.json();if(!r.ok)throw Error(d.error);apps=d.apps||[];renderPublic()}catch(e){homeGrid.innerHTML='<div class="empty">Unable to load apps.</div>';toast(e.message)}}
+function filtered(){const q=search.value.toLowerCase().trim();return apps.filter(a=>a.network===network&&(category==='All'||a.category===category)&&(`${a.name} ${a.short_description} ${a.category}`.toLowerCase().includes(q)))}
+function isPromoted(a){return a.featured_until&&new Date(a.featured_until)>new Date()}
+function card(a){const featured=isPromoted(a)?'<span class="adBadge" title="Promoted app">AD</span>':'';const verified=a.is_verified?'<span class="verifiedBadge" title="Verified by AppHub">✓</span>':'';return `<article class="appRow" onclick="openAppPage('${a.id}')"><img class="appRowLogo" src="${esc(a.icon_url)}" alt="${esc(a.name)} logo"><div class="appRowInfo"><div class="appRowTitleLine"><h3 class="appRowTitle">${esc(a.name)}</h3>${verified}${featured}<span class="networkPill ${a.network==='testnet'?'testnet':''}">${esc(a.network)}</span></div><p class="appRowDesc">${esc(a.short_description||a.category||'Pi application')}</p><div class="appMeta"><span>★ ${Number(a.rating||0).toFixed(1)} (${Number(a.ratings_count||0)})</span><span>◉ ${Number(a.views_count||0)}</span><span>Get ${Number(a.get_clicks_count||0)}</span></div></div><button class="getBtn" type="button" onclick="event.stopPropagation();openAppPage('${a.id}')">Get</button></article>`}
+function sortedApps(list){return [...list].sort((a,b)=>Number(isPromoted(b))-Number(isPromoted(a))||new Date(b.created_at)-new Date(a.created_at))}
+function renderPublic(){const list=sortedApps(filtered());count.textContent=list.length+' apps';homeGrid.innerHTML=list.length?list.map(card).join(''):'<div class="empty">No apps found.</div>';appsGrid.innerHTML=apps.length?sortedApps(apps).map(card).join(''):'<div class="empty">No approved apps yet.</div>'}
+let slideIndex=0;
+function setSlide(i){const track=document.getElementById('detailGallery'),dots=[...document.querySelectorAll('#sliderDots button')];slideIndex=i;track.style.transform=`translateX(-${i*100}%)`;dots.forEach((d,x)=>d.classList.toggle('active',x===i))}
+function openAppPage(id){location.href='app.html?id='+encodeURIComponent(id)}
+function details(id){openAppPage(id)}
+function closeDetails(){document.getElementById('details').classList.remove('open')}
+function showPage(name,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(name+'Page').classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(name==='profile')loadMyApps();if(name==='add'&&!auth?.token)loginWithPi()}
+function setPreview(id,src='',existingUrl=''){const box=document.getElementById(id);if(!box)return;const img=box.querySelector('img'),text=box.querySelector('.previewText');box.dataset.existingUrl=existingUrl||'';if(src){img.src=src;img.hidden=false;text.hidden=true;box.classList.add('has-image')}else{img.src='';img.hidden=true;text.hidden=false;box.classList.remove('has-image')}}
+async function compressImage(file,kind='screenshot'){
+  if(!file||!file.type.startsWith('image/'))throw new Error('Choose a valid image');
+  const maxDimension=kind==='logo'?900:1800,quality=kind==='logo'?.86:.82;
+  const bitmap=await createImageBitmap(file);
+  const scale=Math.min(1,maxDimension/Math.max(bitmap.width,bitmap.height));
+  const width=Math.max(1,Math.round(bitmap.width*scale)),height=Math.max(1,Math.round(bitmap.height*scale));
+  const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
+  const ctx=canvas.getContext('2d',{alpha:false});ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(bitmap,0,0,width,height);bitmap.close?.();
+  const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('Image compression failed')),'image/webp',quality));
+  return new File([blob],file.name.replace(/\.[^.]+$/,'')+'.webp',{type:'image/webp',lastModified:Date.now()});
+}
+async function previewFile(input,id){
+  const original=input.files?.[0],box=document.getElementById(id);if(!original||!box)return;
+  box.classList.add('is-processing');input.disabled=true;
+  try{
+    const kind=id==='logoPreview'?'logo':'screenshot';
+    const compressed=await compressImage(original,kind);input._compressedFile=compressed;
+    const saved=Math.max(0,Math.round((1-compressed.size/original.size)*100));
+    setPreview(id,URL.createObjectURL(compressed),'');box.title=`Compressed: ${(compressed.size/1024).toFixed(0)} KB${saved?` · ${saved}% smaller`:''}`;
+  }catch(e){input.value='';input._compressedFile=null;setPreview(id);toast(e.message||'Unable to process image')}
+  finally{input.disabled=false;box.classList.remove('is-processing')}
+}
+function removeImage(event,id){event.preventDefault();event.stopPropagation();const box=document.getElementById(id),input=box?.querySelector('input[type=file]');if(input){input.value='';input._compressedFile=null}setPreview(id);if(box)box.title=''}
+function toDataUrl(file){return new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=no;r.readAsDataURL(file)})}
+function resetAppForm(){const form=document.getElementById('appForm');form.reset();editingAppId.value='';['logoPreview','shot1Preview','shot2Preview','shot3Preview'].forEach(id=>setPreview(id));formTitle.textContent='Add App +';formSubtitle.textContent='Your app remains pending until an admin approves it.';paymentNotice.style.display='block';submitAppBtn.textContent='Pay 1 Pi & Submit';cancelEditBtn.style.display='none'}
+async function upload(fileOrInput,kind){const ready=fileOrInput?._compressedFile||fileOrInput?.files?.[0]||fileOrInput;const dataUrl=await toDataUrl(ready);const r=await fetch(API.upload,{method:'POST',headers:headers(),body:JSON.stringify({dataUrl,kind})});const d=await r.json();if(!r.ok)throw Error(d.error);return d.url}
+async function createPayment(appPayload){
+  await ensurePiPaymentsAuth();
+  localStorage.setItem('apphub_pending_submission',JSON.stringify(appPayload));
+  return new Promise((resolve,reject)=>{
+    let settled=false;
+    const fail=error=>{if(settled)return;settled=true;reject(error instanceof Error?error:new Error(String(error||'Payment failed')))};
+    Pi.createPayment(
+      {amount:1,memo:'AppHub app submission fee',metadata:{purpose:'app_submission',appName:appPayload.name}},
+      {
+        onReadyForServerApproval:async paymentId=>{
+          try{
+            const r=await fetch(API.approve,{method:'POST',headers:headers(),body:JSON.stringify({paymentId,purpose:'app_submission',amountPi:1})});
+            const d=await r.json().catch(()=>({}));
+            if(!r.ok)fail(new Error(d.error||'Payment approval failed'));
+          }catch(e){fail(e)}
+        },
+        onReadyForServerCompletion:async(paymentId,txid)=>{
+          try{
+            const r=await fetch(API.complete,{method:'POST',headers:headers(),body:JSON.stringify({paymentId,txid,app:appPayload})});
+            const d=await r.json().catch(()=>({}));
+            if(!r.ok)return fail(new Error(typeof d.error==='string'?d.error:JSON.stringify(d.error||'Payment completion failed')));
+            if(settled)return;settled=true;localStorage.removeItem('apphub_pending_submission');resolve(d.app);
+          }catch(e){fail(e)}
+        },
+        onCancel:()=>fail(new Error('Payment cancelled')),
+        onError:e=>fail(e)
+      }
+    );
+  });
+}
+document.getElementById('appForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!auth?.token){await loginWithPi();if(!auth?.token)return}
+  const editId=editingAppId.value;
+  if(!editId&&!window.Pi)return toast('Open inside Pi Browser to pay');
+  const btn=e.target.querySelector('button[type=submit]');btn.disabled=true;const originalText=btn.textContent;
+  try{
+    const fd=new FormData(e.target),logoInput=document.getElementById('logoFile'),shots=[...document.querySelectorAll('.shotFile')];
+    const previewIds=['logoPreview','shot1Preview','shot2Preview','shot3Preview'];
+    const existing=previewIds.map(id=>document.getElementById(id)?.dataset.existingUrl||'');
+    if(!logoInput.files?.[0]&&!existing[0])throw new Error('Logo is required');
+    if(!shots[0]?.files?.[0]&&!existing[1])throw new Error('Screenshot 1 is required');
+    btn.textContent='Uploading images...';
+    const iconUrl=logoInput.files?.[0]?await upload(logoInput,'logo'):existing[0];
+    const screenshotUrls=[];
+    for(let i=0;i<shots.length;i++){const url=shots[i].files?.[0]?await upload(shots[i],'screenshot-'+(i+1)):existing[i+1];if(url)screenshotUrls.push(url)}
+    const payload={name:fd.get('name'),category:fd.get('category'),network:fd.get('network'),websiteUrl:fd.get('websiteUrl'),shortDescription:fd.get('shortDescription'),developerName:fd.get('developerName'),contactEmail:fd.get('contactEmail')||'',iconUrl,screenshotUrls};
+    if(editId){
+      btn.textContent='Saving changes...';
+      const r=await fetch(API.manage+'?id='+encodeURIComponent(editId),{method:'PATCH',headers:headers(),body:JSON.stringify({name:payload.name,category:payload.category,network:payload.network,website_url:payload.websiteUrl,short_description:payload.shortDescription,developer_name:payload.developerName,contact_email:payload.contactEmail,icon_url:payload.iconUrl,screenshot_urls:payload.screenshotUrls})});
+      const d=await r.json();if(!r.ok)throw Error(d.error||'Update failed');toast(d.warning||'Updated for free and sent back for review');
+    }else{btn.textContent='Complete payment...';await createPayment(payload);toast('Submitted successfully and sent to admin review')}
+    resetAppForm();showPage('profile',document.querySelectorAll('.navbtn')[3]);await loadMyApps();
+  }catch(err){console.error(err);toast(err.message||'Submission failed')}finally{btn.disabled=false;btn.textContent=editingAppId.value?'Save changes & resubmit':originalText}
+});
+async function loadMyApps(){if(!auth?.token){myApps.innerHTML='<div class="empty">Sign in with Pi first.</div>';return}const r=await fetch(API.mine,{headers:headers()}),d=await r.json();if(!r.ok)return toast(d.error);window.myAppData=d.apps;myApps.innerHTML=d.apps.length?d.apps.map(a=>`<div class="panel" style="padding:10px 14px">${card(a)}<div class="analytics"><div class="metric"><b>${Number(a.views_count||0)}</b><span>Views</span></div><div class="metric"><b>${Number(a.get_clicks_count||0)}</b><span>Get clicks</span></div><div class="metric"><b>${Number(a.rating||0).toFixed(1)}</b><span>Avg rating</span></div><div class="metric"><b>${Number(a.ratings_count||0)}</b><span>Ratings</span></div></div>${a.status==='rejected'&&a.admin_note?`<div class="rejectionNote"><b>Reason for rejection</b>${esc(a.admin_note)}</div>`:''}<div class="row" style="margin:10px 0 4px"><span class="badge status-${a.status}">${a.status}</span>${a.is_verified?'<span class="badge status-published">Verified</span>':''}${Number(a.open_reports_count||0)?`<span class="badge status-rejected">${a.open_reports_count} open reports</span>`:''}<button class="ghost" onclick="editApp('${a.id}')">Edit & resubmit</button>${a.status==='published'?`<button class="promoteBtn ghost" onclick="openPromote('${a.id}')">Promote</button>`:''}<button class="danger" onclick="deleteApp('${a.id}')">Delete</button></div></div>`).join(''):'<div class="empty">You have not submitted any apps.</div>'}
+async function deleteApp(id){const ok=await appConfirm({title:'Delete this app?',message:'The app, logo, and screenshots will be permanently removed. This action cannot be undone.',confirmText:'Yes, delete everything',icon:'×'});if(!ok)return;const r=await fetch(API.manage+'?id='+id,{method:'DELETE',headers:headers()}),d=await r.json();if(!r.ok)return toast(d.error);toast(`App deleted with ${Number(d.deletedMedia||0)} stored image${Number(d.deletedMedia||0)===1?'':'s'}`);loadMyApps()}
+function editApp(id){const a=(window.myAppData||[]).find(x=>x.id===id);if(!a)return;const form=document.getElementById('appForm');editingAppId.value=a.id;form.elements.name.value=a.name||'';form.elements.category.value=a.category||'Shop';form.elements.network.value=a.network||'mainnet';form.elements.websiteUrl.value=a.website_url||'';form.elements.shortDescription.value=a.short_description||'';form.elements.developerName.value=a.developer_name||'';form.elements.contactEmail.value=a.contact_email||'';setPreview('logoPreview',a.icon_url||'',a.icon_url||'');const shots=Array.isArray(a.screenshot_urls)?a.screenshot_urls:[];['shot1Preview','shot2Preview','shot3Preview'].forEach((pid,i)=>setPreview(pid,shots[i]||'',shots[i]||''));formTitle.textContent='Edit App';formSubtitle.textContent='Change any data and resubmit it for admin review without another fee.';paymentNotice.style.display='none';submitAppBtn.textContent='Save changes & resubmit';cancelEditBtn.style.display='inline-block';showPage('add',document.querySelectorAll('.navbtn')[2]);window.scrollTo({top:0,behavior:'smooth'})}
+
+let promotionAppId=null;
+function openPromote(id){promotionAppId=id;document.getElementById('promoteModal').classList.add('open')}
+function closePromote(){promotionAppId=null;document.getElementById('promoteModal').classList.remove('open')}
+async function buyPromotion(days,amount){if(!promotionAppId)return;try{await ensurePiPaymentsAuth();const purpose=`feature_${days}_days`;await new Promise((resolve,reject)=>{Pi.createPayment({amount,memo:`AppHub promotion for ${days} days`,metadata:{purpose,appId:promotionAppId,days}},{onReadyForServerApproval:async paymentId=>{const r=await fetch(API.approve,{method:'POST',headers:headers(),body:JSON.stringify({paymentId,purpose,amountPi:amount,appId:promotionAppId})});const d=await r.json().catch(()=>({}));if(!r.ok)reject(Error(d.error||'Approval failed'))},onReadyForServerCompletion:async(paymentId,txid)=>{const r=await fetch(API.promote,{method:'POST',headers:headers(),body:JSON.stringify({paymentId,txid,appId:promotionAppId,days,amountPi:amount})});const d=await r.json().catch(()=>({}));if(!r.ok)return reject(Error(d.error||'Promotion failed'));resolve(d)},onCancel:()=>reject(Error('Payment cancelled')),onError:reject})});closePromote();toast('Promotion activated');await loadMyApps();await loadApps()}catch(e){toast(e.message||'Promotion failed')}}
+function esc(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+</script>
+<script>
+(function(){
+  const bar=document.getElementById('appLoadingBar');
+  const loader=document.getElementById('pageLoader');
+  let pending=0;
+  const show=()=>{pending++;bar&&bar.classList.add('show')};
+  const hide=()=>{pending=Math.max(0,pending-1);if(!pending)bar&&bar.classList.remove('show')};
+  const originalFetch=window.fetch.bind(window);
+  window.fetch=async function(){show();try{return await originalFetch(...arguments)}finally{hide()}};
+  window.addEventListener('load',()=>setTimeout(()=>loader&&loader.classList.add('hide'),120));
+  setTimeout(()=>loader&&loader.classList.add('hide'),4500);
+  document.addEventListener('click',e=>{
+    const btn=e.target.closest('button[type="submit"],button.primary,.get,.login,.account');
+    if(!btn||btn.disabled||btn.classList.contains('navbtn'))return;
+    btn.classList.add('is-busy');
+    setTimeout(()=>btn.classList.remove('is-busy'),5000);
+  });
+  document.addEventListener('load',e=>{if(e.target instanceof HTMLImageElement)e.target.classList.add('image-ready')},true);
+  document.querySelectorAll('img').forEach(img=>{if(!img.loading)img.loading='lazy';img.decoding='async'});
+})();
+</script>
+
+</body></html>
