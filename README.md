@@ -50,3 +50,11 @@ Run `sql/engagement-features.sql` after the base schema. It adds:
 When an owner deletes an app, the backend removes its logo and screenshots from the `app-media` bucket before deleting the database row. When an owner replaces or removes an image during editing, the app is updated first and then media files that are no longer referenced are removed automatically.
 
 Run `sql/storage-cleanup-permissions.sql` once in Supabase SQL Editor. Storage mutations stay backend-only through `SUPABASE_SERVICE_ROLE_KEY`; never expose that key in browser code.
+
+
+## v22 performance and interaction upgrade
+- Backward-compatible optional pagination, filtering, sorting and single-app reads on `/api/apps`.
+- Debounced search, URL state, sorting, favorites and quick preview.
+- Progressive image loading, lazy decoding, content visibility and lightweight reveal animations.
+- Load-more rendering reduces initial DOM size while preserving all existing backend/payment/admin flows.
+- Motion respects the operating-system reduced-motion preference.
