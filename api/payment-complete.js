@@ -8,7 +8,7 @@ import {
   safeUrl
 } from './_lib.js';
 
-const categories = new Set(['Shop', 'AI', 'Games', 'Business', 'Tools', 'Finance', 'Social']);
+const categories = new Set(['Shop', 'AI', 'Games', 'Business', 'Tools', 'Finance', 'Social', 'Sports']);
 
 function validateAppPayload(body) {
   const name = cleanText(body.name, 80);

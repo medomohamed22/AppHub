@@ -1,5 +1,5 @@
 import { allowMethods, cleanText, db, handleError, json, requireUser, safeUrl } from './_lib.js';
-const categories=new Set(['Shop','AI','Games','Business','Tools','Finance','Social']);
+const categories=new Set(['Shop','AI','Games','Business','Tools','Finance','Social','Sports']);
 const MEDIA_BUCKET='app-media';
 
 function mediaPathFromUrl(value,ownerId){
