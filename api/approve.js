@@ -1,30 +1,42 @@
-const { platformRequest, validatePayment, sendError } = require("./_lib/pi");
+"use strict";
+
+var helpers = require("./_lib/pi");
 
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
-    return res.status(405).json({ error: "method_not_allowed" });
+    return res.status(405).json({ ok: false, error: "method_not_allowed" });
   }
 
   try {
-    const { paymentId, expectedAmount, expectedAsset } = req.body || {};
-    if (!paymentId) {
-      return res.status(400).json({ error: "payment_id_required" });
+    var body = req.body || {};
+    if (!body.paymentId) {
+      return res.status(400).json({
+        ok: false,
+        error: "payment_id_required",
+        message: "paymentId is required"
+      });
     }
 
-    const payment = await platformRequest(`/v2/payments/${encodeURIComponent(paymentId)}`);
-    validatePayment(payment, expectedAmount, expectedAsset);
+    var id = encodeURIComponent(body.paymentId);
+    var payment = await helpers.platformRequest("/v2/payments/" + id);
 
-    await platformRequest(`/v2/payments/${encodeURIComponent(paymentId)}/approve`, {
+    helpers.validatePayment(
+      payment,
+      body.expectedAmount,
+      body.expectedAsset
+    );
+
+    await helpers.platformRequest("/v2/payments/" + id + "/approve", {
       method: "POST",
-      body: JSON.stringify({}),
+      body: JSON.stringify({})
     });
 
     return res.status(200).json({
       ok: true,
-      message: `Approved payment ${paymentId}`,
+      message: "Payment approved"
     });
   } catch (error) {
-    return sendError(res, error);
+    return helpers.sendError(res, error);
   }
 };
