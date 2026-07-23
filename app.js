@@ -2,13 +2,12 @@
   "use strict";
 
   const CONFIG = Object.freeze({
-    loginScopes: ["username"],
-    paymentScopes: ["username", "payments"],
+    authScopes: ["username", "payments"],
     maxImageBytes: 5 * 1024 * 1024
   });
 
   if (window.Pi) {
-    // Production mode: the official SDK example omits the sandbox option.
+    // Official non-Sandbox initialization.
     window.Pi.init({ version: "2.0" });
   }
 
@@ -48,6 +47,10 @@
 
   window.Api = Api;
 
+  // Pi may report an incomplete payment while authentication is still running.
+  // Keep it in memory and reconcile it only after our own JWT session exists.
+  let pendingIncompletePayment = null;
+
   const page = document.body.dataset.page;
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -80,12 +83,18 @@
       setStatus(status, "جاري الاتصال بحسابك…");
 
       try {
-        const auth = await Pi.authenticate(CONFIG.loginScopes, recoverIncompletePayment);
+        const auth = await Pi.authenticate(CONFIG.authScopes, rememberIncompletePayment);
         const result = await Api.request("/api/auth", {
           method: "POST",
           body: JSON.stringify({ accessToken: auth.accessToken })
         });
         Api.setToken(result.token);
+
+        if (pendingIncompletePayment) {
+          await recoverIncompletePayment(pendingIncompletePayment);
+          pendingIncompletePayment = null;
+        }
+
         setStatus(status, `مرحبًا ${result.user.username}`, "success");
         location.href = "/app";
       } catch (error) {
@@ -96,13 +105,18 @@
     });
   }
 
+  function rememberIncompletePayment(payment) {
+    pendingIncompletePayment = payment;
+  }
+
   async function recoverIncompletePayment(payment) {
     try {
       await Api.request("/api/payments-recover", {
         method: "POST",
         body: JSON.stringify({
           paymentId: payment.identifier,
-          txid: payment.transaction?.txid || null
+          txid: payment.transaction?.txid || null,
+          payment
         })
       });
     } catch (error) {
@@ -473,7 +487,7 @@
       setStatus(status, "جاري طلب صلاحية الدفع…");
 
       try {
-        await Pi.authenticate(CONFIG.paymentScopes, recoverIncompletePayment);
+        await Pi.authenticate(CONFIG.authScopes, rememberIncompletePayment);
       } catch (error) {
         setStatus(status, describePiError(error, "تعذر منح صلاحية الدفع"), "error");
         payButton.disabled = false;
@@ -533,19 +547,27 @@
   }
 
   function describePiError(error, fallback) {
-    const message = String(error?.message || error || fallback);
-    const lower = message.toLowerCase();
+    console.error("Pi SDK error:", error);
 
+    const rawMessage = String(
+      error?.message ||
+      error?.error_description ||
+      error?.error ||
+      error ||
+      fallback
+    );
+
+    const lower = rawMessage.toLowerCase();
     if (lower.includes("authentication failed")) {
-      return "فشل اعتماد التطبيق من Pi. تأكد من مطابقة رابط Production في Developer Portal، وأن التطبيق مفعل للشبكة الرئيسية، ثم أغلق Pi Browser وافتحه مجددًا.";
+      return `فشل Pi.authenticate: ${rawMessage}. تحقق أن الصفحة فُتحت من داخل تطبيقك المسجل في Pi Browser وأن رابط التطبيق يطابق النطاق الحالي: ${location.origin}`;
     }
     if (lower.includes("user denied") || lower.includes("cancel")) {
-      return "تم إلغاء منح الصلاحيات.";
+      return "تم إلغاء منح صلاحيات الحساب.";
     }
     if (lower.includes("network") || lower.includes("fetch")) {
-      return "تعذر الاتصال بخوادم Pi. تحقق من الإنترنت وأعد المحاولة.";
+      return "تعذر الاتصال بخوادم Pi. تحقق من الشبكة ثم أعد المحاولة.";
     }
-    return message || fallback;
+    return `${fallback}: ${rawMessage}`;
   }
 
 })();
