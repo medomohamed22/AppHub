@@ -4,7 +4,9 @@ export default async function handler(req, res) {
   try {
     const { accessToken } = schemas.login.parse(req.body);
     const piUser = await verifyPiToken(accessToken);
-    if (!piUser.uid) throw Object.assign(new Error("تعذر التحقق من حسابك"), { status: 401 });
+    if (!piUser.uid || !piUser.username) {
+      throw Object.assign(new Error("Pi /v2/me لم يُرجع uid وusername"), { status: 401 });
+    }
     const { data: user, error } = await db().from("profiles").upsert({
       pi_uid: piUser.uid,
       username: piUser.username,
