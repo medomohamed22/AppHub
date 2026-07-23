@@ -2,13 +2,14 @@
   "use strict";
 
   const CONFIG = Object.freeze({
-    piSandbox: false,
-    piScopes: ["username", "payments"],
+    loginScopes: ["username"],
+    paymentScopes: ["username", "payments"],
     maxImageBytes: 5 * 1024 * 1024
   });
 
   if (window.Pi) {
-    window.Pi.init({ version: "2.0", sandbox: false });
+    // Production mode: the official SDK example omits the sandbox option.
+    window.Pi.init({ version: "2.0" });
   }
 
   const Api = (() => {
@@ -79,7 +80,7 @@
       setStatus(status, "جاري الاتصال بحسابك…");
 
       try {
-        const auth = await Pi.authenticate(CONFIG.piScopes, recoverIncompletePayment);
+        const auth = await Pi.authenticate(CONFIG.loginScopes, recoverIncompletePayment);
         const result = await Api.request("/api/auth", {
           method: "POST",
           body: JSON.stringify({ accessToken: auth.accessToken })
@@ -88,7 +89,7 @@
         setStatus(status, `مرحبًا ${result.user.username}`, "success");
         location.href = "/app";
       } catch (error) {
-        setStatus(status, error.message, "error");
+        setStatus(status, describePiError(error, "فشل تسجيل الدخول"), "error");
       } finally {
         button.disabled = false;
       }
@@ -469,6 +470,16 @@
       if (!window.Pi) return setStatus(status, "افتح الصفحة داخل Pi Browser.", "error");
 
       payButton.disabled = true;
+      setStatus(status, "جاري طلب صلاحية الدفع…");
+
+      try {
+        await Pi.authenticate(CONFIG.paymentScopes, recoverIncompletePayment);
+      } catch (error) {
+        setStatus(status, describePiError(error, "تعذر منح صلاحية الدفع"), "error");
+        payButton.disabled = false;
+        return;
+      }
+
       setStatus(status, "جاري بدء الدفع…");
 
       Pi.createPayment({
@@ -520,4 +531,21 @@
       }));
     }
   }
+
+  function describePiError(error, fallback) {
+    const message = String(error?.message || error || fallback);
+    const lower = message.toLowerCase();
+
+    if (lower.includes("authentication failed")) {
+      return "فشل اعتماد التطبيق من Pi. تأكد من مطابقة رابط Production في Developer Portal، وأن التطبيق مفعل للشبكة الرئيسية، ثم أغلق Pi Browser وافتحه مجددًا.";
+    }
+    if (lower.includes("user denied") || lower.includes("cancel")) {
+      return "تم إلغاء منح الصلاحيات.";
+    }
+    if (lower.includes("network") || lower.includes("fetch")) {
+      return "تعذر الاتصال بخوادم Pi. تحقق من الإنترنت وأعد المحاولة.";
+    }
+    return message || fallback;
+  }
+
 })();
