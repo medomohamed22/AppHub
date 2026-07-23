@@ -1,123 +1,132 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#713b94" />
-  <title>DealWay Payment Lab</title>
-  <link rel="stylesheet" href="/assets/style.css" />
-  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-  <script>
-    Pi.init({ version: "2.0" });
-  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#6f3a91">
+  <meta name="description" content="اختبار دفع Test-Pi وتوكين DEALWAY على Pi Testnet">
+  <title>DealWay Pi Payment Test</title>
+  <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
-  <main class="shell">
-    <section class="hero">
-      <div class="brand">
-        <span class="logo">D</span>
+  <noscript>
+    <div class="fatal">يجب تفعيل JavaScript لتشغيل الموقع.</div>
+  </noscript>
+
+  <main class="app">
+    <header class="hero">
+      <div class="brand-row">
+        <div class="brand-icon">D</div>
         <div>
-          <p class="eyebrow">PI TESTNET PAYMENT LAB</p>
-          <h1>DealWay Pay</h1>
+          <div class="overline">PI TESTNET</div>
+          <h1>DealWay Pay Lab</h1>
         </div>
       </div>
-      <p class="subtitle">اختبر الدفع باستخدام Test‑Pi أو توكين DEALWAY عبر Pi SDK.</p>
-    </section>
+      <p>اختبار تسجيل الدخول والدفع بـ Test‑Pi أو DEALWAY من داخل Pi Browser.</p>
+      <div id="sdkState" class="sdk-state loading">جارٍ تحميل Pi SDK…</div>
+    </header>
 
-    <section class="card" id="authCard">
-      <div class="section-title">
+    <section class="panel">
+      <div class="panel-head">
         <span class="step">1</span>
         <div>
           <h2>تسجيل الدخول</h2>
-          <p>افتح الموقع داخل Pi Browser ثم سجّل الدخول.</p>
+          <p>افتح الرابط داخل Pi Browser ثم اضغط الزر.</p>
         </div>
       </div>
 
-      <button class="primary-btn" id="loginBtn" type="button">
-        تسجيل الدخول باستخدام Pi
+      <button id="loginBtn" class="btn primary" type="button" disabled>
+        انتظار Pi SDK…
       </button>
 
-      <div class="user-box hidden" id="userBox">
-        <div class="avatar" id="avatar">P</div>
-        <div>
-          <strong id="username">—</strong>
-          <small>تم الاتصال بحساب Pi</small>
+      <div id="userCard" class="user-card hidden">
+        <div id="avatar" class="avatar">P</div>
+        <div class="grow">
+          <strong id="username">Pi User</strong>
+          <small id="walletAddress">تم تسجيل الدخول</small>
         </div>
-        <span class="success-badge">متصل</span>
+        <span class="badge">متصل</span>
       </div>
     </section>
 
-    <section class="card disabled-section" id="paymentCard">
-      <div class="section-title">
+    <section id="paymentPanel" class="panel locked">
+      <div class="panel-head">
         <span class="step">2</span>
         <div>
-          <h2>إعداد عملية الدفع</h2>
-          <p>اختر العملة وحدد الكمية التي تريد اختبارها.</p>
+          <h2>اختبار الدفع</h2>
+          <p>اختر الأصل، ثم اكتب الكمية.</p>
         </div>
       </div>
 
       <div class="asset-grid">
-        <label class="asset-option selected" id="piOption">
-          <input type="radio" name="asset" value="PI" checked />
-          <span class="asset-icon pi-icon">π</span>
+        <label class="asset active">
+          <input type="radio" name="asset" value="PI" checked>
+          <span class="coin pi">π</span>
           <span>
             <strong>Test‑Pi</strong>
-            <small>العملة الأصلية على Testnet</small>
+            <small>العملة الأصلية</small>
           </span>
         </label>
 
-        <label class="asset-option" id="tokenOption">
-          <input type="radio" name="asset" value="DEALWAY" />
-          <span class="asset-icon token-icon">D</span>
+        <label class="asset">
+          <input type="radio" name="asset" value="DEALWAY">
+          <span class="coin deal">D</span>
           <span>
             <strong>DEALWAY</strong>
-            <small>توكن تجريبي على Pi Testnet</small>
+            <small>توكن Testnet</small>
           </span>
         </label>
       </div>
 
-      <div class="token-details hidden" id="tokenDetails">
+      <div id="tokenBox" class="token-box hidden">
         <span>Token canonical</span>
         <code>DEALWAY:GBQ3H472BMOMTFRSK5P26FBRVOE3ZFCB5F3FTGXEGOV5CN7RAB6TRPJR</code>
       </div>
 
       <label class="field">
         <span>الكمية</span>
-        <input id="amount" type="number" inputmode="decimal" min="0.0000001" step="0.0000001" value="0.1" />
+        <input id="amount" type="number" min="0.0000001" step="0.0000001" value="0.1" inputmode="decimal">
       </label>
 
       <label class="field">
-        <span>وصف العملية</span>
-        <input id="memo" type="text" maxlength="120" value="DealWay test payment" />
+        <span>وصف الدفع</span>
+        <input id="memo" type="text" maxlength="120" value="DealWay test payment">
       </label>
 
-      <button class="pay-btn" id="payBtn" type="button" disabled>
-        <span id="payLabel">ادفع 0.1 Test‑Pi</span>
-        <span class="arrow">←</span>
+      <button id="payBtn" class="btn pay" type="button" disabled>
+        <span id="payText">ادفع 0.1 Test‑Pi</span>
+        <span>←</span>
       </button>
     </section>
 
-    <section class="card">
-      <div class="section-title compact">
+    <section class="panel">
+      <div class="panel-head">
         <span class="step">3</span>
         <div>
-          <h2>سجل الاختبارات المحلي</h2>
-          <p>يتم حفظ النتائج في هذا الجهاز فقط.</p>
+          <h2>سجل الجهاز</h2>
+          <p>النتائج محفوظة محليًا فقط.</p>
         </div>
       </div>
 
-      <div class="empty-state" id="emptyHistory">لا توجد عمليات حتى الآن.</div>
-      <div class="history" id="history"></div>
-      <button class="text-btn hidden" id="clearHistory" type="button">مسح السجل</button>
+      <div id="emptyHistory" class="empty">لا توجد عمليات بعد.</div>
+      <div id="history" class="history"></div>
+      <button id="clearBtn" class="link-btn hidden" type="button">مسح السجل</button>
     </section>
 
-    <div class="status hidden" id="status" role="status" aria-live="polite"></div>
+    <section class="panel diagnostic">
+      <details>
+        <summary>تشخيص الاتصال</summary>
+        <pre id="debugLog">Page loaded.</pre>
+      </details>
+    </section>
+
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
 
     <footer>
-      للاختبار فقط — لا تستخدمه كمتجر حقيقي بدون قاعدة بيانات والتحقق الكامل من الطلبات.
+      هذا المشروع للاختبار فقط. لا تعتمد على localStorage في الإنتاج.
     </footer>
   </main>
 
-  <script src="/assets/app.js"></script>
+  <script src="/assets/app.js" defer></script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 {
-  "name": "dealway-pi-payment-test",
-  "version": "1.0.0",
+  "name": "dealway-pi-payment-v2",
+  "version": "2.0.0",
   "private": true,
-  "description": "Pi Testnet Test-Pi and DEALWAY token payment tester",
+  "description": "Pi Testnet payment tester for Test-Pi and DEALWAY token",
   "engines": {
-    "node": ">=18"
+    "node": "22.x"
   }
 }
