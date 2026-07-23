@@ -99,17 +99,32 @@ export async function requireUser(req) {
 
 async function piRequest(path, options = {}, bearer = null) {
   assertEnv();
-  const response = await fetch(`${PI_API_BASE_URL}${path}`, {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+
+  let response;
+  try {
+    response = await fetch(`${PI_API_BASE_URL}${path}`, {
     ...options,
     headers: {
       Authorization: bearer ? `Bearer ${bearer}` : `Key ${process.env.PI_API_KEY}`,
       "Content-Type": "application/json",
-      ...(options.headers || {})
-    }
-  });
+        ...(options.headers || {})
+      },
+      signal: controller.signal
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
+
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
-    const error = new Error(data?.error_message || data?.message || `Pi API error ${response.status}`);
+    const error = new Error(
+      data?.error_message ||
+      data?.message ||
+      data?.error ||
+      `Pi API error ${response.status}`
+    );
     error.status = response.status === 401 ? 401 : 502;
     error.details = data;
     throw error;
