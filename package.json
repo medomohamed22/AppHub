@@ -1,9 +1,21 @@
 {
-  "name": "dealway-pi-payment-v2",
-  "version": "2.0.0",
+  "name": "meshora-web3",
+  "version": "1.0.0",
   "private": true,
-  "description": "Pi Testnet payment tester for Test-Pi and DEALWAY token",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "check": "node --check app.js && for f in api/*.js api/_lib/*.js; do node --check \"$f\"; done"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.57.4",
+    "jose": "6.1.0",
+    "zod": "4.1.11"
+  },
+  "devDependencies": {
+    "vercel": "48.1.0"
+  },
   "engines": {
-    "node": "22.x"
+    "node": "24.x"
   }
 }
