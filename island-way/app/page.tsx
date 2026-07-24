@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function Home(){return <main style={{minHeight:"100vh",display:"grid",placeItems:"center",padding:24,color:"white",textAlign:"center",background:"radial-gradient(circle at top,#176b79,#06141b 70%)"}}><section><h1 style={{fontSize:"clamp(44px,12vw,90px)",margin:0}}>Island Way</h1><p>مغامرة جزيرة ثلاثية الأبعاد داخل متصفح Pi.</p><Link className="btn primary" href="/game">ابدأ اللعب</Link></section></main>}
