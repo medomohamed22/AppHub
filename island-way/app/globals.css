@@ -1,0 +1,26 @@
+:root { color-scheme: dark; --panel: rgba(7,21,28,.78); --accent:#70e1c1; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin:0; min-height:100%; background:#06141b; font-family:Arial, sans-serif; overflow:hidden; }
+button { font:inherit; }
+.game-shell { position:fixed; inset:0; overflow:hidden; background:#6fcde7; }
+.game-canvas { width:100%; height:100%; display:block; touch-action:none; outline:none; }
+.hud { position:fixed; inset:0; pointer-events:none; padding:max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
+.topbar { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+.panel { pointer-events:auto; background:var(--panel); border:1px solid rgba(255,255,255,.15); border-radius:16px; padding:10px 12px; backdrop-filter:blur(12px); color:white; box-shadow:0 8px 24px rgba(0,0,0,.18); }
+.brand { font-weight:800; letter-spacing:.4px; }
+.stats { display:flex; gap:8px; margin-top:6px; font-size:13px; color:#d9f8ef; }
+.actions { display:flex; gap:8px; }
+.btn { pointer-events:auto; border:0; border-radius:13px; padding:10px 13px; background:#fff; color:#09242c; font-weight:800; min-height:44px; }
+.btn.primary { background:var(--accent); }
+.message { position:fixed; top:90px; left:50%; transform:translateX(-50%); max-width:min(90vw,440px); text-align:center; }
+.joystick { pointer-events:auto; position:absolute; left:max(20px, env(safe-area-inset-left)); bottom:max(24px, env(safe-area-inset-bottom)); width:124px; height:124px; border-radius:50%; background:rgba(5,22,30,.28); border:2px solid rgba(255,255,255,.28); touch-action:none; }
+.stick { position:absolute; width:54px; height:54px; border-radius:50%; left:35px; top:35px; background:rgba(255,255,255,.78); box-shadow:0 4px 14px rgba(0,0,0,.25); }
+.jump { pointer-events:auto; position:absolute; right:max(22px, env(safe-area-inset-right)); bottom:max(32px, env(safe-area-inset-bottom)); width:76px; height:76px; border-radius:50%; border:2px solid rgba(255,255,255,.35); background:rgba(8,28,35,.62); color:white; font-weight:900; }
+.modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.52); display:grid; place-items:center; pointer-events:auto; padding:18px; }
+.modal { width:min(92vw,480px); max-height:80vh; overflow:auto; background:#0c252d; color:white; border:1px solid rgba(255,255,255,.16); border-radius:22px; padding:18px; }
+.shop-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+.item { background:rgba(255,255,255,.07); border-radius:16px; padding:14px; }
+.item button { width:100%; margin-top:8px; }
+.close { float:left; }
+@media (min-width:800px) { .joystick,.jump { display:none; } }
+@media (max-width:420px) { .brand { font-size:14px; } .stats { font-size:12px; } .btn { padding:9px 10px; } }
