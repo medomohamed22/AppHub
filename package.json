@@ -1,0 +1,19 @@
+{
+  "name": "circles-hub",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "vercel dev",
+    "check": "node scripts/check.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.57.4",
+    "jose": "6.1.0",
+    "zod": "4.1.11"
+  },
+  "devDependencies": {
+    "vercel": "48.8.0"
+  }
+}
