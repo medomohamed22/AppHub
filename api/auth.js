@@ -1,17 +1,43 @@
-import { z } from 'zod';
-import { body, db, handler, json, method, rateLimit, ip, signSession } from '../lib/core.js';
-import { verifyPiUser } from '../lib/pi.js';
+// api/auth.js
 
-export default async function(req) {
-  return handler(async () => {
-    const bad = method(req, ['POST']); if (bad) return bad;
-    const client = db(); await rateLimit(client, `auth:${ip(req)}`, 10, 60);
-    const input = z.object({ accessToken: z.string().min(20).max(5000) }).parse(await body(req, 12000));
-    const pi = await verifyPiUser(input.accessToken);
-    if (!pi?.uid || !pi?.username) throw Object.assign(new Error('Pi identity verification failed'), { status: 401 });
-    const { data: profile, error } = await client.from('profiles').upsert({ pi_uid: pi.uid, username: pi.username, last_login_at: new Date().toISOString() }, { onConflict: 'pi_uid' }).select('id,username,display_name,avatar_url,bio,points_balance,role,premium_until').single();
-    if (error) throw error;
-    const token = await signSession(profile);
-    return json({ token, expiresIn: 900, profile });
-  }, req);
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+
+  const { accessToken } = req.body;
+
+  if (!accessToken) {
+    return res.status(400).json({ error: 'Access Token مطلوب' });
+  }
+
+  const apiKey = process.env.PI_API_KEY;
+  const baseUrl = process.env.PI_API_BASE_URL || 'https://api.minepi.com/v2';
+
+  if (!apiKey) {
+    return res.status(500).json({ error: 'مفتاح PI_API_KEY غير معرف في متغيّرات البيئة' });
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/me`, {
+      headers: {
+        'Authorization': `Key ${apiKey}`
+      }
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Pi API Response Error:", errorText);
+      return res.status(response.status).json({ error: 'فشل التحقق من بيانات المستخدم عبر Pi Network' });
+    }
+
+    const userData = await response.json();
+    
+    // هنا يتم حفظ البيانات أو إنشاء جلسة للمستخدم
+    return res.status(200).json({ success: true, user: userData });
+
+  } catch (error) {
+    console.error("Auth Server Error:", error);
+    return res.status(500).json({ error: 'حدث خطأ داخلي في الخادم أثناء التوثيق' });
+  }
 }
