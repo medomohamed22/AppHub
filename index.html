@@ -1060,6 +1060,214 @@
       .mobile-nav{display:flex}
       footer{padding-bottom:110px}
     }
+  
+    /* ===== Mobile quick-view + star rating fix ===== */
+
+    /* Reset native browser button styling on rating stars. */
+    .stars-input{
+      display:flex;
+      align-items:center;
+      gap:5px;
+      direction:ltr;
+      flex-wrap:nowrap;
+    }
+    .star-btn{
+      -webkit-appearance:none!important;
+      appearance:none!important;
+      border:0!important;
+      outline:0!important;
+      background:transparent!important;
+      box-shadow:none!important;
+      width:auto!important;
+      min-width:0!important;
+      height:auto!important;
+      margin:0!important;
+      padding:3px 2px!important;
+      border-radius:0!important;
+      color:color-mix(in srgb,var(--muted) 55%,var(--surface))!important;
+      font-family:Arial,Helvetica,sans-serif;
+      font-size:29px!important;
+      line-height:1!important;
+      cursor:pointer;
+      transition:transform .16s ease,color .16s ease,filter .16s ease!important;
+    }
+    .star-btn:hover,
+    .star-btn:focus-visible{
+      color:var(--accent)!important;
+      transform:translateY(-1px) scale(1.06);
+    }
+    .star-btn.active{
+      color:var(--accent)!important;
+      background:transparent!important;
+      box-shadow:none!important;
+      filter:drop-shadow(0 4px 8px rgba(243,184,63,.18));
+    }
+    .star-btn.active + .star-btn{
+      background:transparent!important;
+    }
+
+    /* Keep the quick-view fully inside the visual viewport. */
+    #detailModal{
+      box-sizing:border-box;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      height:100dvh;
+      max-height:100dvh;
+      overflow:hidden;
+      padding:
+        max(10px,env(safe-area-inset-top))
+        12px
+        max(10px,env(safe-area-inset-bottom));
+    }
+    #detailModal .detail-modal-card{
+      box-sizing:border-box;
+      width:min(860px,calc(100vw - 24px))!important;
+      max-width:calc(100vw - 24px)!important;
+      height:auto;
+      max-height:calc(100dvh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom))!important;
+      margin:0 auto!important;
+      overflow-x:hidden!important;
+      overflow-y:auto!important;
+      border-radius:24px;
+      overscroll-behavior:contain;
+      scrollbar-gutter:stable;
+    }
+    #detailModal .detail-cover,
+    #detailModal .detail-body,
+    #detailModal .detail-grid,
+    #detailModal .detail-panel{
+      min-width:0;
+      max-width:100%;
+      box-sizing:border-box;
+    }
+    #detailModal .detail-app{
+      min-width:0;
+      max-width:calc(100% - 54px);
+    }
+    #detailModal .detail-app > div:last-child{
+      min-width:0;
+    }
+    #detailModal #detailName,
+    #detailModal #detailMeta,
+    #detailModal #detailDesc{
+      overflow-wrap:anywhere;
+      word-break:normal;
+    }
+    #detailModal .detail-actions{
+      max-width:100%;
+    }
+    #detailModal .detail-actions .btn{
+      min-width:0;
+    }
+    #detailModal .stats-row{
+      min-width:0;
+    }
+    #detailModal .stat-box{
+      min-width:0;
+      overflow:hidden;
+    }
+    #detailModal .stat-box b,
+    #detailModal .stat-box span{
+      overflow-wrap:anywhere;
+    }
+
+    @media(max-width:780px){
+      #detailModal{
+        align-items:flex-start;
+        padding:
+          max(8px,env(safe-area-inset-top))
+          10px
+          max(8px,env(safe-area-inset-bottom));
+      }
+      #detailModal .detail-modal-card{
+        width:calc(100vw - 20px)!important;
+        max-width:calc(100vw - 20px)!important;
+        max-height:calc(100dvh - 16px - env(safe-area-inset-top) - env(safe-area-inset-bottom))!important;
+        border-radius:22px;
+      }
+      #detailModal .detail-grid{
+        grid-template-columns:minmax(0,1fr)!important;
+        gap:12px;
+      }
+      #detailModal .detail-cover{
+        padding:16px!important;
+        min-height:125px!important;
+      }
+      #detailModal .detail-app{
+        gap:11px;
+      }
+      #detailModal .detail-app .app-icon{
+        width:62px;
+        height:62px;
+        border-radius:18px;
+        flex:none;
+      }
+      #detailModal .detail-app h2{
+        font-size:23px;
+        line-height:1.15;
+      }
+      #detailModal .detail-body{
+        padding:14px!important;
+      }
+      #detailModal .detail-actions{
+        position:static!important;
+        display:grid;
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        gap:7px;
+        padding:0!important;
+        background:transparent!important;
+      }
+      #detailModal .detail-actions .btn{
+        width:100%;
+        padding-inline:8px;
+        white-space:nowrap;
+      }
+      #detailModal .stats-row.four-stats{
+        grid-template-columns:repeat(2,minmax(0,1fr))!important;
+      }
+      #detailModal .detail-screens-scroll{
+        width:100%;
+        max-width:100%;
+        padding-bottom:8px;
+      }
+      #detailModal .detail-screens-scroll .shot{
+        flex:0 0 min(42vw,150px)!important;
+        width:min(42vw,150px)!important;
+      }
+      #detailModal .review-composer{
+        max-width:100%;
+        overflow:hidden;
+      }
+      #detailModal .review-composer textarea{
+        box-sizing:border-box;
+        width:100%;
+      }
+
+      /* Rating stars on phones: compact, borderless, easy to tap. */
+      .review-composer .stars-input{
+        justify-content:flex-start;
+        gap:4px;
+        margin-bottom:11px;
+      }
+      .review-composer .star-btn{
+        font-size:31px!important;
+        padding:4px 2px!important;
+      }
+    }
+
+    @media(max-width:380px){
+      #detailModal .detail-actions{
+        grid-template-columns:1fr 1fr;
+      }
+      #detailModal #openAppBtn{
+        grid-column:1/-1;
+      }
+      .review-composer .star-btn{
+        font-size:28px!important;
+      }
+    }
+
   </style>
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
@@ -1339,7 +1547,7 @@
               <div id="detailReviews"><div class="empty-state"><span data-i18n="loading">جاري التحميل...</span></div></div>
               <div class="review-composer">
                 <div class="stars-input" id="starsInput">
-                  <button class="star-btn" data-star="1">★</button><button class="star-btn" data-star="2">★</button><button class="star-btn" data-star="3">★</button><button class="star-btn" data-star="4">★</button><button class="star-btn" data-star="5">★</button>
+                  <button class="star-btn" type="button" data-star="1" aria-label="1 star">★</button><button class="star-btn" type="button" data-star="2" aria-label="2 stars">★</button><button class="star-btn" type="button" data-star="3" aria-label="3 stars">★</button><button class="star-btn" type="button" data-star="4" aria-label="4 stars">★</button><button class="star-btn" type="button" data-star="5" aria-label="5 stars">★</button>
                 </div>
                 <textarea id="reviewText" rows="3" data-i18n-placeholder="reviewPlaceholder" placeholder="اكتب رأيك..."></textarea>
                 <button class="btn btn-primary" id="submitReview" data-i18n="publishReview">نشر المراجعة</button>
