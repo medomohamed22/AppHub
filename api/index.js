@@ -338,7 +338,7 @@ export default async function handler(req, res) {
     if (action === "review" && req.method === "POST") {
       const {me,user}=await requireActiveUser(db,req);
       const appId=req.body?.appId, rating=Number(req.body?.rating), body=String(req.body?.body||"").trim();
-      if(!validUuid(appId) || !Number.isInteger(rating) || rating<1 || rating>5 || body.length<3 || body.length>1200)
+      if(!validUuid(appId) || !Number.isInteger(rating) || rating<1 || rating>5 || body.length>1200)
         return fail(res,400,"Invalid review.");
       const {data,error}=await db.from("reviews").upsert({
         user_id:user.id,app_id:appId,rating,body,status:"published",updated_at:new Date().toISOString()
