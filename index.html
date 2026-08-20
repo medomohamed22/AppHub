@@ -521,22 +521,6 @@
     .search-result b{font-size:13px}.search-result small{display:block;color:var(--muted);margin-top:3px}
     .result-meta{margin-inline-start:auto;color:var(--muted);font-size:11px}
 
-    .filter-sheet{
-      position:fixed;inset:0;z-index:125;background:rgba(4,7,13,.58);display:none;align-items:flex-end
-    }
-    .filter-sheet.show{display:flex}
-    .filter-panel{
-      width:100%;background:var(--surface);border-top:1px solid var(--border);border-radius:24px 24px 0 0;
-      padding:18px 18px max(20px,env(safe-area-inset-bottom));animation:sheetUp .3s ease
-    }
-    @keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
-    .sheet-handle{width:42px;height:4px;border-radius:999px;background:var(--border);margin:0 auto 16px}
-    .filter-options{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
-    .filter-option{
-      border:1px solid var(--border);background:var(--surface-2);color:var(--text);padding:12px;border-radius:13px;font-weight:750
-    }
-    .filter-option.active{background:var(--primary);border-color:var(--primary);color:#fff}
-    .sheet-actions{display:flex;gap:8px;margin-top:15px}.sheet-actions .btn{flex:1}
 
     .dashboard{
       display:none;position:fixed;inset:0;z-index:115;background:var(--bg);overflow:auto
@@ -649,70 +633,7 @@
     }
     .category-hero h2{font-size:34px;margin:0 0 7px}.category-hero p{margin:0;color:var(--muted)}
     .category-list-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:18px 0 50px}
-    .launch-screen{display:none!important;
-      display:none;position:fixed;inset:0;z-index:140;background:var(--bg);overflow:auto
-    }
-    .launch-screen.show{display:block}
-    .launch-wrap{width:min(920px,calc(100% - 28px));margin:auto;padding:28px 0 50px}
-    .launch-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
-    .launch-card{
-      min-height:520px;border:1px solid var(--border);border-radius:28px;overflow:hidden;
-      background:var(--surface);box-shadow:var(--shadow);display:grid;grid-template-columns:.9fr 1.1fr
-    }
-    .launch-visual{
-      position:relative;padding:30px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;
-      background:
-       radial-gradient(circle at 20% 10%,rgba(255,255,255,.18),transparent 24%),
-       linear-gradient(155deg,#5c3de0,#7b60ff 58%,#c99537)
-    }
-    .launch-visual .app-icon{width:84px;height:84px;font-size:26px;background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.2)}
-    .launch-visual h2{font-size:34px;margin:18px 0 8px}.launch-visual p{color:rgba(255,255,255,.8);line-height:1.7}
-    .launch-panel{padding:30px;display:flex;flex-direction:column;justify-content:center}
-    .launch-panel h3{font-size:22px;margin:0 0 10px}.launch-panel p{color:var(--muted);line-height:1.75;font-size:13px}
-    .launch-checks{display:grid;gap:10px;margin:18px 0}
-    .launch-check{
-      display:flex;align-items:flex-start;gap:10px;padding:11px;border:1px solid var(--border);border-radius:13px;background:var(--surface-2)
-    }
-    .launch-check svg{width:18px;height:18px;color:var(--success);flex:none;margin-top:1px}
-    .launch-check b{font-size:12px}.launch-check span{display:block;color:var(--muted);font-size:10px;margin-top:2px}
-    .review-composer{
-      margin-top:14px;padding:15px;border-radius:16px;border:1px solid var(--border);background:var(--surface-2)
-    }
-    .stars-input{display:flex;gap:4px;margin-bottom:10px}
-    .star-btn{
-      border:0;background:transparent;color:var(--border);padding:2px;font-size:22px;line-height:1
-    }
-    .star-btn.active{color:var(--accent)}
-    .review-composer textarea{
-      width:100%;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:12px;padding:11px;outline:none;resize:vertical
-    }
-    .review-composer textarea:focus{border-color:var(--primary)}
-    .review-composer .btn{margin-top:9px}
-    .onboarding{
-      position:fixed;inset:0;z-index:160;background:
-       radial-gradient(circle at 20% 10%,rgba(124,92,255,.23),transparent 25%),
-       radial-gradient(circle at 82% 15%,rgba(243,184,63,.11),transparent 22%),
-       rgba(6,9,18,.92);backdrop-filter:blur(18px);display:none;align-items:center;justify-content:center;padding:18px
-    }
-    .onboarding.show{display:flex}
-    .onboard-card{
-      width:min(500px,100%);background:var(--surface);border:1px solid var(--border);border-radius:28px;padding:26px;
-      box-shadow:var(--shadow);text-align:center;animation:heroCardIn .45s ease
-    }
-    .onboard-logo{
-      width:72px;height:72px;border-radius:22px;margin:0 auto 16px;display:grid;place-items:center;
-      background:linear-gradient(135deg,var(--primary),#5e39ee);box-shadow:0 12px 32px rgba(124,92,255,.28)
-    }
-    .onboard-logo svg{width:38px;height:38px}
-    .onboard-card h2{font-size:29px;margin:0 0 9px}.onboard-card p{margin:0;color:var(--muted);line-height:1.7;font-size:13px}
-    .onboard-benefits{display:grid;gap:9px;text-align:start;margin:18px 0}
-    .benefit{display:flex;gap:10px;align-items:flex-start;padding:11px;border:1px solid var(--border);border-radius:13px;background:var(--surface-2)}
-    .benefit svg{width:18px;height:18px;color:var(--primary);flex:none}.benefit b{font-size:12px}.benefit small{display:block;color:var(--muted);margin-top:2px}
-    .pi-login-btn{
-      width:100%;min-height:50px;border:0;border-radius:15px;background:linear-gradient(135deg,#7756f3,#8d70ff);color:#fff;
-      font-weight:900;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 12px 28px rgba(124,92,255,.25)
-    }
-    .skip-login{margin-top:10px;background:none;border:0;color:var(--muted);font-size:11px;font-weight:750}
+
     .skeleton-wrap{display:none}
     .skeleton-wrap.show{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
     .skeleton{
@@ -1084,6 +1005,24 @@
       }
     }
 
+
+    /* ===== AppHub UX Pro ===== */
+    body.is-busy{overflow:hidden}
+    .operation-overlay{position:fixed;inset:0;z-index:300;background:rgba(5,8,16,.64);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:18px}
+    .operation-overlay.show{display:flex}.operation-card{width:min(520px,100%);background:var(--surface);border:1px solid var(--border);border-radius:26px;padding:22px;box-shadow:0 30px 90px rgba(0,0,0,.3);animation:opIn .28s cubic-bezier(.2,.8,.25,1)}
+    @keyframes opIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+    .operation-top{display:flex;gap:14px;align-items:flex-start}.operation-orb{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;flex:none;background:color-mix(in srgb,var(--primary) 13%,var(--surface-2));color:var(--primary)}
+    .operation-orb.loading:after{content:"";width:24px;height:24px;border:3px solid color-mix(in srgb,var(--primary) 22%,transparent);border-top-color:var(--primary);border-radius:50%;animation:opSpin .8s linear infinite}@keyframes opSpin{to{transform:rotate(360deg)}}
+    .operation-orb.error{background:color-mix(in srgb,var(--danger) 12%,var(--surface-2));color:var(--danger)}
+    .operation-copy{flex:1}.operation-copy h3{margin:1px 0 6px;font-size:19px}.operation-copy p{margin:0;color:var(--muted);font-size:12px;line-height:1.65}
+    .operation-progress{height:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;overflow:hidden;margin:17px 0 6px}.operation-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .25s ease}.operation-percent{text-align:end;color:var(--muted);font-size:10px}
+    .operation-steps{display:grid;gap:7px;margin-top:14px}.operation-step{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:12px;background:var(--surface-2);border:1px solid transparent;color:var(--muted);font-size:11px}.operation-step i{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--border);font-style:normal;font-size:9px}.operation-step.active{color:var(--text);border-color:color-mix(in srgb,var(--primary) 28%,var(--border))}.operation-step.done{color:var(--success)}.operation-step.done i{background:var(--success);border-color:var(--success);color:white}
+    .operation-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:17px}.success-panel{text-align:center;padding:4px}.success-check{width:74px;height:74px;margin:0 auto 15px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--success) 13%,var(--surface));color:var(--success);animation:successPop .45s cubic-bezier(.2,1.3,.3,1)}@keyframes successPop{from{transform:scale(.55);opacity:0}to{transform:scale(1);opacity:1}}.success-check svg{width:38px;height:38px}.success-panel h3{font-size:22px;margin:0 0 7px}.success-panel p{color:var(--muted);font-size:12px;line-height:1.7}.success-meta{margin:15px 0;padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--surface-2);font-size:11px;color:var(--muted)}
+    .confirm-modal{position:fixed;inset:0;z-index:310;background:rgba(5,8,16,.65);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:18px}.confirm-modal.show{display:flex}.confirm-card{width:min(480px,100%);background:var(--surface);border:1px solid var(--border);border-radius:23px;padding:20px;box-shadow:var(--shadow);animation:opIn .24s ease}.confirm-icon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--danger) 11%,var(--surface-2));color:var(--danger);margin-bottom:12px}.confirm-card h3{margin:0 0 7px}.confirm-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.7}.confirm-card textarea{width:100%;margin-top:12px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:12px;padding:11px;resize:vertical}.confirm-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}
+    .inline-error{padding:13px;border-radius:14px;background:color-mix(in srgb,var(--danger) 8%,var(--surface));border:1px solid color-mix(in srgb,var(--danger) 24%,var(--border));color:var(--danger);font-size:11px}.pulse-action{animation:actionPulse .34s ease}@keyframes actionPulse{45%{transform:scale(1.08)}}.number-bump{animation:numberBump .32s ease}@keyframes numberBump{from{transform:translateY(4px);opacity:.55}to{transform:none;opacity:1}}
+    .dash-status-strip{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px}.dash-status-pill{padding:7px 10px;border-radius:999px;border:1px solid var(--border);background:var(--surface);font-size:10px;font-weight:850;color:var(--muted)}.dash-status-pill.good{color:var(--success);border-color:color-mix(in srgb,var(--success) 30%,var(--border))}.dash-status-pill.gold{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 30%,var(--border))}.chart-labels{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:7px;color:var(--muted);font-size:9px;text-align:center}.metric-skeleton{height:32px;width:70%;border-radius:9px;background:var(--surface-2);position:relative;overflow:hidden;margin-top:8px}.metric-skeleton:after{content:"";position:absolute;inset:0;transform:translateX(-110%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent);animation:skeleton 1.1s infinite}
+    .public-app-page.show .public-app-hero{animation:pageHeroIn .42s cubic-bezier(.2,.8,.25,1)}.public-app-page.show .public-app-layout{animation:pageBodyIn .48s .06s both cubic-bezier(.2,.8,.25,1)}@keyframes pageHeroIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}@keyframes pageBodyIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}.star-btn.active{animation:starPop .22s ease}@keyframes starPop{from{transform:scale(.72)}to{transform:scale(1)}}
+
     @media(max-width:980px){
       .navlinks{display:none}
       .hero-grid{grid-template-columns:1fr}
@@ -1146,11 +1085,7 @@
       <div class="actions">
 
         <div class="utility-actions">
-          <button class="icon-btn" id="notifBtn" style="display:none" title="Notifications" aria-label="Notifications">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M6.5 9a5.5 5.5 0 0 1 11 0c0 6 2 6 2 7.5h-15C4.5 15 6.5 15 6.5 9Z" stroke="currentColor" stroke-width="1.7"/><path d="M10 19h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-            <span class="notif-badge">3</span>
-          </button>
-          <button class="icon-btn" id="profileBtn" title="Profile" aria-label="Profile">
+<button class="icon-btn" id="profileBtn" title="Profile" aria-label="Profile">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7"/><path d="M5.5 20c.8-4 3-6 6.5-6s5.7 2 6.5 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
           </button>
         </div>
@@ -1428,18 +1363,6 @@
     </div>
   </div>
 
-  <!-- Filters bottom sheet -->
-  <div class="filter-sheet" id="filterSheet">
-    <div class="filter-panel">
-      <div class="sheet-handle"></div>
-      <h3 style="margin:0 0 13px" data-i18n="filterApps">فلترة التطبيقات</h3>
-      <div class="filter-options" id="filterOptions"></div>
-      <div class="sheet-actions">
-        <button class="btn btn-ghost" id="resetFilters" data-i18n="reset">إعادة ضبط</button>
-        <button class="btn btn-primary" id="applyFilters" data-i18n="apply">تطبيق</button>
-      </div>
-    </div>
-  </div>
 
   <!-- Profile drawer -->
   <div class="drawer" id="profileDrawer">
@@ -1463,18 +1386,11 @@
           <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5c0 4.6-2.8 8.2-7 10-4.2-1.8-7-5.4-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.7"/></svg>
           <div><b>Admin Dashboard</b><small>Moderation, users and pricing</small></div>
         </button>
-
-        <button class="drawer-item" id="drawerNotifBtn" style="display:none"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 9a5.5 5.5 0 0 1 11 0c0 6 2 6 2 7.5h-15C4.5 15 6.5 15 6.5 9Z" stroke="currentColor" stroke-width="1.7"/></svg><div><b data-i18n="notifications">الإشعارات</b><small data-i18n="notificationsSub"></small></div></button>
-      </div>
+</div>
       <div id="drawerDynamic" style="margin-top:15px"></div>
     </aside>
   </div>
 
-  <!-- Notifications drawer -->
-  <div class="drawer" id="notifDrawer">
-    <aside class="drawer-panel">
-      <div class="drawer-head"><h3 data-i18n="notifications">الإشعارات</h3><button class="icon-btn" id="closeNotif">✕</button></div>
-      <div class="drawer-list"><div class="empty-state"><b data-i18n="noNotifications">لا توجد إشعارات</b></div></div></aside></div>
 
   <!-- Developer dashboard -->
   <div class="dashboard" id="dashboard">
@@ -1496,7 +1412,7 @@
         <label style="font-size:11px;color:var(--muted);font-weight:800" data-i18n="selectApp">اختر التطبيق</label>
         <select class="sort-select" id="developerAppSelect" style="width:100%;margin-top:8px"></select>
       </div>
-      <div class="dash-metrics">
+      <div class="dash-status-strip" id="developerStatusStrip"><span class="dash-status-pill" id="devAppStatus">—</span><span class="dash-status-pill" id="devProStatus">—</span><span class="dash-status-pill" id="devFeaturedStatus">—</span><span class="dash-status-pill" id="devConversion">—</span></div><div class="dash-metrics">
         <div class="dash-card"><small data-i18n="views">المشاهدات</small><h3 id="devViews">0</h3></div>
         <div class="dash-card"><small data-i18n="openClicks">فتح التطبيق</small><h3 id="devOpens">0</h3></div>
         <div class="dash-card"><small data-i18n="votes">تصويت</small><h3 id="devVotes">0</h3></div>
@@ -1505,7 +1421,7 @@
       <div class="dash-grid">
         <div class="dash-card">
           <h3 style="font-size:16px;margin:0" data-i18n="traffic7days">الزيارات آخر 7 أيام</h3>
-          <div class="chart" id="developerChart"></div>
+          <div class="chart" id="developerChart"></div><div class="chart-labels" id="developerChartLabels"></div>
         </div>
         <div class="dash-card">
           <h3 style="font-size:16px;margin:0" data-i18n="appStatus">حالة التطبيق</h3>
@@ -1535,54 +1451,6 @@
     </div>
   </div>
 
-  <!-- Launch screen -->
-  <div class="launch-screen" id="launchScreen">
-    <div class="launch-wrap">
-      <div class="launch-top">
-        <a class="brand"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M7 5h6.2a4.3 4.3 0 1 1 0 8.6H9.8V19H7V5Zm2.8 2.7v3.2h3.1a1.6 1.6 0 1 0 0-3.2H9.8Z" fill="white"/></svg></span><span>AppHub</span></a>
-        <button class="btn" id="closeLaunch" data-i18n="back">رجوع</button>
-      </div>
-      <div class="launch-card">
-        <div class="launch-visual">
-          <div>
-            <div class="app-icon" id="launchIcon">P</div>
-            <h2 id="launchName">App</h2>
-            <p id="launchMeta">Tools · Mainnet</p>
-          </div>
-          <span class="pro-pill">AppHub Listing</span>
-        </div>
-        <div class="launch-panel">
-          <h3 data-i18n="readyToLaunch">جاهز لفتح التطبيق؟</h3>
-          <p data-i18n="readyToLaunchSub">سيتم فتح رابط التطبيق المنشور في صفحة الإدراج.</p>
-          <div class="launch-checks">
-            <div class="launch-check"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b data-i18n="check1">تم التحقق من بيانات الإدراج</b><span data-i18n="check1Sub">صفحة التطبيق تحتوي على معلومات أساسية مكتملة.</span></div></div>
-            <div class="launch-check"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b data-i18n="check2">تنبيه أمان للمستخدم</b><span data-i18n="check2Sub">لا تدخل عبارة مرور المحفظة خارج تطبيق Wallet الرسمي.</span></div></div>
-          </div>
-          <button class="btn btn-primary" id="confirmLaunch" data-i18n="continueDemo">فتح التطبيق</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Onboarding -->
-  <div class="onboarding" id="onboarding">
-    <div class="onboard-card">
-      <div class="onboard-logo">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M7 5h6.2a4.3 4.3 0 1 1 0 8.6H9.8V19H7V5Zm2.8 2.7v3.2h3.1a1.6 1.6 0 1 0 0-3.2H9.8Z" fill="white"/><path d="M15.7 5.8h1.6M15.7 18.2h1.6" stroke="#F7C75B" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </div>
-      <h2 data-i18n="welcomeTitle">مرحبًا في AppHub</h2>
-      <p data-i18n="welcomeSub">اكتشف، قيّم واحفظ أفضل تطبيقات مجتمع Pi من مكان واحد.</p>
-      <div class="onboard-benefits">
-        <div class="benefit"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2"/></svg><div><b data-i18n="benefit1">تسجيل دخول بحساب Pi</b><small data-i18n="benefit1Sub">يتم تسجيل الدخول باستخدام Pi.</small></div></div>
-        <div class="benefit"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2"/></svg><div><b data-i18n="benefit2">احفظ وصوّت للتطبيقات</b><small data-i18n="benefit2Sub">التصويت والحفظ والمراجعات مرتبطة بحساب Pi عند تسجيل الدخول.</small></div></div>
-      </div>
-      <button class="pi-login-btn" id="piLoginBtn">
-        <span class="brand-mark" style="width:28px;height:28px;border-radius:9px;box-shadow:none"><svg viewBox="0 0 24 24" fill="none"><path d="M7 5h6.2a4.3 4.3 0 1 1 0 8.6H9.8V19H7V5Zm2.8 2.7v3.2h3.1a1.6 1.6 0 1 0 0-3.2H9.8Z" fill="white"/></svg></span>
-        <span data-i18n="continueWithPi">متابعة باستخدام Pi</span>
-      </button>
-      <button class="skip-login" id="skipLogin" data-i18n="continueGuest">المتابعة كزائر</button>
-    </div>
-  </div>
 
 
   <!-- Admin page -->
@@ -1741,6 +1609,13 @@
     </div>
   </div>
 
+
+  <div class="operation-overlay" id="operationOverlay" role="dialog" aria-modal="true" aria-live="polite"><div class="operation-card">
+    <div id="operationNormal"><div class="operation-top"><div class="operation-orb loading" id="operationOrb"></div><div class="operation-copy"><h3 id="operationTitle">Working…</h3><p id="operationMessage"></p></div></div><div class="operation-progress"><span id="operationProgressBar"></span></div><div class="operation-percent" id="operationPercent">0%</div><div class="operation-steps" id="operationSteps"></div></div>
+    <div id="operationSuccess" class="success-panel" style="display:none"><div class="success-check"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3 id="successTitle"></h3><p id="successMessage"></p><div class="success-meta" id="successMeta" style="display:none"></div></div><div class="operation-actions" id="operationActions"></div>
+  </div></div>
+  <div class="confirm-modal" id="confirmModal"><div class="confirm-card"><div class="confirm-icon">!</div><h3 id="confirmTitle"></h3><p id="confirmMessage"></p><textarea id="confirmReason" rows="3" style="display:none"></textarea><div class="confirm-actions"><button class="btn" id="confirmCancel"></button><button class="btn btn-primary" id="confirmAccept"></button></div></div></div>
+
   <div class="toast" id="toast"></div>
 
 <script>
@@ -1776,7 +1651,7 @@ const data = {
     submitModalTitle:"إضافة تطبيق جديد", submitModalSub:"أدخل بيانات تطبيقك وسيتم إرساله للمراجعة.", appName:"اسم التطبيق", category:"التصنيف",
     appUrl:"رابط التطبيق", description:"الوصف", descriptionPlaceholder:"اكتب وصفًا مختصرًا للتطبيق...", network:"الشبكة", payments:"يدعم Pi Payments؟",
     yes:"نعم", no:"لا", cancel:"إلغاء", sendReview:"إرسال للمراجعة", open:"فتح", saved:"محفوظ", save:"حفظ", noResults:"لا توجد تطبيقات مطابقة.", submitted:"تم إرسال التطبيق للمراجعة ✅",
-    featuredTitle:"✨ تطبيقات مميزة",featuredSub:"اختيارات بارزة من المجتمع والمطورين.",featuredDesc:"تجربة اكتشاف منتجات وخدمات من مجتمع Pi في واجهة سريعة ومبسطة.",sponsored:"إعلان مميز",sortTrending:"الأكثر رواجًا",sortRating:"الأعلى تقييمًا",sortNewest:"الأحدث",back:"رجوع",categoryPageSub:"اكتشف أفضل التطبيقات في هذا التصنيف.",readyToLaunch:"جاهز لفتح التطبيق؟",readyToLaunchSub:"سيتم فتح رابط التطبيق المنشور في صفحة الإدراج.",check1:"تم التحقق من بيانات الإدراج",check1Sub:"صفحة التطبيق تحتوي على معلومات أساسية مكتملة.",check2:"تنبيه أمان للمستخدم",check2Sub:"لا تدخل عبارة مرور المحفظة خارج تطبيق Wallet الرسمي.",continueDemo:"فتح التطبيق",welcomeTitle:"مرحبًا في AppHub",welcomeSub:"اكتشف، قيّم واحفظ أفضل تطبيقات مجتمع Pi من مكان واحد.",benefit1:"تسجيل دخول بحساب Pi",benefit1Sub:"يتم تسجيل الدخول باستخدام Pi.",benefit2:"احفظ وصوّت للتطبيقات",benefit2Sub:"التصويت والحفظ والمراجعات مرتبطة بحساب Pi عند تسجيل الدخول.",continueWithPi:"متابعة باستخدام Pi",continueGuest:"المتابعة كزائر",reviewPlaceholder:"اكتب رأيك...",publishReview:"نشر المراجعة",filters:"فلاتر",profile:"حسابي",openApp:"فتح التطبيق",upvote:"تصويت",aboutApp:"عن التطبيق",screenshots:"لقطات",communityReviews:"تقييمات المجتمع",filterApps:"فلترة التطبيقات",reset:"إعادة ضبط",apply:"تطبيق",savedApps:"محفوظ",savedAppsSub:"ارجع للتطبيقات اللي عجبتك",reviews:"مراجعات",developerDashboard:"لوحة المطور",developerDashboardSub:"إحصائيات تطبيقاتك",notifications:"الإشعارات",notificationsSub:"",backToSite:"العودة للموقع",dashboardTitle:"لوحة تحكم المطور",dashboardSub:"بيانات أداء تطبيقاتك من الاستخدام الفعلي.",editListing:"تعديل صفحة التطبيق",views:"المشاهدات",openClicks:"فتح التطبيق",traffic7days:"الزيارات آخر 7 أيام",topSources:"أفضل مصادر الزيارات",logoUpload:"شعار التطبيق *",logoHelp:"PNG/JPG/WebP · يتم ضغط الصورة تلقائيًا قبل الرفع · مطلوب",screensUpload:"لقطات الشاشة (1–3) *",screensHelp:"ارفع من 1 إلى 3 لقطات · يتم ضغط الصور تلقائيًا مع الحفاظ على الوضوح",guestBrowse:"تصفح الموقع بحرية. سجل الدخول فقط عند الحاجة.",signInPi:"تسجيل الدخول باستخدام Pi",signOut:"تسجيل الخروج",education:"تعليم",loading:"جاري التحميل...",noReviews:"لا توجد مراجعات حتى الآن.",noNotifications:"لا توجد إشعارات",chooseFile:"اختيار ملف",chooseFiles:"اختيار الملفات",noFileSelected:"لم يتم اختيار ملف",noFilesSelected:"لم يتم اختيار ملفات",reviewOptionalPlaceholder:"اكتب تعليقًا (اختياري)...",reviewOptionalNote:"اختر من 1 إلى 5 نجوم. كتابة التعليق اختيارية.",appDetails:"بيانات التطبيق",paymentSupport:"دعم الدفع",paymentYes:"يدعم",paymentNo:"لا يدعم",selectApp:"اختر التطبيق",appStatus:"حالة التطبيق",categories:{AI:"ذكاء اصطناعي",Tools:"أدوات",Shopping:"تسوق",Games:"ألعاب",Business:"أعمال",Education:"تعليم"}
+    sponsored:"إعلان مميز",sortTrending:"الأكثر رواجًا",sortRating:"الأعلى تقييمًا",sortNewest:"الأحدث",back:"رجوع",categoryPageSub:"اكتشف أفضل التطبيقات في هذا التصنيف.",reviewPlaceholder:"اكتب رأيك...",publishReview:"نشر المراجعة",filters:"فلاتر",profile:"حسابي",openApp:"فتح التطبيق",upvote:"تصويت",aboutApp:"عن التطبيق",screenshots:"لقطات",communityReviews:"تقييمات المجتمع",savedApps:"محفوظ",savedAppsSub:"ارجع للتطبيقات اللي عجبتك",reviews:"مراجعات",developerDashboard:"لوحة المطور",developerDashboardSub:"إحصائيات تطبيقاتك",backToSite:"العودة للموقع",dashboardTitle:"لوحة تحكم المطور",dashboardSub:"بيانات أداء تطبيقاتك من الاستخدام الفعلي.",editListing:"تعديل صفحة التطبيق",views:"المشاهدات",openClicks:"فتح التطبيق",traffic7days:"الزيارات آخر 7 أيام",topSources:"أفضل مصادر الزيارات",logoUpload:"شعار التطبيق *",logoHelp:"PNG/JPG/WebP · يتم ضغط الصورة تلقائيًا قبل الرفع · مطلوب",screensUpload:"لقطات الشاشة (1–3) *",screensHelp:"ارفع من 1 إلى 3 لقطات · يتم ضغط الصور تلقائيًا مع الحفاظ على الوضوح",guestBrowse:"تصفح الموقع بحرية. سجل الدخول فقط عند الحاجة.",signInPi:"تسجيل الدخول باستخدام Pi",signOut:"تسجيل الخروج",education:"تعليم",loading:"جاري التحميل...",noReviews:"لا توجد مراجعات حتى الآن.",chooseFile:"اختيار ملف",chooseFiles:"اختيار الملفات",noFileSelected:"لم يتم اختيار ملف",noFilesSelected:"لم يتم اختيار ملفات",reviewOptionalPlaceholder:"اكتب تعليقًا (اختياري)...",reviewOptionalNote:"اختر من 1 إلى 5 نجوم. كتابة التعليق اختيارية.",appDetails:"بيانات التطبيق",paymentSupport:"دعم الدفع",paymentYes:"يدعم",paymentNo:"لا يدعم",selectApp:"اختر التطبيق",appStatus:"حالة التطبيق",categories:{AI:"ذكاء اصطناعي",Tools:"أدوات",Shopping:"تسوق",Games:"ألعاب",Business:"أعمال",Education:"تعليم"}
   },
   en:{
     brandSub:"Discover Pi community apps", navDiscover:"Discover", navCategories:"Categories", navTop:"Top Apps", navNew:"New",
@@ -1792,7 +1667,7 @@ const data = {
     submitModalTitle:"Submit a new app", submitModalSub:"Enter your app details and submit it for review.", appName:"App name", category:"Category",
     appUrl:"App URL", description:"Description", descriptionPlaceholder:"Write a short app description...", network:"Network", payments:"Supports Pi Payments?",
     yes:"Yes", no:"No", cancel:"Cancel", sendReview:"Send for review", open:"Open", saved:"Saved", save:"Save", noResults:"No matching apps found.", submitted:"App submitted for review ✅",
-    featuredTitle:"✨ Featured apps",featuredSub:"Standout picks from the community and developers.",featuredDesc:"Discover products and services from the Pi community in a fast, simple experience.",sponsored:"Sponsored",sortTrending:"Trending",sortRating:"Top rated",sortNewest:"Newest",back:"Back",categoryPageSub:"Discover the best apps in this category.",readyToLaunch:"Ready to open this app?",readyToLaunchSub:"The published app URL will open from this listing.",check1:"Listing details checked",check1Sub:"The app page includes the core information required for discovery.",check2:"User safety reminder",check2Sub:"Never enter your wallet passphrase outside the official Wallet app.",continueDemo:"Open app",welcomeTitle:"Welcome to AppHub",welcomeSub:"Discover, rate and save the best Pi community apps in one place.",benefit1:"Sign in with Pi",benefit1Sub:"Sign-in uses Pi.",benefit2:"Save and upvote apps",benefit2Sub:"Votes, saves and reviews are linked to your Pi account after sign-in.",continueWithPi:"Continue with Pi",continueGuest:"Continue as guest",reviewPlaceholder:"Write your review...",publishReview:"Publish review",filters:"Filters",profile:"Profile",openApp:"Open app",upvote:"Upvote",aboutApp:"About the app",screenshots:"Screenshots",communityReviews:"Community reviews",filterApps:"Filter apps",reset:"Reset",apply:"Apply",savedApps:"Saved",savedAppsSub:"Return to apps you liked",reviews:"Reviews",developerDashboard:"Developer dashboard",developerDashboardSub:"Analytics for your apps",notifications:"Notifications",notificationsSub:"",backToSite:"Back to site",dashboardTitle:"Developer dashboard",dashboardSub:"Live performance data for your apps.",editListing:"Edit app listing",views:"Views",openClicks:"App opens",traffic7days:"Traffic — last 7 days",topSources:"Top traffic sources",logoUpload:"App logo *",logoHelp:"PNG/JPG/WebP · automatically compressed before upload · required",screensUpload:"Screenshots (1–3) *",screensHelp:"Upload 1–3 screenshots · automatically compressed while preserving clarity",guestBrowse:"Browse freely. Sign in only when needed.",signInPi:"Sign in with Pi",signOut:"Sign out",education:"Education",loading:"Loading...",noReviews:"No reviews yet.",noNotifications:"No notifications",chooseFile:"Choose file",chooseFiles:"Choose files",noFileSelected:"No file selected",noFilesSelected:"No files selected",reviewOptionalPlaceholder:"Write a comment (optional)...",reviewOptionalNote:"Choose 1–5 stars. Comment is optional.",appDetails:"App details",paymentSupport:"Payments",paymentYes:"Supported",paymentNo:"Not supported",selectApp:"Select app",appStatus:"App status",categories:{AI:"AI",Tools:"Tools",Shopping:"Shopping",Games:"Games",Business:"Business",Education:"Education"}
+    sponsored:"Sponsored",sortTrending:"Trending",sortRating:"Top rated",sortNewest:"Newest",back:"Back",categoryPageSub:"Discover the best apps in this category.",reviewPlaceholder:"Write your review...",publishReview:"Publish review",filters:"Filters",profile:"Profile",openApp:"Open app",upvote:"Upvote",aboutApp:"About the app",screenshots:"Screenshots",communityReviews:"Community reviews",savedApps:"Saved",savedAppsSub:"Return to apps you liked",reviews:"Reviews",developerDashboard:"Developer dashboard",developerDashboardSub:"Analytics for your apps",backToSite:"Back to site",dashboardTitle:"Developer dashboard",dashboardSub:"Live performance data for your apps.",editListing:"Edit app listing",views:"Views",openClicks:"App opens",traffic7days:"Traffic — last 7 days",topSources:"Top traffic sources",logoUpload:"App logo *",logoHelp:"PNG/JPG/WebP · automatically compressed before upload · required",screensUpload:"Screenshots (1–3) *",screensHelp:"Upload 1–3 screenshots · automatically compressed while preserving clarity",guestBrowse:"Browse freely. Sign in only when needed.",signInPi:"Sign in with Pi",signOut:"Sign out",education:"Education",loading:"Loading...",noReviews:"No reviews yet.",chooseFile:"Choose file",chooseFiles:"Choose files",noFileSelected:"No file selected",noFilesSelected:"No files selected",reviewOptionalPlaceholder:"Write a comment (optional)...",reviewOptionalNote:"Choose 1–5 stars. Comment is optional.",appDetails:"App details",paymentSupport:"Payments",paymentYes:"Supported",paymentNo:"Not supported",selectApp:"Select app",appStatus:"App status",categories:{AI:"AI",Tools:"Tools",Shopping:"Shopping",Games:"Games",Business:"Business",Education:"Education"}
   }
 };
 
@@ -1921,21 +1796,27 @@ function setFilter(cat){
   document.getElementById("new").scrollIntoView({behavior:"smooth"});
   renderApps();
 }
-function toggleVote(name,btn){
-  if(voted.has(name)) voted.delete(name); else voted.add(name);
-  renderApps();
-  showToast(voted.has(name) ? "Upvoted ▲" : "Vote removed");
-}
-function toggleSave(name,btn){
-  if(saved.has(name)) saved.delete(name); else saved.add(name);
-  renderApps();
-  showToast(saved.has(name) ? (lang==="ar"?"تم الحفظ ★":"Saved ★") : (lang==="ar"?"تمت الإزالة":"Removed"));
-}
+function toggleVote(name){return syncVote(name)}
+function toggleSave(name){return syncSave(name)}
 function showToast(msg){
   const el=document.getElementById("toast");
   el.textContent=msg;el.classList.add("show");
   setTimeout(()=>el.classList.remove("show"),1800);
 }
+
+let lastOperationRetry=null,confirmResolver=null;
+const opEl=id=>document.getElementById(id);function uxText(ar,en){return lang==="ar"?ar:en}
+function humanizeError(e){const raw=String(e?.message||e||"");if(/payments|scope|permission/i.test(raw))return uxText("صلاحية الدفع مطلوبة. وافق على صلاحية Payments ثم حاول مرة أخرى.","Payment permission is required. Grant Payments permission and retry.");if(/fetch|network|connection/i.test(raw))return uxText("تعذر الاتصال بالخادم. تحقق من الإنترنت ثم أعد المحاولة.","Could not reach the server. Check your connection and retry.");if(/upload/i.test(raw))return uxText("تعذر رفع إحدى الصور. أعد المحاولة وسيتم الاحتفاظ ببيانات النموذج.","An image upload failed. Retry without re-entering the form.");return raw||uxText("حدث خطأ غير متوقع.","An unexpected error occurred.")}
+function operationOpen({title,message="",steps=[],progress=4,retry=null}={}){lastOperationRetry=retry;document.body.classList.add("is-busy");opEl("operationOverlay").classList.add("show");opEl("operationNormal").style.display="block";opEl("operationSuccess").style.display="none";opEl("operationOrb").className="operation-orb loading";opEl("operationTitle").textContent=title||uxText("جاري التنفيذ…","Working…");opEl("operationMessage").textContent=message;opEl("operationSteps").innerHTML=steps.map((s,i)=>`<div class="operation-step ${i===0?"active":""}" data-op-step="${i}"><i>${i+1}</i><span>${escapeHtml(s)}</span></div>`).join("");operationProgress(progress);opEl("operationActions").innerHTML=""}
+function operationProgress(v,msg){const p=Math.max(0,Math.min(100,Math.round(Number(v)||0)));opEl("operationProgressBar").style.width=p+"%";opEl("operationPercent").textContent=p+"%";if(msg!==undefined)opEl("operationMessage").textContent=msg}
+function operationStep(i,{message,progress}={}){document.querySelectorAll("[data-op-step]").forEach((el,n)=>{el.classList.toggle("active",n===i);el.classList.toggle("done",n<i);const x=el.querySelector("i");if(x)x.textContent=n<i?"✓":String(n+1)});if(progress!==undefined)operationProgress(progress);if(message!==undefined)opEl("operationMessage").textContent=message}
+function operationClose(){opEl("operationOverlay").classList.remove("show");document.body.classList.remove("is-busy");lastOperationRetry=null}
+function operationSuccess({title,message="",meta="",primaryLabel,primaryAction,secondaryLabel,secondaryAction}={}){opEl("operationNormal").style.display="none";opEl("operationSuccess").style.display="block";opEl("successTitle").textContent=title||uxText("تم بنجاح","Done");opEl("successMessage").textContent=message;opEl("successMeta").textContent=meta;opEl("successMeta").style.display=meta?"block":"none";opEl("operationActions").innerHTML=`${secondaryLabel?`<button class="btn" id="uxSecondary">${escapeHtml(secondaryLabel)}</button>`:""}<button class="btn btn-primary" id="uxPrimary">${escapeHtml(primaryLabel||uxText("تم","Done"))}</button>`;opEl("uxPrimary").onclick=()=>{operationClose();primaryAction?.()};if(opEl("uxSecondary"))opEl("uxSecondary").onclick=()=>{operationClose();secondaryAction?.()}}
+function operationError(e,{retry=lastOperationRetry,title}={}){opEl("operationNormal").style.display="block";opEl("operationSuccess").style.display="none";opEl("operationOrb").className="operation-orb error";opEl("operationTitle").textContent=title||uxText("تعذر إكمال العملية","Something went wrong");opEl("operationMessage").textContent=humanizeError(e);operationProgress(0);opEl("operationSteps").innerHTML="";opEl("operationActions").innerHTML=`<button class="btn" id="uxCloseError">${uxText("إغلاق","Close")}</button>${retry?`<button class="btn btn-primary" id="uxRetry">${uxText("إعادة المحاولة","Retry")}</button>`:""}`;opEl("uxCloseError").onclick=operationClose;if(opEl("uxRetry"))opEl("uxRetry").onclick=async()=>{operationClose();await retry()}}
+function askConfirmation({title,message,acceptLabel,reason=false,danger=false}={}){opEl("confirmTitle").textContent=title||uxText("تأكيد الإجراء","Confirm action");opEl("confirmMessage").textContent=message||"";opEl("confirmCancel").textContent=uxText("إلغاء","Cancel");opEl("confirmAccept").textContent=acceptLabel||uxText("تأكيد","Confirm");opEl("confirmReason").style.display=reason?"block":"none";opEl("confirmReason").value="";opEl("confirmReason").placeholder=uxText("السبب (اختياري)","Reason (optional)");opEl("confirmAccept").style.background=danger?"var(--danger)":"";opEl("confirmAccept").style.color=danger?"#fff":"";opEl("confirmModal").classList.add("show");return new Promise(r=>confirmResolver=r)}
+function finishConfirmation(ok){const reason=opEl("confirmReason").value.trim();opEl("confirmModal").classList.remove("show");const r=confirmResolver;confirmResolver=null;r?.(ok?{confirmed:true,reason}:{confirmed:false,reason:""})}opEl("confirmCancel")?.addEventListener("click",()=>finishConfirmation(false));opEl("confirmAccept")?.addEventListener("click",()=>finishConfirmation(true));opEl("confirmModal")?.addEventListener("click",e=>{if(e.target.id==="confirmModal")finishConfirmation(false)});
+function animateNumberElement(id){const e=opEl(id);if(!e)return;e.classList.remove("number-bump");void e.offsetWidth;e.classList.add("number-bump")}
+
 
 document.getElementById("themeBtn").onclick=()=>{theme=theme==="dark"?"light":"dark";applyTheme()};
 document.getElementById("langBtn").onclick=()=>{lang=lang==="ar"?"en":"ar";applyLang()};
@@ -2038,24 +1919,7 @@ document.getElementById("bigSearchInput").addEventListener("input",e=>renderSear
 document.getElementById("closeSearch").onclick=()=>document.getElementById("searchOverlay").classList.remove("show");
 document.getElementById("searchOverlay").addEventListener("click",e=>{if(e.target.id==="searchOverlay")e.currentTarget.classList.remove("show")});
 
-function renderFilterOptions(){
-  const cats=["all","AI","Tools","Shopping","Games","Business","Education"];
-  document.getElementById("filterOptions").innerHTML=cats.map(c=>`
-    <button class="filter-option ${filter===c?"active":""}" data-filter="${c}">
-      ${c==="all"?data[lang].all:data[lang].categories[c]}
-    </button>`).join("");
-  document.querySelectorAll(".filter-option").forEach(b=>b.onclick=()=>{
-    document.querySelectorAll(".filter-option").forEach(x=>x.classList.remove("active"));b.classList.add("active");
-  });
-}
 
-document.getElementById("filterSheet").addEventListener("click",e=>{if(e.target.id==="filterSheet")e.currentTarget.classList.remove("show")});
-document.getElementById("resetFilters").onclick=()=>{filter="all";renderFilterOptions()};
-document.getElementById("applyFilters").onclick=()=>{
-  const active=document.querySelector(".filter-option.active");if(active)filter=active.dataset.filter;
-  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.filter===filter));
-  renderApps();document.getElementById("filterSheet").classList.remove("show");
-};
 
 function openDrawer(id){document.getElementById(id).classList.add("show")}
 function closeDrawer(id){document.getElementById(id).classList.remove("show")}
@@ -2063,11 +1927,6 @@ document.getElementById("profileBtn").onclick=()=>openDrawer("profileDrawer");
 document.getElementById("mobileProfileBtn").onclick=()=>openDrawer("profileDrawer");
 document.getElementById("closeProfile").onclick=()=>closeDrawer("profileDrawer");
 document.getElementById("profileDrawer").addEventListener("click",e=>{if(e.target.id==="profileDrawer")closeDrawer("profileDrawer")});
-document.getElementById("notifBtn").onclick=()=>openDrawer("notifDrawer");
-document.getElementById("drawerNotifBtn").onclick=()=>{closeDrawer("profileDrawer");openDrawer("notifDrawer")};
-document.getElementById("closeNotif").onclick=()=>closeDrawer("notifDrawer");
-document.getElementById("notifDrawer").addEventListener("click",e=>{if(e.target.id==="notifDrawer")closeDrawer("notifDrawer")});
-
 document.getElementById("savedAppsBtn").onclick=()=>{
   const box=document.getElementById("drawerDynamic");
   const list=apps.filter(a=>saved.has(a.name));
@@ -2093,7 +1952,7 @@ applyLang=function(){
 
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape"){
-    ["detailModal","searchOverlay","filterSheet","profileDrawer","notifDrawer"].forEach(id=>document.getElementById(id)?.classList.remove("show"));
+    ["detailModal","searchOverlay","profileDrawer"].forEach(id=>document.getElementById(id)?.classList.remove("show"));
     document.getElementById("dashboard")?.classList.remove("show");
   }
 });
@@ -2133,28 +1992,8 @@ document.getElementById("submitReview").onclick=()=>{
   document.querySelectorAll(".star-btn").forEach(s=>s.classList.remove("active"));
 };
 
-function openLaunchScreen(){
-  if(currentDetailApp){ document.getElementById("detailModal").classList.remove("show"); return openPublicAppPage(currentDetailApp.id); }
 
-  if(!currentDetailApp)return;
-  document.getElementById("detailModal").classList.remove("show");
-  document.getElementById("launchIcon").innerHTML=appIconHtml(currentDetailApp);
-  document.getElementById("launchName").textContent=currentDetailApp.name;
-  document.getElementById("launchMeta").textContent=`${data[lang].categories[currentDetailApp.category]} · ${currentDetailApp.tag}`;
-  document.getElementById("launchScreen").classList.add("show");
-}
-document.getElementById("openAppBtn").onclick=openLaunchScreen;
-document.getElementById("closeLaunch").onclick=()=>document.getElementById("launchScreen").classList.remove("show");
-document.getElementById("confirmLaunch").onclick=()=>showToast(lang==="ar"?"هنا سيتم فتح التطبيق الحقيقي بعد ربط Pi SDK":"The real app will open here after Pi SDK integration");
-
-const onboarding=document.getElementById("onboarding");
-/* Guest browsing is default; no automatic login/onboarding popup. */
-function finishOnboarding(msg){
-  localStorage.setItem("apphub-onboarded","1");onboarding.classList.remove("show");showToast(msg);
-}
-document.getElementById("piLoginBtn").onclick=()=>finishOnboarding(lang==="ar"?"تم تسجيل الدخول بحساب Pi ✅":"Signed in with Pi ✅");
-document.getElementById("skipLogin").onclick=()=>finishOnboarding(lang==="ar"?"أهلاً بك كزائر":"Welcome, guest");
-
+document.getElementById("openAppBtn").onclick=()=>currentDetailApp&&openPublicAppPage(currentDetailApp.id);
 const oldApplyLangFinal=applyLang;
 applyLang=function(){
   oldApplyLangFinal();
@@ -2169,8 +2008,8 @@ applyLang=function(){
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape"){
     document.getElementById("categoryPage")?.classList.remove("show");
-    document.getElementById("launchScreen")?.classList.remove("show");
-    document.getElementById("onboarding")?.classList.remove("show");
+    
+    
   }
 });
 
@@ -2258,7 +2097,7 @@ async function hydrateAppsFromBackend() {
     apps.splice(0, apps.length, ...mapped);
     renderApps(); renderRank(); renderCategories();
   } catch (e) {
-    console.warn("Backend unavailable:", e.message);
+    console.warn("Backend unavailable:",e.message);const g=document.getElementById("appsGrid");if(g)g.innerHTML=`<div class="inline-error" style="grid-column:1/-1">${escapeHtml(humanizeError(e))}<br><button class="btn" onclick="hydrateAppsFromBackend()">${uxText("إعادة المحاولة","Retry")}</button></div>`;
   }
 }
 
@@ -2312,182 +2151,35 @@ async function hydrateUserState() {
   }
 }
 
-async function syncVote(name) {
-  if (!piAccessToken) return realPiLogin({requirePayments:false});
-  const app = apps.find(a => a.name === name);
-  if (!app?.id) return;
-  try {
-    const r = await apiCall("vote", {method:"POST", body:{appId:app.id}});
-    if (r.voted) voted.add(name); else voted.delete(name);
-    if (typeof r.votesCount === "number") app.votes = r.votesCount;
-    renderApps(); renderRank(); updateProfileCounts();
-  } catch(e){ showToast(e.message); }
-}
-async function syncSave(name) {
-  if (!piAccessToken) return realPiLogin({requirePayments:false});
-  const app = apps.find(a => a.name === name);
-  if (!app?.id) return;
-  try {
-    const r = await apiCall("save", {method:"POST", body:{appId:app.id}});
-    if (r.saved) saved.add(name); else saved.delete(name);
-    renderApps(); updateProfileCounts();
-  } catch(e){ showToast(e.message); }
-}
+async function syncVote(name){if(!piAccessToken){await realPiLogin({requirePayments:false});if(!piAccessToken)return}const app=apps.find(a=>a.name===name);if(!app?.id)return;const before=voted.has(name),old=Number(app.votes||0);if(before){voted.delete(name);app.votes=Math.max(0,old-1)}else{voted.add(name);app.votes=old+1}renderApps();renderRank();updateProfileCounts();try{const r=await apiCall("vote",{method:"POST",body:{appId:app.id}});r.voted?voted.add(name):voted.delete(name);if(typeof r.votesCount==="number")app.votes=r.votesCount;renderApps();renderRank();updateProfileCounts();return r.voted}catch(e){before?voted.add(name):voted.delete(name);app.votes=old;renderApps();renderRank();updateProfileCounts();showToast(humanizeError(e));throw e}}
+async function syncSave(name){if(!piAccessToken){await realPiLogin({requirePayments:false});if(!piAccessToken)return}const app=apps.find(a=>a.name===name);if(!app?.id)return;const before=saved.has(name);before?saved.delete(name):saved.add(name);renderApps();updateProfileCounts();try{const r=await apiCall("save",{method:"POST",body:{appId:app.id}});r.saved?saved.add(name):saved.delete(name);renderApps();updateProfileCounts();return r.saved}catch(e){before?saved.add(name):saved.delete(name);renderApps();updateProfileCounts();showToast(humanizeError(e));throw e}}
 
-async function submitRealReview() {
-  const txt = document.getElementById("reviewText").value.trim();
-  if (!selectedReviewStars || !txt) {
-    showToast(lang==="ar" ? "اختار تقييم واكتب مراجعة" : "Choose a rating and write a review");
-    return;
-  }
-  if (!piAccessToken) { await realPiLogin({requirePayments:false}); }
-  if (!currentDetailApp?.id) {
-    showToast(lang==="ar" ? "هذا التطبيق غير متاح" : "This app is unavailable");
-    return;
-  }
-  try {
-    await apiCall("review", {
-      method:"POST",
-      body:{appId:currentDetailApp.id, rating:selectedReviewStars, body:txt}
-    });
-    document.getElementById("reviewText").value="";
-    selectedReviewStars=0;
-    document.querySelectorAll(".star-btn").forEach(s=>s.classList.remove("active"));
-    showToast(lang==="ar" ? "تم نشر المراجعة ✅" : "Review published ✅");
-    await hydrateAppsFromBackend();
-    await hydrateUserState();
-  } catch(e){ showToast(e.message); }
-}
+async function submitRealReview(){const txt=document.getElementById("reviewText").value.trim();if(!selectedReviewStars){showToast(uxText("اختر عدد النجوم أولاً","Choose a star rating first"));return}try{if(!piAccessToken)await realPiLogin({requirePayments:false});if(!currentDetailApp?.id)throw new Error(uxText("هذا التطبيق غير متاح","This app is unavailable"));operationOpen({title:uxText("نشر تقييمك","Publishing your rating"),steps:[uxText("حفظ التقييم","Save rating"),uxText("تحديث التطبيق","Refresh app")],progress:25});await apiCall("review",{method:"POST",body:{appId:currentDetailApp.id,rating:selectedReviewStars,body:txt}});document.getElementById("reviewText").value="";selectedReviewStars=0;document.querySelectorAll(".star-btn").forEach(s=>s.classList.remove("active"));await Promise.all([hydrateAppsFromBackend(),hydrateUserState()]);operationSuccess({title:uxText("تم نشر تقييمك","Rating published")})}catch(e){operationError(e,{retry:submitRealReview})}}
 
 let developerApps=[];
 let selectedDeveloperAppId=null;
+let developerProUntil=null;
 
-async function openDeveloperDashboard(){
-  closeDrawer("profileDrawer");
-  if(!piAccessToken){await realPiLogin({requirePayments:false});}
-  try{
-    const result=await apiCall("developer-summary");
-    developerApps=result.apps||[];
-    const select=document.getElementById("developerAppSelect");
-    select.innerHTML=developerApps.map(a=>`<option value="${a.id}">${escapeHtml(a.name)}</option>`).join("");
-    document.getElementById("dashboard").classList.add("show");
-    if(!developerApps.length){
-      selectedDeveloperAppId=null;
-      renderDeveloperSummary(null);
-      return;
-    }
-    selectedDeveloperAppId=developerApps[0].id;
-    renderDeveloperSummary(developerApps[0]);
-  }catch(e){showToast(e.message)}
-}
-function renderDeveloperSummary(a){
-  document.getElementById("devViews").textContent=a?.views||0;
-  document.getElementById("devOpens").textContent=a?.opens||0;
-  document.getElementById("devVotes").textContent=a?.votes||0;
-  document.getElementById("devRating").textContent=Number(a?.rating||0).toFixed(1);
-  const chart=document.getElementById("developerChart");
-  const days=a?.dailyViews||[0,0,0,0,0,0,0];
-  const max=Math.max(1,...days);
-  chart.innerHTML=days.map(v=>`<div class="bar" title="${v}" style="height:${Math.max(6,Math.round((v/max)*100))}%"></div>`).join("");
-  const info=document.getElementById("developerAppInfo");
-  info.innerHTML=a?`
-    <div class="dash-row"><b>Status</b><span>${escapeHtml(a.status)}</span></div>
-    <div class="dash-row"><b>Reviews</b><span>${a.reviews||0}</span></div>
-    <div class="dash-row"><b>Network</b><span>${escapeHtml(a.network||"")}</span></div>
-  `:`<div class="empty-state">${lang==="ar"?"لا توجد تطبيقات مرتبطة بحسابك.":"No apps are linked to your account."}</div>`;
-}
+async function openDeveloperDashboard(){closeDrawer("profileDrawer");if(!piAccessToken)await realPiLogin({requirePayments:false});document.getElementById("dashboard").classList.add("show");["devViews","devOpens","devVotes","devRating"].forEach(id=>document.getElementById(id).innerHTML='<span class="metric-skeleton" style="display:block"></span>');document.getElementById("developerChart").innerHTML='<div class="skeleton" style="height:100%;width:100%"></div>';try{const result=await apiCall("developer-summary");developerApps=result.apps||[];developerProUntil=result.proUntil||null;const s=document.getElementById("developerAppSelect");s.innerHTML=developerApps.map(a=>`<option value="${a.id}">${escapeHtml(a.name)}</option>`).join("");if(!developerApps.length){selectedDeveloperAppId=null;renderDeveloperSummary(null);return}selectedDeveloperAppId=developerApps[0].id;renderDeveloperSummary(developerApps[0])}catch(e){document.getElementById("developerAppInfo").innerHTML=`<div class="inline-error">${escapeHtml(humanizeError(e))}<br><button class="btn" onclick="openDeveloperDashboard()">${uxText("إعادة المحاولة","Retry")}</button></div>`}}
+function renderDeveloperSummary(a){const vals={devViews:a?.views||0,devOpens:a?.opens||0,devVotes:a?.votes||0,devRating:Number(a?.rating||0).toFixed(1)};for(const[id,v]of Object.entries(vals)){const e=document.getElementById(id);e.textContent=v;animateNumberElement(id)}const rate=a?.views?Math.round((a.opens||0)/a.views*100):0;document.getElementById("devConversion").textContent=`${uxText("معدل الفتح","Open rate")}: ${rate}%`;const st=document.getElementById("devAppStatus");st.textContent=a?`${uxText("الحالة","Status")}: ${a.status}`:uxText("لا يوجد تطبيق","No app");st.className=`dash-status-pill ${a?.status==="approved"?"good":""}`;const pro=document.getElementById("devProStatus"),proOn=developerProUntil&&new Date(developerProUntil)>new Date();pro.textContent=proOn?`Pro · ${uxText("حتى","until")} ${new Date(developerProUntil).toLocaleDateString(lang==="ar"?"ar-EG":"en-US")}`:`Pro · ${uxText("غير مفعّل","inactive")}`;pro.className=`dash-status-pill ${proOn?"gold":""}`;const ft=document.getElementById("devFeaturedStatus"),ftOn=a?.featured_until&&new Date(a.featured_until)>new Date();ft.textContent=ftOn?`${uxText("مميّز حتى","Featured until")} ${new Date(a.featured_until).toLocaleDateString(lang==="ar"?"ar-EG":"en-US")}`:uxText("غير مميّز حاليًا","Not currently featured");ft.className=`dash-status-pill ${ftOn?"gold":""}`;const days=a?.dailyViews||[0,0,0,0,0,0,0],mx=Math.max(1,...days);document.getElementById("developerChart").innerHTML=days.map(v=>`<div class="bar" title="${v}" style="height:${Math.max(6,Math.round(v/mx*100))}%"></div>`).join("");let labels=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);labels.push(d.toLocaleDateString(lang==="ar"?"ar-EG":"en-US",{weekday:"short"}))}document.getElementById("developerChartLabels").innerHTML=labels.map(x=>`<span>${escapeHtml(x)}</span>`).join("");document.getElementById("developerAppInfo").innerHTML=a?`<div class="dash-row"><b>${uxText("الحالة","Status")}</b><span>${escapeHtml(a.status)}</span></div><div class="dash-row"><b>${uxText("المراجعات","Reviews")}</b><span>${a.reviews||0}</span></div><div class="dash-row"><b>${uxText("الشبكة","Network")}</b><span>${escapeHtml(a.network||"")}</span></div><div class="dash-row"><b>${uxText("معدل الفتح","Open rate")}</b><span>${rate}%</span></div>`:`<div class="empty-state">${uxText("لا توجد تطبيقات مرتبطة بحسابك.","No apps are linked to your account.")}</div>`}
 document.getElementById("developerAppSelect")?.addEventListener("change",e=>{
   selectedDeveloperAppId=e.target.value;
   renderDeveloperSummary(developerApps.find(a=>a.id===selectedDeveloperAppId));
 });
 
-async function startPiPayment(product) {
-  try {
-    await loadServerConfig();
-    if (!piAccessToken) await realPiLogin({requirePayments:true});
-    if (!window.Pi || !piSdkReady) throw new Error("Pi SDK unavailable.");
-    await ensurePaymentPermission();
-    if(product.startsWith("featured_") && !selectedDeveloperAppId) throw new Error(lang==="ar"?"اختر تطبيقًا أولاً":"Select an app first");
-    const amount = Number(serverConfig.prices?.[product]);
-    if (!amount || amount <= 0) throw new Error("Invalid product price.");
-    const memoMap = {
-      featured_1d:"AppHub Featured placement — 1 day",
-      featured_7d:"AppHub Featured placement — 7 days",
-      pro_month:"AppHub Developer Pro — 1 month"
-    };
-    window.Pi.createPayment({
-      amount,
-      memo:memoMap[product] || "AppHub purchase",
-      metadata:{product, appId:product.startsWith("featured_") ? selectedDeveloperAppId : null}
-    }, {
-      onReadyForServerApproval: async (paymentId) => {
-        await apiCall("payment-approve", {
-          method:"POST",
-          body:{paymentId, product, appId:product.startsWith("featured_") ? selectedDeveloperAppId : null}
-        });
-      },
-      onReadyForServerCompletion: async (paymentId, txid) => {
-        const result = await apiCall("payment-complete", {
-          method:"POST",
-          body:{paymentId, txid}
-        });
-        showToast(lang==="ar" ? "تم الدفع والتفعيل بنجاح ✅" : "Payment completed and activated ✅");
-        console.log("Payment completed", result);
-      },
-      onCancel: async (paymentId) => {
-        try { await apiCall("payment-cancel", {method:"POST", body:{paymentId}}); } catch(_){}
-        showToast(lang==="ar" ? "تم إلغاء الدفع" : "Payment cancelled");
-      },
-      onError: (error) => showToast(error?.message || "Payment error")
-    });
-  } catch(e){ showToast(e.message); }
-}
+async function startPiPayment(product){const retry=()=>startPiPayment(product),featured=product.startsWith("featured_");try{await loadServerConfig();if(featured&&!selectedDeveloperAppId)throw new Error(uxText("اختر تطبيقًا أولاً","Select an app first"));const amount=Number(serverConfig.prices?.[product]);if(!amount)throw new Error(uxText("سعر الخدمة غير صالح","Invalid product price"));operationOpen({title:`${product==="pro_month"?"Developer Pro":uxText("تمييز 7 أيام","Featured 7 days")} · ${formatPiPrice(amount)} Pi`,message:uxText("يتم تجهيز الدفع الآمن عبر Pi.","Preparing secure Pi payment."),steps:[uxText("صلاحية الدفع","Payment permission"),uxText("اعتماد الخادم","Server approval"),uxText("تأكيد المحفظة","Wallet confirmation"),uxText("التحقق والتفعيل","Verification & activation")],progress:6,retry});operationStep(0,{progress:12,message:uxText("وافق على صلاحية Payments إذا ظهرت لك.","Grant Payments permission if prompted.")});if(!piAccessToken)await realPiLogin({requirePayments:true});if(!window.Pi||!piSdkReady)throw new Error(uxText("افتح الموقع داخل Pi Browser لإتمام الدفع.","Open the site in Pi Browser to complete payment."));await ensurePaymentPermission();const memo={featured_7d:"AppHub Featured placement — 7 days",pro_month:"AppHub Developer Pro — 1 month"};await new Promise((resolve,reject)=>window.Pi.createPayment({amount,memo:memo[product]||"AppHub purchase",metadata:{product,appId:featured?selectedDeveloperAppId:null}},{onReadyForServerApproval:async id=>{try{operationStep(1,{progress:38,message:uxText("الخادم يعتمد عملية الدفع…","Server is approving payment…")});await apiCall("payment-approve",{method:"POST",body:{paymentId:id,product,appId:featured?selectedDeveloperAppId:null}});operationStep(2,{progress:58,message:uxText("أكد العملية في محفظة Pi.","Confirm the transaction in Pi Wallet.")})}catch(e){reject(e)}},onReadyForServerCompletion:async(id,txid)=>{try{operationStep(3,{progress:82,message:uxText("التحقق من المعاملة وتفعيل الخدمة…","Verifying transaction and activating service…")});await apiCall("payment-complete",{method:"POST",body:{paymentId:id,txid}});resolve()}catch(e){reject(e)}},onCancel:async id=>{try{id&&await apiCall("payment-cancel",{method:"POST",body:{paymentId:id}})}catch(_){}reject(new Error(uxText("تم إلغاء الدفع","Payment cancelled")))},onError:e=>reject(e)}));operationProgress(100);const state=await apiCall("my").catch(()=>null);const ds=await apiCall("developer-summary").catch(()=>null);if(ds){developerApps=ds.apps||developerApps;developerProUntil=ds.proUntil||null;const a=developerApps.find(x=>x.id===selectedDeveloperAppId);if(a)renderDeveloperSummary(a)}operationSuccess({title:uxText("تم الدفع والتفعيل","Payment completed"),message:product==="pro_month"?uxText("Developer Pro مفعّل الآن على حسابك.","Developer Pro is now active on your account."):uxText("تم تفعيل تمييز التطبيق.","Featured placement is now active."),meta:product==="pro_month"&&state?.user?.proUntil?`${uxText("مفعّل حتى","Active until")} ${new Date(state.user.proUntil).toLocaleDateString(lang==="ar"?"ar-EG":"en-US")}`:"",primaryLabel:uxText("العودة للوحة المطور","Back to Developer Dashboard")})}catch(e){operationError(e,{retry})}}
 
 // Connect UI hooks to backend actions.
-const loginBtnLive = document.getElementById("piLoginBtn");
-if (loginBtnLive) loginBtnLive.onclick = ()=>realPiLogin({requirePayments:false});
-
-const oldToggleVote = toggleVote;
-toggleVote = function(name, btn) {
-  if (apps.find(a=>a.name===name)?.id) return syncVote(name);
-  return oldToggleVote(name, btn);
-};
-const oldToggleSave = toggleSave;
-toggleSave = function(name, btn) {
-  if (apps.find(a=>a.name===name)?.id) return syncSave(name);
-  return oldToggleSave(name, btn);
-};
-
 const liveReviewBtn = document.getElementById("submitReview");
 if (liveReviewBtn) liveReviewBtn.onclick = submitRealReview;
 
 const liveSubmitForm = document.getElementById("submitForm");
-if (liveSubmitForm) {
-  liveSubmitForm.onsubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await submitRealApp(e.target);
-      document.getElementById("submitModal").classList.remove("show");
-      e.target.reset();
-    } catch(err){ showToast(err.message); }
-  };
-}
+if(liveSubmitForm){liveSubmitForm.onsubmit=async e=>{e.preventDefault();try{await submitRealApp(e.target)}catch(_){}}}
 
 document.getElementById("promote7Btn")?.addEventListener("click",()=>startPiPayment("featured_7d"));
 document.getElementById("upgradeProBtn")?.addEventListener("click",()=>startPiPayment("pro_month"));
 
-// Launch real URL when available; safety screen remains first.
-const confirmLaunchLive = document.getElementById("confirmLaunch");
-if (confirmLaunchLive) confirmLaunchLive.onclick = () => {
-  const url = currentDetailApp?.appUrl;
-  if (!url) return showToast(lang==="ar" ? "رابط التطبيق غير متاح" : "App URL is unavailable");
-  try {
-    const parsed = new URL(url);
-    if (!["https:"].includes(parsed.protocol)) throw new Error("Only HTTPS app URLs are allowed.");
-    apiCall("event",{method:"POST",auth:false,body:{appId:currentDetailApp.id,type:"open"}}).catch(()=>{});
-    window.open(parsed.href, "_blank", "noopener,noreferrer");
-  } catch(e){ showToast(e.message); }
-};
+
 
 // Bootstrap
 loadServerConfig().then(async ()=>{
@@ -2532,26 +2224,7 @@ async function openAdminPage() {
   if (allowed) await loadAdminAll();
 }
 
-async function loadAdminAll() {
-  const [summary, appsData, usersData, pricing] = await Promise.all([
-    apiCall("admin-summary"),
-    apiCall("admin-apps"),
-    apiCall("admin-users"),
-    apiCall("admin-pricing")
-  ]);
-  document.getElementById("metricUsers").textContent = summary.users;
-  document.getElementById("metricApproved").textContent = summary.approvedApps;
-  document.getElementById("metricPending").textContent = summary.pendingApps;
-  document.getElementById("metricPayments").textContent = summary.completedPayments;
-  adminAppsCache = appsData.apps || [];
-  adminUsersCache = usersData.users || [];
-  renderAdminPending();
-  renderAdminApps();
-  renderAdminUsers();
-  document.getElementById("priceFeatured1").value = pricing.prices.featured_1d;
-  document.getElementById("priceFeatured7").value = pricing.prices.featured_7d;
-  document.getElementById("pricePro").value = pricing.prices.pro_month;
-}
+async function loadAdminAll(){["metricUsers","metricApproved","metricPending","metricPayments"].forEach(id=>document.getElementById(id).innerHTML='<span class="metric-skeleton" style="display:block"></span>');document.getElementById("adminPendingApps").innerHTML='<div class="skeleton" style="height:180px"></div>';document.getElementById("adminAppsTable").innerHTML='<div class="skeleton" style="height:260px"></div>';document.getElementById("adminUsersTable").innerHTML='<div class="skeleton" style="height:260px"></div>';try{const[summary,appsData,usersData,pricing]=await Promise.all([apiCall("admin-summary"),apiCall("admin-apps"),apiCall("admin-users"),apiCall("admin-pricing")]);document.getElementById("metricUsers").textContent=summary.users;document.getElementById("metricApproved").textContent=summary.approvedApps;document.getElementById("metricPending").textContent=summary.pendingApps;document.getElementById("metricPayments").textContent=summary.completedPayments;adminAppsCache=appsData.apps||[];adminUsersCache=usersData.users||[];renderAdminPending();renderAdminApps();renderAdminUsers();document.getElementById("priceFeatured1").value=pricing.prices.featured_1d;document.getElementById("priceFeatured7").value=pricing.prices.featured_7d;document.getElementById("pricePro").value=pricing.prices.pro_month}catch(e){const x=`<div class="inline-error">${escapeHtml(humanizeError(e))}<br><button class="btn" onclick="loadAdminAll()">${uxText("إعادة المحاولة","Retry")}</button></div>`;document.getElementById("adminPendingApps").innerHTML=x;document.getElementById("adminAppsTable").innerHTML=x;document.getElementById("adminUsersTable").innerHTML=x}}
 
 function statusChip(status) {
   return `<span class="status-chip ${status}">${status}</span>`;
@@ -2608,29 +2281,10 @@ function renderAdminUsers() {
 }
 function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 
-async function adminAppAction(appId, action) {
-  try {
-    await apiCall("admin-app-action",{method:"POST",body:{appId,action}});
-    showToast("Updated ✅"); await loadAdminAll(); await hydrateAppsFromBackend();
-  } catch(e){showToast(e.message)}
-}
-async function adminDeleteApp(appId, name) {
-  if (!confirm(`Delete "${name}" permanently?`)) return;
-  try {
-    await apiCall("admin-app-action",{method:"POST",body:{appId,action:"delete"}});
-    showToast("Deleted ✅"); await loadAdminAll(); await hydrateAppsFromBackend();
-  } catch(e){showToast(e.message)}
-}
-async function adminSetRole(userId, role) {
-  if (!confirm(`Change this user's role to ${role}?`)) return;
-  try { await apiCall("admin-user-role",{method:"POST",body:{userId,role}}); showToast("Role updated ✅"); await loadAdminAll(); await checkAdminAccess(); }
-  catch(e){showToast(e.message)}
-}
-async function adminBanUser(userId, banned) {
-  const reason = banned ? (prompt("Ban reason (optional):") || "") : "";
-  try { await apiCall("admin-user-ban",{method:"POST",body:{userId,banned,reason}}); showToast(banned?"User banned":"User unbanned"); await loadAdminAll(); }
-  catch(e){showToast(e.message)}
-}
+async function adminAppAction(appId,action){try{operationOpen({title:uxText("تحديث التطبيق","Updating app"),steps:[uxText("حفظ التغيير","Save change"),uxText("تحديث القوائم","Refresh lists")],progress:20});await apiCall("admin-app-action",{method:"POST",body:{appId,action}});await Promise.all([loadAdminAll(),hydrateAppsFromBackend()]);operationSuccess({title:uxText("تم تحديث التطبيق","App updated")})}catch(e){operationError(e,{retry:()=>adminAppAction(appId,action)})}}
+async function adminDeleteApp(appId,name){const c=await askConfirmation({title:uxText("حذف التطبيق نهائيًا؟","Delete app permanently?"),message:uxText(`سيتم حذف ${name} وملفاته نهائيًا.`,`The app ${name} and its media will be permanently deleted.`),acceptLabel:uxText("حذف نهائي","Delete permanently"),danger:true});if(c.confirmed)await adminAppAction(appId,"delete")}
+async function adminSetRole(userId,role){const c=await askConfirmation({title:uxText("تغيير صلاحية المستخدم","Change user role"),message:uxText(`تغيير الصلاحية إلى ${role}.`,`Change role to ${role}.`),acceptLabel:uxText("تغيير الصلاحية","Change role")});if(!c.confirmed)return;try{operationOpen({title:uxText("تحديث الصلاحية","Updating role"),steps:[uxText("حفظ الصلاحية","Save role")],progress:30});await apiCall("admin-user-role",{method:"POST",body:{userId,role}});await loadAdminAll();await checkAdminAccess();operationSuccess({title:uxText("تم تحديث الصلاحية","Role updated")})}catch(e){operationError(e,{retry:()=>adminSetRole(userId,role)})}}
+async function adminBanUser(userId,banned){const c=await askConfirmation({title:banned?uxText("حظر المستخدم؟","Ban user?"):uxText("فك الحظر؟","Unban user?"),message:banned?uxText("سيتم منع الحساب من العمليات التي تتطلب تسجيل الدخول.","Authenticated actions will be blocked for this account."):uxText("سيتم السماح للحساب بالعمل مرة أخرى.","Account access will be restored."),acceptLabel:banned?uxText("حظر","Ban"):uxText("فك الحظر","Unban"),reason:banned,danger:banned});if(!c.confirmed)return;try{operationOpen({title:banned?uxText("جاري الحظر","Banning user"):uxText("جاري فك الحظر","Unbanning user"),steps:[uxText("حفظ التغيير","Save change")],progress:30});await apiCall("admin-user-ban",{method:"POST",body:{userId,banned,reason:c.reason}});await loadAdminAll();operationSuccess({title:banned?uxText("تم الحظر","User banned"):uxText("تم فك الحظر","User unbanned")})}catch(e){operationError(e,{retry:()=>adminBanUser(userId,banned)})}}
 
 document.getElementById("adminEntryBtn")?.addEventListener("click",openAdminPage);
 document.getElementById("closeAdminBtn")?.addEventListener("click",()=>document.getElementById("adminPage").classList.remove("show"));
@@ -2645,12 +2299,7 @@ document.getElementById("savePricesBtn")?.addEventListener("click",async()=>{
     featured_7d:Number(document.getElementById("priceFeatured7").value),
     pro_month:Number(document.getElementById("pricePro").value)
   };
-  try{
-    const r=await apiCall("admin-pricing",{method:"POST",body:{prices}});
-    serverConfig.prices=r.prices;
-    renderServicePrices();
-    showToast("Prices saved ✅");
-  }catch(e){showToast(e.message)}
+  try{operationOpen({title:uxText("حفظ الأسعار","Saving prices"),steps:[uxText("التحقق والحفظ","Validate & save")],progress:30});const r=await apiCall("admin-pricing",{method:"POST",body:{prices}});serverConfig.prices=r.prices;renderServicePrices();operationSuccess({title:uxText("تم حفظ الأسعار","Prices saved"),message:uxText("تم تحديث أسعار لوحة المطور فورًا.","Developer Dashboard prices are updated immediately.")})}catch(e){operationError(e,{retry:()=>document.getElementById("savePricesBtn").click()})}
 });
 document.querySelectorAll(".admin-tab").forEach(btn=>btn.onclick=()=>{
   document.querySelectorAll(".admin-tab").forEach(x=>x.classList.toggle("active",x===btn));
@@ -2716,7 +2365,7 @@ document.getElementById("appScreensInput")?.addEventListener("change",e=>{
 });
 
 
-async function compressImageForUpload(file, kind){
+async function compressImageForUpload(file, kind, onProgress=()=>{}){
   // browser-image-compression keeps compression client-side so Vercel never handles image bytes.
   if(typeof imageCompression!=="function"){
     console.warn("Image compression library unavailable; uploading original image.");
@@ -2734,7 +2383,8 @@ async function compressImageForUpload(file, kind){
     fileType:"image/webp",
     initialQuality:isLogo ? 0.88 : 0.90,
     maxIteration:10,
-    preserveExif:false
+    preserveExif:false,
+    onProgress:p=>onProgress(Math.max(0,Math.min(100,Number(p)||0)))
   };
 
   try{
@@ -2764,64 +2414,9 @@ async function compressImageForUpload(file, kind){
 }
 
 
-async function uploadAppImage(file, kind) {
-  validateImage(file, kind==="logo"?3:5);
+async function uploadAppImage(file,kind,{onCompress=()=>{},onUpload=()=>{}}={}){validateImage(file,kind==="logo"?3:5);const originalSize=file.size;const uploadFile=await compressImageForUpload(file,kind,onCompress);const sign=await apiCall("upload-sign",{method:"POST",body:{kind,fileName:uploadFile.name,contentType:uploadFile.type,size:uploadFile.size}});const body=new FormData();body.append("cacheControl","31536000");body.append("",uploadFile);await new Promise((resolve,reject)=>{const x=new XMLHttpRequest();x.open("PUT",sign.signedUrl,true);x.setRequestHeader("x-upsert","false");x.upload.onprogress=e=>{if(e.lengthComputable)onUpload(Math.round(e.loaded/e.total*100))};x.onload=()=>x.status>=200&&x.status<300?resolve():reject(new Error(uxText("فشل رفع الصورة","Image upload failed")));x.onerror=()=>reject(new Error(uxText("انقطع الاتصال أثناء رفع الصورة","Connection lost while uploading image")));x.send(body)});return{path:sign.path,publicUrl:sign.publicUrl,originalSize,finalSize:uploadFile.size}}
 
-  const uploadFile=await compressImageForUpload(file,kind);
-  const sign = await apiCall("upload-sign", {
-    method:"POST",
-    body:{
-      kind,
-      fileName:uploadFile.name,
-      contentType:uploadFile.type,
-      size:uploadFile.size
-    }
-  });
-
-  const uploadBody=new FormData();
-  uploadBody.append("cacheControl","31536000");
-  uploadBody.append("",uploadFile);
-  const uploadRes = await fetch(sign.signedUrl, {
-    method:"PUT",
-    headers:{"x-upsert":"false"},
-    body:uploadBody
-  });
-  if(!uploadRes.ok) throw new Error(lang==="ar"?"فشل رفع الصورة":"Image upload failed");
-  return {path:sign.path, publicUrl:sign.publicUrl};
-}
-
-async function submitRealApp(form) {
-  if (!piAccessToken) await realPiLogin({requirePayments:false});
-  const fd=new FormData(form);
-  const logo=fd.get("logo");
-  const screenshots=fd.getAll("screenshots").filter(x=>x && x.size);
-  if(!logo || !logo.size) throw new Error(lang==="ar"?"شعار التطبيق مطلوب":"App logo is required");
-  if(screenshots.length<1 || screenshots.length>3) throw new Error(lang==="ar"?"ارفع من 1 إلى 3 لقطات شاشة":"Upload 1 to 3 screenshots");
-
-  const submitBtn=form.querySelector('button[type="submit"]');
-  if(submitBtn){submitBtn.disabled=true;submitBtn.textContent=lang==="ar"?"جاري ضغط ورفع الصور...":"Compressing & uploading...";}
-  try{
-    const logoUpload=await uploadAppImage(logo,"logo");
-    const shotUploads=[];
-    for(const f of screenshots) shotUploads.push(await uploadAppImage(f,"screenshot"));
-
-    const payload={
-      name:String(fd.get("name")||"").trim(),
-      category:String(fd.get("category")||""),
-      appUrl:String(fd.get("appUrl")||"").trim(),
-      descriptionEn:String(fd.get("description")||"").trim(),
-      descriptionAr:String(fd.get("description")||"").trim(),
-      network:String(fd.get("network")||"Mainnet"),
-      supportsPayments:String(fd.get("supportsPayments")||"no")==="yes",
-      logoUrl:logoUpload.publicUrl,
-      logoPath:logoUpload.path,
-      screenshots:shotUploads
-    };
-    return await apiCall("submit-app",{method:"POST",body:payload});
-  } finally {
-    if(submitBtn){submitBtn.disabled=false;submitBtn.textContent=data[lang].sendReview;}
-  }
-}
+async function submitRealApp(form){const retry=()=>submitRealApp(form);try{if(!piAccessToken)await realPiLogin({requirePayments:false});const fd=new FormData(form),logo=fd.get("logo"),shots=fd.getAll("screenshots").filter(x=>x&&x.size);if(!logo?.size)throw new Error(uxText("شعار التطبيق مطلوب","App logo is required"));if(shots.length<1||shots.length>3)throw new Error(uxText("ارفع من 1 إلى 3 لقطات شاشة","Upload 1 to 3 screenshots"));const files=[{file:logo,kind:"logo",label:uxText("الشعار","logo")},...shots.map((f,i)=>({file:f,kind:"screenshot",label:`${uxText("لقطة","screenshot")} ${i+1}`}))];operationOpen({title:uxText("جاري نشر تطبيقك","Submitting your app"),message:uxText("نضغط الصور ونرفعها بأقل حجم ممكن مع الحفاظ على الوضوح.","Compressing and uploading media while preserving clarity."),steps:[uxText("ضغط الصور","Compress images"),uxText("رفع الملفات","Upload files"),uxText("حفظ البيانات","Save details"),uxText("إرسال للمراجعة","Submit for review")],progress:4,retry});let uploaded=[],orig=0,fin=0;for(let i=0;i<files.length;i++){const it=files[i];const r=await uploadAppImage(it.file,it.kind,{onCompress:p=>operationStep(0,{progress:5+Math.round(((i+p/200)/files.length)*45),message:`${uxText("ضغط","Compressing")} ${it.label} · ${Math.round(p)}%`}),onUpload:p=>operationStep(1,{progress:25+Math.round(((i+.5+p/200)/files.length)*45),message:`${uxText("رفع","Uploading")} ${it.label} · ${Math.round(p)}%`})});uploaded.push(r);orig+=r.originalSize;fin+=r.finalSize}operationStep(2,{progress:78,message:uxText("حفظ بيانات التطبيق…","Saving app details…")});const payload={name:String(fd.get("name")||"").trim(),category:String(fd.get("category")||""),appUrl:String(fd.get("appUrl")||"").trim(),descriptionEn:String(fd.get("description")||"").trim(),descriptionAr:String(fd.get("description")||"").trim(),network:String(fd.get("network")||"Mainnet"),supportsPayments:String(fd.get("supportsPayments")||"no")==="yes",logoUrl:uploaded[0].publicUrl,logoPath:uploaded[0].path,screenshots:uploaded.slice(1).map(x=>({path:x.path,publicUrl:x.publicUrl}))};const result=await apiCall("submit-app",{method:"POST",body:payload});operationStep(3,{progress:96,message:uxText("إنهاء الإرسال…","Finalizing submission…")});await hydrateUserState();operationProgress(100);const savedPct=orig?Math.max(0,Math.round((1-fin/orig)*100)):0;operationSuccess({title:uxText("تم إرسال التطبيق بنجاح","App submitted successfully"),message:uxText("تطبيقك الآن قيد المراجعة.","Your app is now pending review."),meta:`${uxText("تقليل حجم الصور","Image size reduction")}: ${savedPct}%`,primaryLabel:uxText("العودة إلى AppHub","Back to AppHub"),primaryAction:()=>{document.getElementById("submitModal").classList.remove("show");form.reset();updateCustomFileNames();document.getElementById("logoPreview").innerHTML="";document.getElementById("screensPreview").innerHTML=""},secondaryLabel:uxText("لوحة المطور","Developer Dashboard"),secondaryAction:()=>{document.getElementById("submitModal").classList.remove("show");form.reset();openDeveloperDashboard()}});return result}catch(e){operationError(e,{retry});throw e}}
 
 // Payment must have explicit payments scope. Re-authenticate for payments even if a username-only session exists.
 async function ensurePaymentPermission(){
@@ -2959,28 +2554,7 @@ document.querySelectorAll("#publicStarsInput .star-btn").forEach(btn=>btn.addEve
   document.querySelectorAll("#publicStarsInput .star-btn").forEach(x=>x.classList.toggle("active",Number(x.dataset.star)<=publicReviewStars));
 }));
 
-document.getElementById("publicSubmitReview")?.addEventListener("click",async()=>{
-  if(!currentDetailApp)return;
-  if(!publicReviewStars){
-    showToast(lang==="ar"?"اختر عدد النجوم أولاً":"Choose a star rating first");
-    return;
-  }
-  if(!piAccessToken)await realPiLogin({requirePayments:false});
-  const body=document.getElementById("publicReviewText").value.trim();
-  try{
-    await apiCall("review",{method:"POST",body:{appId:currentDetailApp.id,rating:publicReviewStars,body}});
-    showToast(lang==="ar"?"تم إضافة تقييمك ✅":"Your rating was added ✅");
-    document.getElementById("publicReviewText").value="";
-    publicReviewStars=0;
-    document.querySelectorAll("#publicStarsInput .star-btn").forEach(x=>x.classList.remove("active"));
-    await hydrateAppsFromBackend();
-    await hydrateUserState();
-    const fresh=appById(currentDetailApp.id) || currentDetailApp;
-    currentDetailApp=fresh;
-    document.getElementById("publicRating").textContent=Number(fresh.rating||0).toFixed(1);
-    await loadPublicReviews(fresh);
-  }catch(e){showToast(e.message)}
-});
+document.getElementById("publicSubmitReview")?.addEventListener("click",async()=>{if(!currentDetailApp)return;if(!publicReviewStars){showToast(uxText("اختر عدد النجوم أولاً","Choose a star rating first"));return}const retry=()=>document.getElementById("publicSubmitReview").click(),body=document.getElementById("publicReviewText").value.trim();try{if(!piAccessToken)await realPiLogin({requirePayments:false});operationOpen({title:uxText("إضافة تقييمك","Adding your rating"),steps:[uxText("حفظ التقييم","Save rating"),uxText("تحديث المتوسط","Refresh average")],progress:25,retry});await apiCall("review",{method:"POST",body:{appId:currentDetailApp.id,rating:publicReviewStars,body}});document.getElementById("publicReviewText").value="";publicReviewStars=0;document.querySelectorAll("#publicStarsInput .star-btn").forEach(x=>x.classList.remove("active"));await Promise.all([hydrateAppsFromBackend(),hydrateUserState()]);const fresh=appById(currentDetailApp.id)||currentDetailApp;currentDetailApp=fresh;document.getElementById("publicRating").textContent=Number(fresh.rating||0).toFixed(1);await loadPublicReviews(fresh);operationSuccess({title:uxText("تم إضافة تقييمك","Your rating was added")})}catch(e){operationError(e,{retry})}});
 
 function updateCustomFileNames(){
   const logo=document.getElementById("appLogoInput");
