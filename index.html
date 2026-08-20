@@ -649,7 +649,7 @@
     }
     .category-hero h2{font-size:34px;margin:0 0 7px}.category-hero p{margin:0;color:var(--muted)}
     .category-list-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:18px 0 50px}
-    .launch-screen{
+    .launch-screen{display:none!important;
       display:none;position:fixed;inset:0;z-index:140;background:var(--bg);overflow:auto
     }
     .launch-screen.show{display:block}
@@ -877,6 +877,138 @@
     }
     .app-logo-img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
     .real-shot{width:100%;height:100%;object-fit:cover;border-radius:inherit}
+
+
+    /* ===== App page & media preview upgrade ===== */
+    .shot.real-shot-wrap::before,
+    .shot.real-shot-wrap::after{
+      display:none!important;
+      content:none!important;
+    }
+    .shot.real-shot-wrap{
+      cursor:zoom-in;
+      background:var(--surface);
+      transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+    }
+    .shot.real-shot-wrap:hover{
+      transform:translateY(-3px);
+      box-shadow:var(--shadow-sm);
+      border-color:color-mix(in srgb,var(--primary) 35%,var(--border));
+    }
+    .real-shot{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:inherit;
+    }
+
+    .media-lightbox{
+      position:fixed;inset:0;z-index:240;background:rgba(2,4,10,.90);
+      backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;padding:18px
+    }
+    .media-lightbox.show{display:flex}
+    .media-lightbox-inner{
+      width:min(980px,100%);height:min(88vh,900px);position:relative;
+      display:flex;align-items:center;justify-content:center
+    }
+    .media-lightbox img{
+      max-width:100%;max-height:100%;object-fit:contain;border-radius:18px;
+      box-shadow:0 30px 80px rgba(0,0,0,.45)
+    }
+    .lightbox-close{
+      position:absolute;top:0;inset-inline-end:0;z-index:2;
+      width:44px;height:44px;border-radius:14px;border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.10);color:#fff;display:grid;place-items:center;font-size:22px
+    }
+
+    .public-app-page{
+      display:none;position:fixed;inset:0;z-index:145;background:var(--bg);overflow:auto
+    }
+    .public-app-page.show{display:block}
+    .public-app-topbar{
+      position:sticky;top:0;z-index:5;background:var(--glass);backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--border)
+    }
+    .public-app-wrap{width:min(1040px,calc(100% - 28px));margin:auto}
+    .public-app-nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .public-app-hero{
+      margin:24px auto 16px;border-radius:28px;overflow:hidden;position:relative;
+      background:
+       radial-gradient(circle at 18% 10%,rgba(255,255,255,.20),transparent 25%),
+       linear-gradient(145deg,#6042e5,#7c5cff 58%,#d39b31);
+      color:#fff;padding:28px;min-height:250px;display:flex;align-items:flex-end
+    }
+    .public-app-hero:after{
+      content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.22),transparent 62%);pointer-events:none
+    }
+    .public-app-brand{display:flex;align-items:center;gap:18px;position:relative;z-index:2;width:100%}
+    .public-app-logo{
+      width:92px;height:92px;border-radius:24px;overflow:hidden;display:grid;place-items:center;
+      background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);font-size:28px;font-weight:900;flex:none
+    }
+    .public-app-logo img{width:100%;height:100%;object-fit:cover}
+    .public-app-brand h1{font-size:36px;margin:0 0 8px;line-height:1.05}
+    .public-app-brand p{margin:0;color:rgba(255,255,255,.82);font-size:14px}
+    .public-app-actions{margin-inline-start:auto;display:flex;gap:8px;flex-wrap:wrap;align-self:flex-end}
+    .public-app-actions .btn{box-shadow:none}
+    .public-app-layout{display:grid;grid-template-columns:1.3fr .7fr;gap:16px;padding-bottom:50px}
+    .public-section{
+      background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:18px;box-shadow:var(--shadow-sm)
+    }
+    .public-section + .public-section{margin-top:14px}
+    .public-section h3{margin:0 0 12px;font-size:17px}
+    .public-description{color:var(--muted);line-height:1.85;font-size:14px;white-space:pre-line}
+    .public-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+    .public-stat{background:var(--surface-2);border:1px solid var(--border);border-radius:15px;padding:12px;text-align:center}
+    .public-stat b{display:block;font-size:20px}.public-stat span{color:var(--muted);font-size:10px}
+    .public-screens{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:10px
+    }
+    .public-screen{
+      aspect-ratio:9/16;border-radius:17px;overflow:hidden;border:1px solid var(--border);background:var(--surface-2);
+      cursor:zoom-in;transition:.22s
+    }
+    .public-screen:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm)}
+    .public-screen img{width:100%;height:100%;object-fit:cover}
+
+    .rating-summary{
+      display:flex;align-items:center;gap:14px;padding:14px;border-radius:16px;background:var(--surface-2);border:1px solid var(--border)
+    }
+    .rating-number{font-size:36px;font-weight:900;line-height:1}
+    .rating-stars{display:flex;gap:2px;color:var(--accent);font-size:18px}
+    .rating-meta{color:var(--muted);font-size:11px;margin-top:4px}
+    .optional-note{color:var(--muted);font-size:10px;margin-top:5px}
+    .review-composer .stars-input{direction:ltr}
+    .review-composer .star-btn{font-size:26px;transition:transform .15s ease,color .15s ease}
+    .review-composer .star-btn:hover{transform:scale(1.08)}
+    .review-text-optional{width:100%;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:12px;padding:11px;outline:none;resize:vertical}
+    .review-text-optional:focus{border-color:var(--primary)}
+
+    .custom-file{
+      display:flex;align-items:center;gap:0;border:1px solid var(--border);border-radius:14px;overflow:hidden;
+      background:var(--surface-2);min-height:52px
+    }
+    .custom-file input[type="file"]{
+      position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;
+      pointer-events:none!important;overflow:hidden!important
+    }
+    .custom-file-button{
+      flex:none;min-height:52px;display:inline-flex;align-items:center;justify-content:center;
+      padding:0 18px;background:linear-gradient(135deg,var(--primary),#5e3ce7);color:#fff;
+      font-weight:850;cursor:pointer;border:0
+    }
+    .custom-file-name{
+      flex:1;min-width:0;padding:0 14px;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+    }
+
+    @media(max-width:820px){
+      .public-app-layout{grid-template-columns:1fr}
+      .public-app-brand{align-items:flex-start;flex-wrap:wrap}
+      .public-app-actions{margin-inline-start:0;width:100%}
+      .public-app-actions .btn{flex:1}
+      .public-app-brand h1{font-size:30px}
+    }
 
     @media(max-width:980px){
       .navlinks{display:none}
@@ -1118,14 +1250,22 @@
 
           <div class="field full">
             <label data-i18n="logoUpload">App logo *</label>
-            <input name="logo" id="appLogoInput" type="file" accept="image/png,image/jpeg,image/webp" required />
+            <div class="custom-file">
+              <input name="logo" id="appLogoInput" type="file" accept="image/png,image/jpeg,image/webp" required />
+              <label class="custom-file-button" for="appLogoInput" data-i18n="chooseFile">Choose file</label>
+              <span class="custom-file-name" id="logoFileName" data-i18n="noFileSelected">No file selected</span>
+            </div>
             <small style="color:var(--muted)" data-i18n="logoHelp">PNG/JPG/WebP · max 3 MB · required</small>
             <div id="logoPreview" style="margin-top:8px"></div>
           </div>
 
           <div class="field full">
             <label data-i18n="screensUpload">Screenshots (1–3) *</label>
-            <input name="screenshots" id="appScreensInput" type="file" accept="image/png,image/jpeg,image/webp" multiple required />
+            <div class="custom-file">
+              <input name="screenshots" id="appScreensInput" type="file" accept="image/png,image/jpeg,image/webp" multiple required />
+              <label class="custom-file-button" for="appScreensInput" data-i18n="chooseFiles">Choose files</label>
+              <span class="custom-file-name" id="screensFileName" data-i18n="noFilesSelected">No files selected</span>
+            </div>
             <small style="color:var(--muted)" data-i18n="screensHelp">Upload at least 1 and at most 3 screenshots · max 5 MB each</small>
             <div id="screensPreview" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"></div>
           </div>
@@ -1174,7 +1314,7 @@
               <div class="stats-row">
                 <div class="stat-box"><b id="detailRating">—</b><span data-i18n="rating">تقييم</span></div>
                 <div class="stat-box"><b id="detailVotes">0</b><span data-i18n="votes">تصويت</span></div>
-                <div class="stat-box"><b>Mainnet</b><span data-i18n="network">الشبكة</span></div>
+                <div class="stat-box"><b id="detailNetwork">—</b><span data-i18n="network">الشبكة</span></div>
               </div>
             </div>
             <div class="detail-panel" style="margin-top:12px">
@@ -1444,6 +1584,86 @@
     </div>
   </div>
 
+
+  <!-- Full image preview -->
+  <div class="media-lightbox" id="mediaLightbox">
+    <div class="media-lightbox-inner">
+      <button class="lightbox-close" id="closeMediaLightbox" aria-label="Close">×</button>
+      <img id="mediaLightboxImg" alt="Screenshot preview">
+    </div>
+  </div>
+
+  <!-- Public application page -->
+  <div class="public-app-page" id="publicAppPage">
+    <div class="public-app-topbar">
+      <div class="public-app-wrap public-app-nav">
+        <a class="brand"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M7 5h6.2a4.3 4.3 0 1 1 0 8.6H9.8V19H7V5Zm2.8 2.7v3.2h3.1a1.6 1.6 0 1 0 0-3.2H9.8Z" fill="white"/></svg></span><span>AppHub</span></a>
+        <button class="btn" id="closePublicAppPage" data-i18n="back">Back</button>
+      </div>
+    </div>
+    <div class="public-app-wrap">
+      <section class="public-app-hero">
+        <div class="public-app-brand">
+          <div class="public-app-logo" id="publicAppLogo">A</div>
+          <div>
+            <h1 id="publicAppName">App</h1>
+            <p id="publicAppMeta">Mainnet · Tools</p>
+          </div>
+          <div class="public-app-actions">
+            <button class="btn" id="publicSaveBtn" data-i18n="save">Save</button>
+            <button class="btn" id="publicVoteBtn" data-i18n="upvote">Upvote</button>
+            <button class="btn btn-primary" id="publicOpenBtn" data-i18n="openApp">Open app</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="public-app-layout">
+        <main>
+          <section class="public-section">
+            <h3 data-i18n="aboutApp">About the app</h3>
+            <div class="public-description" id="publicAppDescription"></div>
+          </section>
+
+          <section class="public-section">
+            <h3 data-i18n="screenshots">Screenshots</h3>
+            <div class="public-screens" id="publicAppScreens"></div>
+          </section>
+
+          <section class="public-section">
+            <h3 data-i18n="communityReviews">Community reviews</h3>
+            <div id="publicRatingSummary" class="rating-summary"></div>
+
+            <div class="review-composer" id="publicReviewComposer" style="margin-top:14px">
+              <div class="stars-input" id="publicStarsInput">
+                <button class="star-btn" type="button" data-star="1">★</button>
+                <button class="star-btn" type="button" data-star="2">★</button>
+                <button class="star-btn" type="button" data-star="3">★</button>
+                <button class="star-btn" type="button" data-star="4">★</button>
+                <button class="star-btn" type="button" data-star="5">★</button>
+              </div>
+              <textarea id="publicReviewText" class="review-text-optional" rows="3" data-i18n-placeholder="reviewOptionalPlaceholder" placeholder="Write a comment (optional)..."></textarea>
+              <div class="optional-note" data-i18n="reviewOptionalNote">Choose 1–5 stars. Comment is optional.</div>
+              <button class="btn btn-primary" id="publicSubmitReview" style="margin-top:10px" data-i18n="publishReview">Publish review</button>
+            </div>
+
+            <div id="publicReviewsList" style="margin-top:14px"></div>
+          </section>
+        </main>
+
+        <aside>
+          <section class="public-section">
+            <h3 data-i18n="appDetails">App details</h3>
+            <div class="public-stats">
+              <div class="public-stat"><b id="publicRating">0.0</b><span data-i18n="rating">Rating</span></div>
+              <div class="public-stat"><b id="publicVotes">0</b><span data-i18n="votes">Votes</span></div>
+              <div class="public-stat"><b id="publicNetwork">Mainnet</b><span data-i18n="network">Network</span></div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
 <script>
@@ -1479,7 +1699,7 @@ const data = {
     submitModalTitle:"إضافة تطبيق جديد", submitModalSub:"أدخل بيانات تطبيقك وسيتم إرساله للمراجعة.", appName:"اسم التطبيق", category:"التصنيف",
     appUrl:"رابط التطبيق", description:"الوصف", descriptionPlaceholder:"اكتب وصفًا مختصرًا للتطبيق...", network:"الشبكة", payments:"يدعم Pi Payments؟",
     yes:"نعم", no:"لا", cancel:"إلغاء", sendReview:"إرسال للمراجعة", open:"فتح", saved:"محفوظ", save:"حفظ", noResults:"لا توجد تطبيقات مطابقة.", submitted:"تم إرسال التطبيق للمراجعة ✅",
-    featuredTitle:"✨ تطبيقات مميزة",featuredSub:"اختيارات بارزة من المجتمع والمطورين.",featuredDesc:"تجربة اكتشاف منتجات وخدمات من مجتمع Pi في واجهة سريعة ومبسطة.",sponsored:"إعلان مميز",sortTrending:"الأكثر رواجًا",sortRating:"الأعلى تقييمًا",sortNewest:"الأحدث",back:"رجوع",categoryPageSub:"اكتشف أفضل التطبيقات في هذا التصنيف.",readyToLaunch:"جاهز لفتح التطبيق؟",readyToLaunchSub:"سيتم فتح رابط التطبيق المنشور في صفحة الإدراج.",check1:"تم التحقق من بيانات الإدراج",check1Sub:"صفحة التطبيق تحتوي على معلومات أساسية مكتملة.",check2:"تنبيه أمان للمستخدم",check2Sub:"لا تدخل عبارة مرور المحفظة خارج تطبيق Wallet الرسمي.",continueDemo:"فتح التطبيق",welcomeTitle:"مرحبًا في AppHub",welcomeSub:"اكتشف، قيّم واحفظ أفضل تطبيقات مجتمع Pi من مكان واحد.",benefit1:"تسجيل دخول بحساب Pi",benefit1Sub:"يتم تسجيل الدخول باستخدام Pi.",benefit2:"احفظ وصوّت للتطبيقات",benefit2Sub:"التصويت والحفظ والمراجعات مرتبطة بحساب Pi عند تسجيل الدخول.",continueWithPi:"متابعة باستخدام Pi",continueGuest:"المتابعة كزائر",reviewPlaceholder:"اكتب رأيك...",publishReview:"نشر المراجعة",filters:"فلاتر",profile:"حسابي",openApp:"فتح التطبيق",upvote:"تصويت",aboutApp:"عن التطبيق",screenshots:"لقطات",communityReviews:"تقييمات المجتمع",filterApps:"فلترة التطبيقات",reset:"إعادة ضبط",apply:"تطبيق",savedApps:"محفوظ",savedAppsSub:"ارجع للتطبيقات اللي عجبتك",reviews:"مراجعات",developerDashboard:"لوحة المطور",developerDashboardSub:"إحصائيات تطبيقاتك",notifications:"الإشعارات",notificationsSub:"",backToSite:"العودة للموقع",dashboardTitle:"لوحة تحكم المطور",dashboardSub:"بيانات أداء تطبيقاتك من الاستخدام الفعلي.",editListing:"تعديل صفحة التطبيق",views:"المشاهدات",openClicks:"فتح التطبيق",traffic7days:"الزيارات آخر 7 أيام",topSources:"أفضل مصادر الزيارات",logoUpload:"شعار التطبيق *",logoHelp:"PNG/JPG/WebP · حد أقصى 3MB · مطلوب",screensUpload:"لقطات الشاشة (1–3) *",screensHelp:"ارفع لقطة واحدة على الأقل وبحد أقصى 3 لقطات · 5MB لكل صورة",guestBrowse:"تصفح الموقع بحرية. سجل الدخول فقط عند الحاجة.",signInPi:"تسجيل الدخول باستخدام Pi",signOut:"تسجيل الخروج",education:"تعليم",loading:"جاري التحميل...",noReviews:"لا توجد مراجعات حتى الآن.",noNotifications:"لا توجد إشعارات",selectApp:"اختر التطبيق",appStatus:"حالة التطبيق",categories:{AI:"ذكاء اصطناعي",Tools:"أدوات",Shopping:"تسوق",Games:"ألعاب",Business:"أعمال",Education:"تعليم"}
+    featuredTitle:"✨ تطبيقات مميزة",featuredSub:"اختيارات بارزة من المجتمع والمطورين.",featuredDesc:"تجربة اكتشاف منتجات وخدمات من مجتمع Pi في واجهة سريعة ومبسطة.",sponsored:"إعلان مميز",sortTrending:"الأكثر رواجًا",sortRating:"الأعلى تقييمًا",sortNewest:"الأحدث",back:"رجوع",categoryPageSub:"اكتشف أفضل التطبيقات في هذا التصنيف.",readyToLaunch:"جاهز لفتح التطبيق؟",readyToLaunchSub:"سيتم فتح رابط التطبيق المنشور في صفحة الإدراج.",check1:"تم التحقق من بيانات الإدراج",check1Sub:"صفحة التطبيق تحتوي على معلومات أساسية مكتملة.",check2:"تنبيه أمان للمستخدم",check2Sub:"لا تدخل عبارة مرور المحفظة خارج تطبيق Wallet الرسمي.",continueDemo:"فتح التطبيق",welcomeTitle:"مرحبًا في AppHub",welcomeSub:"اكتشف، قيّم واحفظ أفضل تطبيقات مجتمع Pi من مكان واحد.",benefit1:"تسجيل دخول بحساب Pi",benefit1Sub:"يتم تسجيل الدخول باستخدام Pi.",benefit2:"احفظ وصوّت للتطبيقات",benefit2Sub:"التصويت والحفظ والمراجعات مرتبطة بحساب Pi عند تسجيل الدخول.",continueWithPi:"متابعة باستخدام Pi",continueGuest:"المتابعة كزائر",reviewPlaceholder:"اكتب رأيك...",publishReview:"نشر المراجعة",filters:"فلاتر",profile:"حسابي",openApp:"فتح التطبيق",upvote:"تصويت",aboutApp:"عن التطبيق",screenshots:"لقطات",communityReviews:"تقييمات المجتمع",filterApps:"فلترة التطبيقات",reset:"إعادة ضبط",apply:"تطبيق",savedApps:"محفوظ",savedAppsSub:"ارجع للتطبيقات اللي عجبتك",reviews:"مراجعات",developerDashboard:"لوحة المطور",developerDashboardSub:"إحصائيات تطبيقاتك",notifications:"الإشعارات",notificationsSub:"",backToSite:"العودة للموقع",dashboardTitle:"لوحة تحكم المطور",dashboardSub:"بيانات أداء تطبيقاتك من الاستخدام الفعلي.",editListing:"تعديل صفحة التطبيق",views:"المشاهدات",openClicks:"فتح التطبيق",traffic7days:"الزيارات آخر 7 أيام",topSources:"أفضل مصادر الزيارات",logoUpload:"شعار التطبيق *",logoHelp:"PNG/JPG/WebP · حد أقصى 3MB · مطلوب",screensUpload:"لقطات الشاشة (1–3) *",screensHelp:"ارفع لقطة واحدة على الأقل وبحد أقصى 3 لقطات · 5MB لكل صورة",guestBrowse:"تصفح الموقع بحرية. سجل الدخول فقط عند الحاجة.",signInPi:"تسجيل الدخول باستخدام Pi",signOut:"تسجيل الخروج",education:"تعليم",loading:"جاري التحميل...",noReviews:"لا توجد مراجعات حتى الآن.",noNotifications:"لا توجد إشعارات",chooseFile:"اختيار ملف",chooseFiles:"اختيار الملفات",noFileSelected:"لم يتم اختيار ملف",noFilesSelected:"لم يتم اختيار ملفات",reviewOptionalPlaceholder:"اكتب تعليقًا (اختياري)...",reviewOptionalNote:"اختر من 1 إلى 5 نجوم. كتابة التعليق اختيارية.",appDetails:"بيانات التطبيق",selectApp:"اختر التطبيق",appStatus:"حالة التطبيق",categories:{AI:"ذكاء اصطناعي",Tools:"أدوات",Shopping:"تسوق",Games:"ألعاب",Business:"أعمال",Education:"تعليم"}
   },
   en:{
     brandSub:"Discover Pi community apps", navDiscover:"Discover", navCategories:"Categories", navTop:"Top Apps", navNew:"New",
@@ -1495,7 +1715,7 @@ const data = {
     submitModalTitle:"Submit a new app", submitModalSub:"Enter your app details and submit it for review.", appName:"App name", category:"Category",
     appUrl:"App URL", description:"Description", descriptionPlaceholder:"Write a short app description...", network:"Network", payments:"Supports Pi Payments?",
     yes:"Yes", no:"No", cancel:"Cancel", sendReview:"Send for review", open:"Open", saved:"Saved", save:"Save", noResults:"No matching apps found.", submitted:"App submitted for review ✅",
-    featuredTitle:"✨ Featured apps",featuredSub:"Standout picks from the community and developers.",featuredDesc:"Discover products and services from the Pi community in a fast, simple experience.",sponsored:"Sponsored",sortTrending:"Trending",sortRating:"Top rated",sortNewest:"Newest",back:"Back",categoryPageSub:"Discover the best apps in this category.",readyToLaunch:"Ready to open this app?",readyToLaunchSub:"The published app URL will open from this listing.",check1:"Listing details checked",check1Sub:"The app page includes the core information required for discovery.",check2:"User safety reminder",check2Sub:"Never enter your wallet passphrase outside the official Wallet app.",continueDemo:"Open app",welcomeTitle:"Welcome to AppHub",welcomeSub:"Discover, rate and save the best Pi community apps in one place.",benefit1:"Sign in with Pi",benefit1Sub:"Sign-in uses Pi.",benefit2:"Save and upvote apps",benefit2Sub:"Votes, saves and reviews are linked to your Pi account after sign-in.",continueWithPi:"Continue with Pi",continueGuest:"Continue as guest",reviewPlaceholder:"Write your review...",publishReview:"Publish review",filters:"Filters",profile:"Profile",openApp:"Open app",upvote:"Upvote",aboutApp:"About the app",screenshots:"Screenshots",communityReviews:"Community reviews",filterApps:"Filter apps",reset:"Reset",apply:"Apply",savedApps:"Saved",savedAppsSub:"Return to apps you liked",reviews:"Reviews",developerDashboard:"Developer dashboard",developerDashboardSub:"Analytics for your apps",notifications:"Notifications",notificationsSub:"",backToSite:"Back to site",dashboardTitle:"Developer dashboard",dashboardSub:"Live performance data for your apps.",editListing:"Edit app listing",views:"Views",openClicks:"App opens",traffic7days:"Traffic — last 7 days",topSources:"Top traffic sources",logoUpload:"App logo *",logoHelp:"PNG/JPG/WebP · max 3 MB · required",screensUpload:"Screenshots (1–3) *",screensHelp:"Upload at least 1 and at most 3 screenshots · max 5 MB each",guestBrowse:"Browse freely. Sign in only when needed.",signInPi:"Sign in with Pi",signOut:"Sign out",education:"Education",loading:"Loading...",noReviews:"No reviews yet.",noNotifications:"No notifications",selectApp:"Select app",appStatus:"App status",categories:{AI:"AI",Tools:"Tools",Shopping:"Shopping",Games:"Games",Business:"Business",Education:"Education"}
+    featuredTitle:"✨ Featured apps",featuredSub:"Standout picks from the community and developers.",featuredDesc:"Discover products and services from the Pi community in a fast, simple experience.",sponsored:"Sponsored",sortTrending:"Trending",sortRating:"Top rated",sortNewest:"Newest",back:"Back",categoryPageSub:"Discover the best apps in this category.",readyToLaunch:"Ready to open this app?",readyToLaunchSub:"The published app URL will open from this listing.",check1:"Listing details checked",check1Sub:"The app page includes the core information required for discovery.",check2:"User safety reminder",check2Sub:"Never enter your wallet passphrase outside the official Wallet app.",continueDemo:"Open app",welcomeTitle:"Welcome to AppHub",welcomeSub:"Discover, rate and save the best Pi community apps in one place.",benefit1:"Sign in with Pi",benefit1Sub:"Sign-in uses Pi.",benefit2:"Save and upvote apps",benefit2Sub:"Votes, saves and reviews are linked to your Pi account after sign-in.",continueWithPi:"Continue with Pi",continueGuest:"Continue as guest",reviewPlaceholder:"Write your review...",publishReview:"Publish review",filters:"Filters",profile:"Profile",openApp:"Open app",upvote:"Upvote",aboutApp:"About the app",screenshots:"Screenshots",communityReviews:"Community reviews",filterApps:"Filter apps",reset:"Reset",apply:"Apply",savedApps:"Saved",savedAppsSub:"Return to apps you liked",reviews:"Reviews",developerDashboard:"Developer dashboard",developerDashboardSub:"Analytics for your apps",notifications:"Notifications",notificationsSub:"",backToSite:"Back to site",dashboardTitle:"Developer dashboard",dashboardSub:"Live performance data for your apps.",editListing:"Edit app listing",views:"Views",openClicks:"App opens",traffic7days:"Traffic — last 7 days",topSources:"Top traffic sources",logoUpload:"App logo *",logoHelp:"PNG/JPG/WebP · max 3 MB · required",screensUpload:"Screenshots (1–3) *",screensHelp:"Upload at least 1 and at most 3 screenshots · max 5 MB each",guestBrowse:"Browse freely. Sign in only when needed.",signInPi:"Sign in with Pi",signOut:"Sign out",education:"Education",loading:"Loading...",noReviews:"No reviews yet.",noNotifications:"No notifications",chooseFile:"Choose file",chooseFiles:"Choose files",noFileSelected:"No file selected",noFilesSelected:"No files selected",reviewOptionalPlaceholder:"Write a comment (optional)...",reviewOptionalNote:"Choose 1–5 stars. Comment is optional.",appDetails:"App details",selectApp:"Select app",appStatus:"App status",categories:{AI:"AI",Tools:"Tools",Shopping:"Shopping",Games:"Games",Business:"Business",Education:"Education"}
   }
 };
 
@@ -1660,11 +1880,12 @@ async function openAppDetailById(id){
   document.getElementById("detailDesc").textContent=lang==="ar"?a.descAr:a.descEn;
   document.getElementById("detailRating").textContent=Number(a.rating||0).toFixed(1);
   document.getElementById("detailVotes").textContent=a.votes;
+  document.getElementById("detailNetwork").textContent=a.tag || "Mainnet";
   document.getElementById("detailVote").classList.toggle("btn-primary",voted.has(a.name));
   document.getElementById("detailSave").textContent=saved.has(a.name)?data[lang].saved:data[lang].save;
   const shots=document.getElementById("detailScreenshots");
   const images=(a.screenshots||[]).map(x=>typeof x==="string"?x:x.publicUrl).filter(Boolean);
-  shots.innerHTML=images.length?images.map(url=>`<div class="shot"><img class="real-shot" src="${escapeHtml(url)}" alt="${escapeHtml(a.name)} screenshot" loading="lazy"></div>`).join(""):`<div class="empty-state" style="grid-column:1/-1">${data[lang].noResults}</div>`;
+  shots.innerHTML=images.length?images.map(url=>`<div class="shot real-shot-wrap" onclick="openMediaPreview('${escapeHtml(url)}')"><img class="real-shot" src="${escapeHtml(url)}" alt="${escapeHtml(a.name)} screenshot" loading="lazy"></div>`).join(""):`<div class="empty-state" style="grid-column:1/-1">${data[lang].noResults}</div>`;
   document.getElementById("detailModal").classList.add("show");
   const viewKey=`apphub_viewed_${a.id}`;
   if(!sessionStorage.getItem(viewKey)){
@@ -1776,6 +1997,8 @@ applyLang=function(){
   renderSearchResults(document.getElementById("bigSearchInput")?.value||"");
   if(currentDetailApp && document.getElementById("detailModal").classList.contains("show"))openAppDetail(currentDetailApp.name);
   updateProfileCounts();
+  if(typeof updateCustomFileNames==="function")updateCustomFileNames();
+  if(currentDetailApp && document.getElementById("publicAppPage")?.classList.contains("show")) openPublicAppPage(currentDetailApp.id);
 }
 
 document.addEventListener("keydown",e=>{
@@ -1821,6 +2044,8 @@ document.getElementById("submitReview").onclick=()=>{
 };
 
 function openLaunchScreen(){
+  if(currentDetailApp){ document.getElementById("detailModal").classList.remove("show"); return openPublicAppPage(currentDetailApp.id); }
+
   if(!currentDetailApp)return;
   document.getElementById("detailModal").classList.remove("show");
   document.getElementById("launchIcon").innerHTML=appIconHtml(currentDetailApp);
@@ -2359,8 +2584,10 @@ function validateImage(file,maxMB){
 function previewFile(file, target, cls){
   const url=URL.createObjectURL(file);
   const img=document.createElement("img");img.src=url;img.className=cls;
-  img.onload=()=>URL.revokeObjectURL(url);
+  img.onclick=()=>openMediaPreview(url);
+  img.style.cursor="zoom-in";
   target.appendChild(img);
+  // Keep object URL alive while preview is visible in the form.
 }
 document.getElementById("appLogoInput")?.addEventListener("change",e=>{
   const box=document.getElementById("logoPreview");box.innerHTML="";
@@ -2447,6 +2674,152 @@ function renderAdminStatic(){
 document.getElementById("adminLangBtn")?.addEventListener("click",()=>{
   lang=lang==="en"?"ar":"en";applyLang();renderAdminStatic();
 });
+
+
+let publicReviewStars=0;
+
+function openMediaPreview(url){
+  const box=document.getElementById("mediaLightbox");
+  document.getElementById("mediaLightboxImg").src=url;
+  box.classList.add("show");
+}
+function closeMediaPreview(){
+  document.getElementById("mediaLightbox").classList.remove("show");
+  document.getElementById("mediaLightboxImg").src="";
+}
+document.getElementById("closeMediaLightbox")?.addEventListener("click",closeMediaPreview);
+document.getElementById("mediaLightbox")?.addEventListener("click",e=>{if(e.target.id==="mediaLightbox")closeMediaPreview()});
+
+function renderRatingStars(value){
+  const rounded=Math.round(Number(value)||0);
+  return Array.from({length:5},(_,i)=>`<span>${i<rounded?"★":"☆"}</span>`).join("");
+}
+
+async function loadPublicReviews(app){
+  const list=document.getElementById("publicReviewsList");
+  list.innerHTML=`<div class="empty-state">${data[lang].loading}</div>`;
+  try{
+    const result=await apiCall("reviews",{auth:false,params:{appId:app.id}});
+    const rows=result.reviews||[];
+    if(!rows.length){
+      list.innerHTML=`<div class="empty-state">${data[lang].noReviews}</div>`;
+    }else{
+      list.innerHTML=rows.map(r=>`
+        <div class="review">
+          <div class="review-head">
+            <div class="review-user"><span class="avatar">${escapeHtml((r.username||"P").slice(0,2).toUpperCase())}</span>${escapeHtml(r.username||"Pioneer")}</div>
+            <span class="rating">★ ${r.rating}</span>
+          </div>
+          ${r.body?`<p>${escapeHtml(r.body)}</p>`:""}
+        </div>`).join("");
+    }
+    const summary=document.getElementById("publicRatingSummary");
+    summary.innerHTML=`
+      <div class="rating-number">${Number(app.rating||0).toFixed(1)}</div>
+      <div>
+        <div class="rating-stars">${renderRatingStars(app.rating)}</div>
+        <div class="rating-meta">${app.reviewsCount||0} ${lang==="ar"?"مراجعة":"reviews"}</div>
+      </div>`;
+  }catch(e){
+    list.innerHTML=`<div class="empty-state">${escapeHtml(e.message)}</div>`;
+  }
+}
+
+async function openPublicAppPage(appId){
+  const app=appById(appId);
+  if(!app)return;
+  currentDetailApp=app;
+
+  document.getElementById("publicAppLogo").innerHTML=appIconHtml(app);
+  document.getElementById("publicAppName").textContent=app.name;
+  document.getElementById("publicAppMeta").textContent=`${app.tag} · ${data[lang].categories[app.category]||app.category}`;
+  document.getElementById("publicAppDescription").textContent=lang==="ar"?app.descAr:app.descEn;
+  document.getElementById("publicRating").textContent=Number(app.rating||0).toFixed(1);
+  document.getElementById("publicVotes").textContent=app.votes||0;
+  document.getElementById("publicNetwork").textContent=app.tag || "Mainnet";
+  document.getElementById("publicSaveBtn").textContent=saved.has(app.name)?data[lang].saved:data[lang].save;
+  document.getElementById("publicVoteBtn").textContent=voted.has(app.name)?data[lang].votes:data[lang].upvote;
+
+  const images=(app.screenshots||[]).map(x=>typeof x==="string"?x:x.publicUrl).filter(Boolean);
+  document.getElementById("publicAppScreens").innerHTML=images.length
+    ? images.map(url=>`<div class="public-screen" onclick="openMediaPreview('${escapeHtml(url)}')"><img src="${escapeHtml(url)}" alt="${escapeHtml(app.name)} screenshot" loading="lazy"></div>`).join("")
+    : `<div class="empty-state" style="grid-column:1/-1">${data[lang].noResults}</div>`;
+
+  publicReviewStars=0;
+  document.querySelectorAll("#publicStarsInput .star-btn").forEach(x=>x.classList.remove("active"));
+  document.getElementById("publicReviewText").value="";
+  document.getElementById("publicAppPage").classList.add("show");
+
+  const viewKey=`apphub_public_viewed_${app.id}`;
+  if(!sessionStorage.getItem(viewKey)){
+    sessionStorage.setItem(viewKey,"1");
+    apiCall("event",{method:"POST",auth:false,body:{appId:app.id,type:"view"}}).catch(()=>{});
+  }
+  await loadPublicReviews(app);
+}
+
+document.getElementById("closePublicAppPage")?.addEventListener("click",()=>document.getElementById("publicAppPage").classList.remove("show"));
+document.getElementById("publicOpenBtn")?.addEventListener("click",()=>{
+  if(!currentDetailApp?.appUrl)return;
+  try{
+    const u=new URL(currentDetailApp.appUrl);
+    if(u.protocol!=="https:")throw new Error("Only HTTPS app URLs are allowed.");
+    apiCall("event",{method:"POST",auth:false,body:{appId:currentDetailApp.id,type:"open"}}).catch(()=>{});
+    window.open(u.href,"_blank","noopener,noreferrer");
+  }catch(e){showToast(e.message)}
+});
+document.getElementById("publicSaveBtn")?.addEventListener("click",async()=>{
+  if(!currentDetailApp)return;
+  await syncSave(currentDetailApp.name);
+  document.getElementById("publicSaveBtn").textContent=saved.has(currentDetailApp.name)?data[lang].saved:data[lang].save;
+});
+document.getElementById("publicVoteBtn")?.addEventListener("click",async()=>{
+  if(!currentDetailApp)return;
+  await syncVote(currentDetailApp.name);
+  document.getElementById("publicVoteBtn").textContent=voted.has(currentDetailApp.name)?data[lang].votes:data[lang].upvote;
+  document.getElementById("publicVotes").textContent=currentDetailApp.votes||0;
+});
+
+document.querySelectorAll("#publicStarsInput .star-btn").forEach(btn=>btn.addEventListener("click",()=>{
+  publicReviewStars=Number(btn.dataset.star);
+  document.querySelectorAll("#publicStarsInput .star-btn").forEach(x=>x.classList.toggle("active",Number(x.dataset.star)<=publicReviewStars));
+}));
+
+document.getElementById("publicSubmitReview")?.addEventListener("click",async()=>{
+  if(!currentDetailApp)return;
+  if(!publicReviewStars){
+    showToast(lang==="ar"?"اختر عدد النجوم أولاً":"Choose a star rating first");
+    return;
+  }
+  if(!piAccessToken)await realPiLogin({requirePayments:false});
+  const body=document.getElementById("publicReviewText").value.trim();
+  try{
+    await apiCall("review",{method:"POST",body:{appId:currentDetailApp.id,rating:publicReviewStars,body}});
+    showToast(lang==="ar"?"تم إضافة تقييمك ✅":"Your rating was added ✅");
+    document.getElementById("publicReviewText").value="";
+    publicReviewStars=0;
+    document.querySelectorAll("#publicStarsInput .star-btn").forEach(x=>x.classList.remove("active"));
+    await hydrateAppsFromBackend();
+    const fresh=appById(currentDetailApp.id) || currentDetailApp;
+    currentDetailApp=fresh;
+    document.getElementById("publicRating").textContent=Number(fresh.rating||0).toFixed(1);
+    await loadPublicReviews(fresh);
+  }catch(e){showToast(e.message)}
+});
+
+function updateCustomFileNames(){
+  const logo=document.getElementById("appLogoInput");
+  const shots=document.getElementById("appScreensInput");
+  const ln=document.getElementById("logoFileName");
+  const sn=document.getElementById("screensFileName");
+  if(ln)ln.textContent=logo?.files?.[0]?.name || data[lang].noFileSelected;
+  if(sn){
+    const files=[...(shots?.files||[])];
+    sn.textContent=files.length ? files.map(f=>f.name).join(", ") : data[lang].noFilesSelected;
+  }
+}
+document.getElementById("appLogoInput")?.addEventListener("change",updateCustomFileNames);
+document.getElementById("appScreensInput")?.addEventListener("change",updateCustomFileNames);
 
 applyTheme(); applyLang();
 
