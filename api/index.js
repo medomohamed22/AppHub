@@ -171,6 +171,18 @@ async function validatePaymentForApproval(db, me, body, prices) {
   if (payment.metadata?.product !== product) throw new Error("Payment product mismatch.");
   if (appId && payment.metadata?.appId && payment.metadata.appId !== appId) throw new Error("Payment app mismatch.");
 
+  if (product === "featured_1d" || product === "featured_7d") {
+    if (!validUuid(appId)) throw new Error("A valid app is required for featured placement.");
+    const {data:owner,error:ownerError}=await db.from("users").select("id").eq("pi_uid",me.uid).maybeSingle();
+    if(ownerError) throw ownerError;
+    if(!owner) throw new Error("User account not found.");
+    const {data:targetApp,error:appError}=await db.from("apps")
+      .select("id,owner_id,status").eq("id",appId).maybeSingle();
+    if(appError) throw appError;
+    if(!targetApp || targetApp.owner_id!==owner.id) throw new Error("You can only feature your own app.");
+    if(targetApp.status!=="approved") throw new Error("Only approved apps can be featured.");
+  }
+
   const {error} = await db.from("payments").upsert({
     pi_payment_id:paymentId,
     user_pi_uid:me.uid,
@@ -205,7 +217,7 @@ export default async function handler(req, res) {
     if (req.method === "OPTIONS") return ok(res,{ok:true});
 
     if (action === "health" && req.method === "GET")
-      return ok(res,{ok:true,time:new Date().toISOString(),service:"piapps-hub-api"});
+      return ok(res,{ok:true,time:new Date().toISOString(),service:"apphub-api"});
 
     const db = supabaseAdmin();
 
@@ -217,6 +229,88 @@ export default async function handler(req, res) {
 
     if (action === "apps" && req.method === "GET")
       return ok(res,{apps:await listApps(db,req)});
+
+
+    if (action === "reviews" && req.method === "GET") {
+      const appId=String(req.query.appId||"");
+      if(!validUuid(appId)) return fail(res,400,"Invalid app id.");
+      const {data,error}=await db.from("reviews")
+        .select("id,app_id,rating,body,created_at,users!reviews_user_id_fkey(username)")
+        .eq("status","published")
+        .eq("app_id",appId)
+        .order("created_at",{ascending:false})
+        .limit(100);
+      if(error) throw error;
+      return ok(res,{reviews:(data||[]).map(r=>({
+        id:r.id,app_id:r.app_id,rating:r.rating,body:r.body,created_at:r.created_at,
+        username:r.users?.username || "Pioneer"
+      }))});
+    }
+
+    if (action === "event" && req.method === "POST") {
+      const b=req.body||{};
+      const appId=String(b.appId||""), type=String(b.type||"");
+      if(!validUuid(appId)||!["view","open"].includes(type)) return fail(res,400,"Invalid event.");
+      const {data:app,error:ae}=await db.from("apps").select("id,status").eq("id",appId).maybeSingle();
+      if(ae) throw ae;
+      if(!app || app.status!=="approved") return fail(res,404,"App not found.");
+      const {error}=await db.from("app_events").insert({
+        app_id:appId,event_type:type,
+        user_agent:String(req.headers["user-agent"]||"").slice(0,500)
+      });
+      if(error) throw error;
+      return ok(res,{recorded:true},201);
+    }
+
+    if (action === "developer-summary" && req.method === "GET") {
+      const {user}=await requireActiveUser(db,req);
+      const {data:owned,error:oe}=await db.from("apps")
+        .select("id,name,status,network,created_at")
+        .eq("owner_id",user.id)
+        .order("created_at",{ascending:false});
+      if(oe) throw oe;
+      const results=[];
+      const start=new Date(); start.setUTCHours(0,0,0,0); start.setUTCDate(start.getUTCDate()-6);
+      for(const app of (owned||[])){
+        const [
+          {count:votes,error:ve},
+          {data:reviews,error:re},
+          {data:events,error:ee}
+        ]=await Promise.all([
+          db.from("votes").select("*",{count:"exact",head:true}).eq("app_id",app.id),
+          db.from("reviews").select("rating").eq("app_id",app.id).eq("status","published"),
+          db.from("app_events").select("event_type,created_at").eq("app_id",app.id).gte("created_at",start.toISOString())
+        ]);
+        if(ve||re||ee) throw (ve||re||ee);
+        const ratings=(reviews||[]).map(x=>Number(x.rating)).filter(Number.isFinite);
+        const dailyViews=Array(7).fill(0);
+        let views=0,opens=0;
+        for(const ev of (events||[])){
+          if(ev.event_type==="view") views++;
+          if(ev.event_type==="open") opens++;
+          if(ev.event_type==="view"){
+            const d=Math.floor((new Date(ev.created_at)-start)/(24*60*60*1000));
+            if(d>=0&&d<7) dailyViews[d]++;
+          }
+        }
+        const [allViewsRes,allOpensRes]=await Promise.all([
+          db.from("app_events").select("*",{count:"exact",head:true}).eq("app_id",app.id).eq("event_type","view"),
+          db.from("app_events").select("*",{count:"exact",head:true}).eq("app_id",app.id).eq("event_type","open")
+        ]);
+        if(allViewsRes.error||allOpensRes.error) throw (allViewsRes.error||allOpensRes.error);
+        const allViews=allViewsRes.count||0, allOpens=allOpensRes.count||0;
+        results.push({
+          ...app,
+          votes:votes||0,
+          reviews:ratings.length,
+          rating:ratings.length?ratings.reduce((a,b)=>a+b,0)/ratings.length:0,
+          views:allViews,
+          opens:allOpens,
+          dailyViews
+        });
+      }
+      return ok(res,{apps:results});
+    }
 
     if (action === "auth" && req.method === "POST") {
       const {me,user}=await requireActiveUser(db,req);
@@ -299,6 +393,10 @@ export default async function handler(req, res) {
         status:"pending"
       }).select().single();
       if(error) throw error;
+      if(user.role==="user"){
+        const {error:roleError}=await db.from("users").update({role:"developer"}).eq("id",user.id);
+        if(roleError) throw roleError;
+      }
       return ok(res,{app:data},201);
     }
 
@@ -379,7 +477,7 @@ export default async function handler(req, res) {
     if (action === "admin-apps" && req.method === "GET") {
       await requireAdmin(db,req);
       const {data,error}=await db.from("apps")
-        .select("id,name,category,network,status,verified,created_at,owner_id,users!apps_owner_id_fkey(username)")
+        .select("id,name,category,network,status,verified,created_at,owner_id,logo_url,screenshots,users!apps_owner_id_fkey(username)")
         .order("created_at",{ascending:false}).limit(500);
       if(error) throw error;
       return ok(res,{apps:(data||[]).map(a=>({...a,owner_username:a.users?.username||null,users:undefined}))});
@@ -399,6 +497,19 @@ export default async function handler(req, res) {
       const appId=String(req.body?.appId||""), op=String(req.body?.action||"");
       if(!validUuid(appId)) return fail(res,400,"Invalid app id.");
       if(op==="delete"){
+        const {data:target,error:targetError}=await db.from("apps")
+          .select("logo_path,screenshots").eq("id",appId).maybeSingle();
+        if(targetError) throw targetError;
+        if(target){
+          const paths=[
+            target.logo_path,
+            ...(Array.isArray(target.screenshots)?target.screenshots.map(x=>x?.path):[])
+          ].filter(Boolean);
+          if(paths.length){
+            const {error:storageError}=await db.storage.from("app-media").remove(paths);
+            if(storageError) console.error("Storage cleanup failed",storageError);
+          }
+        }
         const {error}=await db.from("apps").delete().eq("id",appId);
         if(error) throw error;
         await db.from("admin_audit").insert({admin_user_id:admin.id,action:"delete_app",target_type:"app",target_id:appId});
