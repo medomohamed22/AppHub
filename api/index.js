@@ -196,6 +196,7 @@ async function validatePaymentForApproval(db, me, body, prices) {
     product,
     amount:Number(payment.amount),
     status:"pending",
+        priority_review:!!(user.pro_until && new Date(user.pro_until)>new Date()),
     raw_payment:payment,
     updated_at:new Date().toISOString()
   },{onConflict:"pi_payment_id"});
@@ -271,12 +272,14 @@ export default async function handler(req, res) {
     if (action === "developer-summary" && req.method === "GET") {
       const {user}=await requireActiveUser(db,req);
       const {data:owned,error:oe}=await db.from("apps")
-        .select("id,name,status,network,created_at,featured_until")
+        .select("id,name,status,network,created_at,featured_until,priority_review")
         .eq("owner_id",user.id)
         .order("created_at",{ascending:false});
       if(oe) throw oe;
       const results=[];
-      const start=new Date(); start.setUTCHours(0,0,0,0); start.setUTCDate(start.getUTCDate()-6);
+      const isPro=user.pro_until && new Date(user.pro_until)>new Date();
+      const analyticsDays=isPro?30:7;
+      const start=new Date(); start.setUTCHours(0,0,0,0); start.setUTCDate(start.getUTCDate()-(analyticsDays-1));
       for(const app of (owned||[])){
         const [
           {count:votes,error:ve},
@@ -289,14 +292,14 @@ export default async function handler(req, res) {
         ]);
         if(ve||re||ee) throw (ve||re||ee);
         const ratings=(reviews||[]).map(x=>Number(x.rating)).filter(Number.isFinite);
-        const dailyViews=Array(7).fill(0);
+        const dailyViews=Array(analyticsDays).fill(0);
         let views=0,opens=0;
         for(const ev of (events||[])){
           if(ev.event_type==="view") views++;
           if(ev.event_type==="open") opens++;
           if(ev.event_type==="view"){
             const d=Math.floor((new Date(ev.created_at)-start)/(24*60*60*1000));
-            if(d>=0&&d<7) dailyViews[d]++;
+            if(d>=0&&d<analyticsDays) dailyViews[d]++;
           }
         }
         const [allViewsRes,allOpensRes]=await Promise.all([
@@ -305,6 +308,13 @@ export default async function handler(req, res) {
         ]);
         if(allViewsRes.error||allOpensRes.error) throw (allViewsRes.error||allOpensRes.error);
         const allViews=allViewsRes.count||0, allOpens=allOpensRes.count||0;
+        const trafficSources={mobile:0,desktop:0,other:0};
+        for(const ev of (events||[])){
+          const ua=String(ev.user_agent||"").toLowerCase();
+          if(/android|iphone|ipad|mobile/.test(ua))trafficSources.mobile++;
+          else if(/windows|macintosh|linux/.test(ua))trafficSources.desktop++;
+          else trafficSources.other++;
+        }
         results.push({
           ...app,
           votes:votes||0,
@@ -312,7 +322,10 @@ export default async function handler(req, res) {
           rating:ratings.length?ratings.reduce((a,b)=>a+b,0)/ratings.length:0,
           views:allViews,
           opens:allOpens,
-          dailyViews
+          dailyViews,
+          analyticsDays,
+          trafficSources,
+          proActive:!!isPro
         });
       }
       return ok(res,{apps:results,proUntil:user.pro_until||null});
@@ -483,8 +496,8 @@ export default async function handler(req, res) {
     if (action === "admin-apps" && req.method === "GET") {
       await requireAdmin(db,req);
       const {data,error}=await db.from("apps")
-        .select("id,name,category,network,status,verified,created_at,owner_id,logo_url,screenshots,users!apps_owner_id_fkey(username)")
-        .order("created_at",{ascending:false}).limit(500);
+        .select("id,name,category,network,status,verified,priority_review,created_at,owner_id,logo_url,screenshots,users!apps_owner_id_fkey(username)")
+        .order("priority_review",{ascending:false}).order("created_at",{ascending:false}).limit(500);
       if(error) throw error;
       return ok(res,{apps:(data||[]).map(a=>({...a,owner_username:a.users?.username||null,users:undefined}))});
     }
