@@ -271,7 +271,7 @@ export default async function handler(req, res) {
     if (action === "developer-summary" && req.method === "GET") {
       const {user}=await requireActiveUser(db,req);
       const {data:owned,error:oe}=await db.from("apps")
-        .select("id,name,status,network,created_at")
+        .select("id,name,status,network,created_at,featured_until")
         .eq("owner_id",user.id)
         .order("created_at",{ascending:false});
       if(oe) throw oe;
@@ -315,7 +315,7 @@ export default async function handler(req, res) {
           dailyViews
         });
       }
-      return ok(res,{apps:results});
+      return ok(res,{apps:results,proUntil:user.pro_until||null});
     }
 
     if (action === "auth" && req.method === "POST") {
