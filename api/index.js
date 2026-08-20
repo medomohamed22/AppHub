@@ -132,14 +132,20 @@ async function listApps(db, req) {
   return data || [];
 }
 async function userState(db, userId) {
-  const [{data:saves,error:se},{data:votes,error:ve}] = await Promise.all([
+  const [
+    {data:saves,error:se},
+    {data:votes,error:ve},
+    {count:reviewsCount,error:re}
+  ] = await Promise.all([
     db.from("saves").select("apps(name)").eq("user_id",userId),
     db.from("votes").select("apps(name)").eq("user_id",userId),
+    db.from("reviews").select("*",{count:"exact",head:true}).eq("user_id",userId).eq("status","published"),
   ]);
-  if(se) throw se;if(ve) throw ve;
+  if(se||ve||re) throw (se||ve||re);
   return {
     savedAppNames:(saves||[]).map(x=>x.apps?.name).filter(Boolean),
     votedAppNames:(votes||[]).map(x=>x.apps?.name).filter(Boolean),
+    reviewsCount:reviewsCount||0,
   };
 }
 async function toggleRelation(db, table, userId, appId) {
