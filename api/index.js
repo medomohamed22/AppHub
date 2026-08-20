@@ -220,7 +220,7 @@ export default async function handler(req, res) {
 
     if (action === "auth" && req.method === "POST") {
       const {me,user}=await requireActiveUser(db,req);
-      return ok(res,{user:{id:user.id,uid:me.uid,username:me.username || null,role:user.role}});
+      return ok(res,{user:{id:user.id,uid:me.uid,username:me.username || null,role:user.role,scopes:me.credentials?.scopes || []}});
     }
 
     if (action === "my" && req.method === "GET") {
@@ -253,6 +253,27 @@ export default async function handler(req, res) {
       return ok(res,{review:data},201);
     }
 
+
+    if (action === "upload-sign" && req.method === "POST") {
+      const {user}=await requireActiveUser(db,req);
+      const b=req.body||{};
+      const kind=String(b.kind||"");
+      const contentType=String(b.contentType||"");
+      const size=Number(b.size||0);
+      const allowedTypes=["image/png","image/jpeg","image/webp"];
+      if(!["logo","screenshot"].includes(kind) || !allowedTypes.includes(contentType))
+        return fail(res,400,"Invalid upload type.");
+      const max=kind==="logo"?3*1024*1024:5*1024*1024;
+      if(!Number.isFinite(size)||size<=0||size>max) return fail(res,400,"Invalid file size.");
+      const ext=contentType==="image/png"?"png":contentType==="image/webp"?"webp":"jpg";
+      const path=`${user.id}/${Date.now()}-${crypto.randomUUID()}.${ext}`;
+      const bucket="app-media";
+      const {data,error}=await db.storage.from(bucket).createSignedUploadUrl(path);
+      if(error) throw error;
+      const {data:pub}=db.storage.from(bucket).getPublicUrl(path);
+      return ok(res,{path,token:data.token,signedUrl:data.signedUrl,publicUrl:pub.publicUrl});
+    }
+
     if (action === "submit-app" && req.method === "POST") {
       const {me,user}=await requireActiveUser(db,req);
       const b=req.body||{};
@@ -260,6 +281,8 @@ export default async function handler(req, res) {
       const allowed=["AI","Tools","Shopping","Games","Business","Education"];
       if(String(b.name||"").trim().length<2 || !url || !allowed.includes(b.category))
         return fail(res,400,"Invalid app submission.");
+      if(!b.logoUrl || !b.logoPath || !Array.isArray(b.screenshots) || b.screenshots.length<1 || b.screenshots.length>3)
+        return fail(res,400,"Logo and 1-3 screenshots are required.");
       const {data,error}=await db.from("apps").insert({
         owner_id:user.id,
         name:String(b.name).trim().slice(0,80),
@@ -270,6 +293,9 @@ export default async function handler(req, res) {
         app_url:url,
         network:b.network==="Testnet"?"Testnet":"Mainnet",
         supports_pi_payments:asBool(b.supportsPayments),
+        logo_url:String(b.logoUrl||"").slice(0,1000),
+        logo_path:String(b.logoPath||"").slice(0,500),
+        screenshots:Array.isArray(b.screenshots)?b.screenshots.slice(0,3):[],
         status:"pending"
       }).select().single();
       if(error) throw error;
