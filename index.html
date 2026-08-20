@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0b1020" />
-  <title>PiApps Hub — اكتشف أفضل تطبيقات Pi</title>
+  <title>AppHub — Discover Pi Apps</title>
   <style>
     :root{
       --bg:#f5f7fb;
@@ -845,6 +845,39 @@
       background:var(--surface-2)
     }
 
+
+    .field input[type="file"]{
+      padding:0!important;
+      overflow:hidden;
+      background:var(--surface-2);
+      color:var(--muted);
+      border:1px solid var(--border);
+    }
+    .field input[type="file"]::file-selector-button{
+      border:0;
+      border-inline-end:1px solid rgba(255,255,255,.18);
+      background:linear-gradient(135deg,var(--primary),#5f3ee8);
+      color:#fff;
+      min-height:50px;
+      padding:0 18px;
+      margin-inline-end:12px;
+      font-weight:850;
+      cursor:pointer;
+    }
+    .field input[type="file"]::-webkit-file-upload-button{
+      border:0;
+      border-inline-end:1px solid rgba(255,255,255,.18);
+      background:linear-gradient(135deg,var(--primary),#5f3ee8);
+      color:#fff;
+      min-height:50px;
+      padding:0 18px;
+      margin-inline-end:12px;
+      font-weight:850;
+      cursor:pointer;
+    }
+    .app-logo-img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
+    .real-shot{width:100%;height:100%;object-fit:cover;border-radius:inherit}
+
     @media(max-width:980px){
       .navlinks{display:none}
       .hero-grid{grid-template-columns:1fr}
@@ -893,7 +926,7 @@
         <span class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none"><path d="M7 5h6.2a4.3 4.3 0 1 1 0 8.6H9.8V19H7V5Zm2.8 2.7v3.2h3.1a1.6 1.6 0 1 0 0-3.2H9.8Z" fill="white"/><path d="M15.7 5.8h1.6M15.7 18.2h1.6" stroke="#F7C75B" stroke-width="1.8" stroke-linecap="round"/></svg>
         </span>
-        <span>PiApps Hub<small data-i18n="brandSub">اكتشف تطبيقات مجتمع Pi</small></span>
+        <span>AppHub<small data-i18n="brandSub">اكتشف تطبيقات مجتمع Pi</small></span>
       </a>
 
       <nav class="navlinks">
@@ -906,7 +939,7 @@
       <div class="actions">
 
         <div class="utility-actions">
-          <button class="icon-btn" id="notifBtn" title="Notifications" aria-label="Notifications">
+          <button class="icon-btn" id="notifBtn" style="display:none" title="Notifications" aria-label="Notifications">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M6.5 9a5.5 5.5 0 0 1 11 0c0 6 2 6 2 7.5h-15C4.5 15 6.5 15 6.5 9Z" stroke="currentColor" stroke-width="1.7"/><path d="M10 19h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
             <span class="notif-badge">3</span>
           </button>
@@ -975,15 +1008,14 @@
           </div>
           <a class="text-link" href="#top" data-i18n="viewAll">عرض الكل</a>
         </div>
-
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><button class="btn btn-ghost mobile-only" id="filterBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span data-i18n="filters">فلاتر</span></button></div>
-        <div class="tabs" id="tabs">
+<div class="tabs" id="tabs">
           <button class="tab active" data-filter="all" data-i18n="all">الكل</button>
           <button class="tab" data-filter="AI">AI</button>
           <button class="tab" data-filter="Tools" data-i18n="tools">أدوات</button>
           <button class="tab" data-filter="Shopping" data-i18n="shopping">تسوق</button>
           <button class="tab" data-filter="Games" data-i18n="games">ألعاب</button>
           <button class="tab" data-filter="Business" data-i18n="business">أعمال</button>
+          <button class="tab" data-filter="Education" data-i18n="education">تعليم</button>
         </div>
         <div class="section-toolbar">
           <span style="color:var(--muted);font-size:11px" id="resultCount"></span>
@@ -1028,7 +1060,7 @@
 
   <footer>
     <div class="shell footer-inner">
-      <div>© 2026 PiApps Hub · <span data-i18n="prototype">نسخة تجريبية محلية للواجهة</span></div>
+      <div>© 2026 AppHub · <span data-i18n="platformTag">منصة مجتمعية لاكتشاف تطبيقات Pi</span></div>
       <div data-i18n="disclaimer">مشروع مجتمعي مستقل وغير تابع رسميًا لـ Pi Network.</div>
     </div>
   </footer>
@@ -1056,7 +1088,7 @@
       <div class="modal-head">
         <div>
           <h3 data-i18n="submitModalTitle">إضافة تطبيق جديد</h3>
-          <div style="color:var(--muted);font-size:12px;margin-top:4px" data-i18n="submitModalSub">بيانات تجريبية — لن يتم إرسال شيء حاليًا.</div>
+          <div style="color:var(--muted);font-size:12px;margin-top:4px" data-i18n="submitModalSub">أدخل بيانات تطبيقك وسيتم إرساله للمراجعة.</div>
         </div>
         <button class="icon-btn close" id="closeModal">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
@@ -1130,7 +1162,7 @@
       </div>
       <div class="detail-body">
         <div class="detail-actions">
-          <button class="btn btn-primary" id="openDemoApp"><span data-i18n="openApp">فتح التطبيق</span></button>
+          <button class="btn btn-primary" id="openAppBtn"><span data-i18n="openApp">فتح التطبيق</span></button>
           <button class="btn" id="detailVote"><span data-i18n="upvote">تصويت</span></button>
           <button class="btn" id="detailSave"><span data-i18n="save">حفظ</span></button>
         </div>
@@ -1147,20 +1179,13 @@
             </div>
             <div class="detail-panel" style="margin-top:12px">
               <h4 data-i18n="screenshots">لقطات</h4>
-              <div class="shots"><div class="shot"></div><div class="shot"></div><div class="shot"></div></div>
+              <div class="shots" id="detailScreenshots"></div>
             </div>
           </div>
           <div>
             <div class="detail-panel">
               <h4 data-i18n="communityReviews">تقييمات المجتمع</h4>
-              <div class="review">
-                <div class="review-head"><div class="review-user"><span class="avatar">AM</span>Ahmed M.</div><span class="rating">★ 4.9</span></div>
-                <p data-i18n="review1">واجهة سريعة وفكرة مفيدة جدًا لمجتمع Pi.</p>
-              </div>
-              <div class="review">
-                <div class="review-head"><div class="review-user"><span class="avatar">SK</span>Sara K.</div><span class="rating">★ 4.7</span></div>
-                <p data-i18n="review2">تجربة بسيطة وواضحة على الموبايل.</p>
-              </div>
+              <div id="detailReviews"><div class="empty-state"><span data-i18n="loading">جاري التحميل...</span></div></div>
               <div class="review-composer">
                 <div class="stars-input" id="starsInput">
                   <button class="star-btn" data-star="1">★</button><button class="star-btn" data-star="2">★</button><button class="star-btn" data-star="3">★</button><button class="star-btn" data-star="4">★</button><button class="star-btn" data-star="5">★</button>
@@ -1214,17 +1239,16 @@
           <div><b>—</b><span data-i18n="reviews">Reviews</span></div>
         </div>
       </div>
-      </div>
       <div class="drawer-list">
         <button class="drawer-item" id="savedAppsBtn" style="display:none"><svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10v16l-5-3-5 3V4Z" stroke="currentColor" stroke-width="1.7"/></svg><div><b data-i18n="savedApps">التطبيقات المحفوظة</b><small data-i18n="savedAppsSub">ارجع للتطبيقات اللي عجبتك</small></div></button>
-        <button class="drawer-item" id="dashboardBtn" style="display:none"><svg viewBox="0 0 24 24" fill="none"><path d="M4 13h6v7H4v-7Zm10-9h6v16h-6V4ZM4 4h6v5H4V4Z" stroke="currentColor" stroke-width="1.7"/></svg><div><b data-i18n="developerDashboard">لوحة المطور</b><small data-i18n="developerDashboardSub">إحصائيات تطبيقك التجريبية</small></div></button>
+        <button class="drawer-item" id="dashboardBtn" style="display:none"><svg viewBox="0 0 24 24" fill="none"><path d="M4 13h6v7H4v-7Zm10-9h6v16h-6V4ZM4 4h6v5H4V4Z" stroke="currentColor" stroke-width="1.7"/></svg><div><b data-i18n="developerDashboard">لوحة المطور</b><small data-i18n="developerDashboardSub">إحصائيات تطبيقاتك</small></div></button>
         
         <button class="drawer-item" id="adminEntryBtn" style="display:none">
           <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5c0 4.6-2.8 8.2-7 10-4.2-1.8-7-5.4-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.7"/></svg>
           <div><b>Admin Dashboard</b><small>Moderation, users and pricing</small></div>
         </button>
 
-        <button class="drawer-item" id="drawerNotifBtn" style="display:none"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 9a5.5 5.5 0 0 1 11 0c0 6 2 6 2 7.5h-15C4.5 15 6.5 15 6.5 9Z" stroke="currentColor" stroke-width="1.7"/></svg><div><b data-i18n="notifications">الإشعارات</b><small data-i18n="notificationsSub">3 تحديثات جديدة</small></div></button>
+        <button class="drawer-item" id="drawerNotifBtn" style="display:none"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 9a5.5 5.5 0 0 1 11 0c0 6 2 6 2 7.5h-15C4.5 15 6.5 15 6.5 9Z" stroke="currentColor" stroke-width="1.7"/></svg><div><b data-i18n="notifications">الإشعارات</b><small data-i18n="notificationsSub"></small></div></button>
       </div>
       <div id="drawerDynamic" style="margin-top:15px"></div>
     </aside>
@@ -1234,13 +1258,7 @@
   <div class="drawer" id="notifDrawer">
     <aside class="drawer-panel">
       <div class="drawer-head"><h3 data-i18n="notifications">الإشعارات</h3><button class="icon-btn" id="closeNotif">✕</button></div>
-      <div class="drawer-list">
-        <div class="drawer-item"><span class="avatar">P</span><div><b data-i18n="notif1">Pi Market حصل على تحديث جديد</b><small data-i18n="notif1Sub">منذ 15 دقيقة</small></div></div>
-        <div class="drawer-item"><span class="avatar">AI</span><div><b data-i18n="notif2">Pioneer AI دخل قائمة الأكثر رواجًا</b><small data-i18n="notif2Sub">منذ ساعة</small></div></div>
-        <div class="drawer-item"><span class="avatar">Q</span><div><b data-i18n="notif3">رد مطور Pi Quest على مراجعة</b><small data-i18n="notif3Sub">أمس</small></div></div>
-      </div>
-    </aside>
-  </div>
+      <div class="drawer-list"><div class="empty-state"><b data-i18n="noNotifications">لا توجد إشعارات</b></div></div></aside></div>
 
   <!-- Developer dashboard -->
   <div class="dashboard" id="dashboard">
@@ -1252,34 +1270,30 @@
     </div>
     <div class="dash-wrap dash-content">
       <div class="dash-hero">
-        <div><h2 data-i18n="dashboardTitle">لوحة تحكم المطور</h2><p data-i18n="dashboardSub">نظرة تجريبية على أداء تطبيقك.</p></div>
+        <div><h2 data-i18n="dashboardTitle">لوحة تحكم المطور</h2><p data-i18n="dashboardSub">بيانات أداء تطبيقاتك من الاستخدام الفعلي.</p></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn" id="promote7Btn">Featured 7 days · Pi</button>
           <button class="btn btn-primary" id="upgradeProBtn">Developer Pro · Pi</button>
         </div>
       </div>
+      <div class="dash-card" style="margin-bottom:13px">
+        <label style="font-size:11px;color:var(--muted);font-weight:800" data-i18n="selectApp">اختر التطبيق</label>
+        <select class="sort-select" id="developerAppSelect" style="width:100%;margin-top:8px"></select>
+      </div>
       <div class="dash-metrics">
-        <div class="dash-card"><small data-i18n="views">المشاهدات</small><h3>—</h3><span class="trend-up">—</span></div>
-        <div class="dash-card"><small data-i18n="openClicks">فتح التطبيق</small><h3>—</h3><span class="trend-up">—</span></div>
-        <div class="dash-card"><small data-i18n="votes">تصويت</small><h3>—</h3><span class="trend-up">—</span></div>
-        <div class="dash-card"><small data-i18n="rating">التقييم</small><h3>—</h3><span class="trend-up">—</span></div>
+        <div class="dash-card"><small data-i18n="views">المشاهدات</small><h3 id="devViews">0</h3></div>
+        <div class="dash-card"><small data-i18n="openClicks">فتح التطبيق</small><h3 id="devOpens">0</h3></div>
+        <div class="dash-card"><small data-i18n="votes">تصويت</small><h3 id="devVotes">0</h3></div>
+        <div class="dash-card"><small data-i18n="rating">التقييم</small><h3 id="devRating">0</h3></div>
       </div>
       <div class="dash-grid">
         <div class="dash-card">
           <h3 style="font-size:16px;margin:0" data-i18n="traffic7days">الزيارات آخر 7 أيام</h3>
-          <div class="chart">
-            <div class="bar" style="height:12%;opacity:.18"></div><div class="bar" style="height:12%;opacity:.18"></div><div class="bar" style="height:12%;opacity:.18"></div>
-            <div class="bar" style="height:12%;opacity:.18"></div><div class="bar" style="height:12%;opacity:.18"></div><div class="bar" style="height:12%;opacity:.18"></div><div class="bar" style="height:12%;opacity:.18"></div>
-          </div>
+          <div class="chart" id="developerChart"></div>
         </div>
         <div class="dash-card">
-          <h3 style="font-size:16px;margin:0" data-i18n="topSources">أفضل مصادر الزيارات</h3>
-          <div class="dash-table">
-            <div class="dash-row"><b>Pi Browser</b><span>46%</span></div>
-            <div class="dash-row"><b>PiApps Hub Search</b><span>28%</span></div>
-            <div class="dash-row"><b>Direct</b><span>17%</span></div>
-            <div class="dash-row"><b>Social</b><span>9%</span></div>
-          </div>
+          <h3 style="font-size:16px;margin:0" data-i18n="appStatus">حالة التطبيق</h3>
+          <div class="dash-table" id="developerAppInfo"></div>
         </div>
       </div>
     </div>
@@ -1290,7 +1304,7 @@
   <div class="category-page" id="categoryPage">
     <div class="dash-top">
       <div class="dash-wrap dash-nav">
-        <a class="brand"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M7 5h6.2a4.3 4.3 0 1 1 0 8.6H9.8V19H7V5Zm2.8 2.7v3.2h3.1a1.6 1.6 0 1 0 0-3.2H9.8Z" fill="white"/></svg></span><span>PiApps Hub</span></a>
+        <a class="brand"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M7 5h6.2a4.3 4.3 0 1 1 0 8.6H9.8V19H7V5Zm2.8 2.7v3.2h3.1a1.6 1.6 0 1 0 0-3.2H9.8Z" fill="white"/></svg></span><span>AppHub</span></a>
         <button class="btn" id="closeCategoryPage" data-i18n="back">رجوع</button>
       </div>
     </div>
@@ -1309,7 +1323,7 @@
   <div class="launch-screen" id="launchScreen">
     <div class="launch-wrap">
       <div class="launch-top">
-        <a class="brand"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M7 5h6.2a4.3 4.3 0 1 1 0 8.6H9.8V19H7V5Zm2.8 2.7v3.2h3.1a1.6 1.6 0 1 0 0-3.2H9.8Z" fill="white"/></svg></span><span>PiApps Hub</span></a>
+        <a class="brand"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M7 5h6.2a4.3 4.3 0 1 1 0 8.6H9.8V19H7V5Zm2.8 2.7v3.2h3.1a1.6 1.6 0 1 0 0-3.2H9.8Z" fill="white"/></svg></span><span>AppHub</span></a>
         <button class="btn" id="closeLaunch" data-i18n="back">رجوع</button>
       </div>
       <div class="launch-card">
@@ -1319,16 +1333,16 @@
             <h2 id="launchName">App</h2>
             <p id="launchMeta">Tools · Mainnet</p>
           </div>
-          <span class="pro-pill">PiApps Verified Preview</span>
+          <span class="pro-pill">AppHub Listing</span>
         </div>
         <div class="launch-panel">
           <h3 data-i18n="readyToLaunch">جاهز لفتح التطبيق؟</h3>
-          <p data-i18n="readyToLaunchSub">في النسخة الحقيقية سيتم استخدام رابط التطبيق وبيئة Pi المناسبة. هذه شاشة Frontend تجريبية فقط.</p>
+          <p data-i18n="readyToLaunchSub">سيتم فتح رابط التطبيق المنشور في صفحة الإدراج.</p>
           <div class="launch-checks">
             <div class="launch-check"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b data-i18n="check1">تم التحقق من بيانات الإدراج</b><span data-i18n="check1Sub">صفحة التطبيق تحتوي على معلومات أساسية مكتملة.</span></div></div>
             <div class="launch-check"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b data-i18n="check2">تنبيه أمان للمستخدم</b><span data-i18n="check2Sub">لا تدخل عبارة مرور المحفظة خارج تطبيق Wallet الرسمي.</span></div></div>
           </div>
-          <button class="btn btn-primary" id="confirmLaunch" data-i18n="continueDemo">متابعة تجريبية</button>
+          <button class="btn btn-primary" id="confirmLaunch" data-i18n="continueDemo">فتح التطبيق</button>
         </div>
       </div>
     </div>
@@ -1340,13 +1354,13 @@
       <div class="onboard-logo">
         <svg viewBox="0 0 24 24" fill="none"><path d="M7 5h6.2a4.3 4.3 0 1 1 0 8.6H9.8V19H7V5Zm2.8 2.7v3.2h3.1a1.6 1.6 0 1 0 0-3.2H9.8Z" fill="white"/><path d="M15.7 5.8h1.6M15.7 18.2h1.6" stroke="#F7C75B" stroke-width="1.8" stroke-linecap="round"/></svg>
       </div>
-      <h2 data-i18n="welcomeTitle">مرحبًا في PiApps Hub</h2>
+      <h2 data-i18n="welcomeTitle">مرحبًا في AppHub</h2>
       <p data-i18n="welcomeSub">اكتشف، قيّم واحفظ أفضل تطبيقات مجتمع Pi من مكان واحد.</p>
       <div class="onboard-benefits">
-        <div class="benefit"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2"/></svg><div><b data-i18n="benefit1">تسجيل دخول بحساب Pi</b><small data-i18n="benefit1Sub">الواجهة جاهزة للربط لاحقًا مع Pi SDK.</small></div></div>
-        <div class="benefit"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2"/></svg><div><b data-i18n="benefit2">احفظ وصوّت للتطبيقات</b><small data-i18n="benefit2Sub">كل التفاعلات في هذه النسخة محلية وتجريبية.</small></div></div>
+        <div class="benefit"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2"/></svg><div><b data-i18n="benefit1">تسجيل دخول بحساب Pi</b><small data-i18n="benefit1Sub">يتم تسجيل الدخول باستخدام Pi.</small></div></div>
+        <div class="benefit"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2"/></svg><div><b data-i18n="benefit2">احفظ وصوّت للتطبيقات</b><small data-i18n="benefit2Sub">التصويت والحفظ والمراجعات مرتبطة بحساب Pi عند تسجيل الدخول.</small></div></div>
       </div>
-      <button class="pi-login-btn" id="piLoginDemo">
+      <button class="pi-login-btn" id="piLoginBtn">
         <span class="brand-mark" style="width:28px;height:28px;border-radius:9px;box-shadow:none"><svg viewBox="0 0 24 24" fill="none"><path d="M7 5h6.2a4.3 4.3 0 1 1 0 8.6H9.8V19H7V5Zm2.8 2.7v3.2h3.1a1.6 1.6 0 1 0 0-3.2H9.8Z" fill="white"/></svg></span>
         <span data-i18n="continueWithPi">متابعة باستخدام Pi</span>
       </button>
@@ -1363,7 +1377,7 @@
           <div class="shield">
             <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5c0 4.6-2.8 8.2-7 10-4.2-1.8-7-5.4-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.8"/><path d="m9 12 2 2 4-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
           </div>
-          <div><h2>PiApps Hub Admin</h2><small id="adminIdentity">—</small></div>
+          <div><h2 data-admin-i18n="adminTitle">AppHub Admin</h2><small id="adminIdentity">—</small></div>
         </div>
         <div style="display:flex;gap:8px"><button class="btn" id="adminLangBtn">العربية</button><button class="btn" id="closeAdminBtn" data-admin-i18n="backSite">Back to site</button></div>
       </div>
@@ -1458,14 +1472,14 @@ const data = {
     searchPlaceholder:"ابحث عن تطبيق، لعبة، أداة...", exploreApps:"استكشف التطبيقات", launchApp:"انشر تطبيقك", spotlight:"اختيار اليوم",
     live:"نشط الآن", spotlightTitle:"تجربة تسوق داخل منظومة Pi", spotlightDesc:"اكتشف منتجات وخدمات من مجتمع Pi في واجهة بسيطة ومباشرة.",
     apps:"تطبيق", votes:"تصويت", rating:"تقييم", browseCategories:"تصفح حسب التصنيف", browseCategoriesSub:"اختار المجال اللي يهمك وابدأ الاستكشاف.",
-    trending:"🔥 الأكثر رواجًا", trendingSub:"تطبيقات عليها تفاعل قوي من المجتمع.", viewAll:"عرض الكل", all:"الكل", tools:"أدوات", shopping:"تسوق", games:"ألعاب", business:"أعمال",
-    weeklyTop:"🏆 أفضل تطبيقات الأسبوع", weeklyTopSub:"ترتيب مبني على التقييمات والتفاعل الحديث.", developerTitle:"عندك تطبيق على Pi؟",
-    developerText:"اعرض تطبيقك أمام المجتمع، اجمع تقييمات وابدأ بناء جمهورك.", submitNow:"أضف تطبيقك الآن", prototype:"نسخة تجريبية محلية للواجهة",
+    trending:"🔥 الأكثر تفاعلاً", trendingSub:"التطبيقات الأعلى في التصويت والتقييم.", viewAll:"عرض الكل", all:"الكل", tools:"أدوات", shopping:"تسوق", games:"ألعاب", business:"أعمال",
+    weeklyTop:"🏆 أفضل التطبيقات", weeklyTopSub:"ترتيب مبني على التقييمات والتصويتات.", developerTitle:"عندك تطبيق على Pi؟",
+    developerText:"اعرض تطبيقك أمام المجتمع، اجمع تقييمات وابدأ بناء جمهورك.", submitNow:"أضف تطبيقك الآن", platformTag:"منصة مجتمعية لاكتشاف تطبيقات Pi",
     disclaimer:"مشروع مجتمعي مستقل وغير تابع رسميًا لـ Pi Network.", home:"الرئيسية", search:"بحث", top:"الأفضل", submit:"إضافة",
-    submitModalTitle:"إضافة تطبيق جديد", submitModalSub:"بيانات تجريبية — لن يتم إرسال شيء حاليًا.", appName:"اسم التطبيق", category:"التصنيف",
+    submitModalTitle:"إضافة تطبيق جديد", submitModalSub:"أدخل بيانات تطبيقك وسيتم إرساله للمراجعة.", appName:"اسم التطبيق", category:"التصنيف",
     appUrl:"رابط التطبيق", description:"الوصف", descriptionPlaceholder:"اكتب وصفًا مختصرًا للتطبيق...", network:"الشبكة", payments:"يدعم Pi Payments؟",
-    yes:"نعم", no:"لا", cancel:"إلغاء", sendReview:"إرسال للمراجعة", open:"فتح", saved:"محفوظ", save:"حفظ", noResults:"لا توجد تطبيقات مطابقة.", submitted:"تم حفظ الطلب تجريبيًا ✅",
-    featuredTitle:"✨ تطبيقات مميزة",featuredSub:"اختيارات بارزة من المجتمع والمطورين.",featuredDesc:"تجربة اكتشاف منتجات وخدمات من مجتمع Pi في واجهة سريعة ومبسطة.",sponsored:"إعلان مميز",sortTrending:"الأكثر رواجًا",sortRating:"الأعلى تقييمًا",sortNewest:"الأحدث",back:"رجوع",categoryPageSub:"اكتشف أفضل التطبيقات في هذا التصنيف.",readyToLaunch:"جاهز لفتح التطبيق؟",readyToLaunchSub:"في النسخة الحقيقية سيتم استخدام رابط التطبيق وبيئة Pi المناسبة. هذه شاشة Frontend تجريبية فقط.",check1:"تم التحقق من بيانات الإدراج",check1Sub:"صفحة التطبيق تحتوي على معلومات أساسية مكتملة.",check2:"تنبيه أمان للمستخدم",check2Sub:"لا تدخل عبارة مرور المحفظة خارج تطبيق Wallet الرسمي.",continueDemo:"متابعة تجريبية",welcomeTitle:"مرحبًا في PiApps Hub",welcomeSub:"اكتشف، قيّم واحفظ أفضل تطبيقات مجتمع Pi من مكان واحد.",benefit1:"تسجيل دخول بحساب Pi",benefit1Sub:"الواجهة جاهزة للربط لاحقًا مع Pi SDK.",benefit2:"احفظ وصوّت للتطبيقات",benefit2Sub:"كل التفاعلات في هذه النسخة محلية وتجريبية.",continueWithPi:"متابعة باستخدام Pi",continueGuest:"المتابعة كزائر",reviewPlaceholder:"اكتب رأيك...",publishReview:"نشر المراجعة",filters:"فلاتر",profile:"حسابي",openApp:"فتح التطبيق",upvote:"تصويت",aboutApp:"عن التطبيق",screenshots:"لقطات",communityReviews:"تقييمات المجتمع",review1:"واجهة سريعة وفكرة مفيدة جدًا لمجتمع Pi.",review2:"تجربة بسيطة وواضحة على الموبايل.",filterApps:"فلترة التطبيقات",reset:"إعادة ضبط",apply:"تطبيق",savedApps:"محفوظ",savedAppsSub:"ارجع للتطبيقات اللي عجبتك",reviews:"مراجعات",developerDashboard:"لوحة المطور",developerDashboardSub:"إحصائيات تطبيقك التجريبية",notifications:"الإشعارات",notificationsSub:"3 تحديثات جديدة",notif1:"Pi Market حصل على تحديث جديد",notif1Sub:"منذ 15 دقيقة",notif2:"Pioneer AI دخل قائمة الأكثر رواجًا",notif2Sub:"منذ ساعة",notif3:"رد مطور Pi Quest على مراجعة",notif3Sub:"أمس",backToSite:"العودة للموقع",dashboardTitle:"لوحة تحكم المطور",dashboardSub:"نظرة تجريبية على أداء تطبيقك.",editListing:"تعديل صفحة التطبيق",views:"المشاهدات",openClicks:"فتح التطبيق",traffic7days:"الزيارات آخر 7 أيام",topSources:"أفضل مصادر الزيارات",logoUpload:"شعار التطبيق *",logoHelp:"PNG/JPG/WebP · حد أقصى 3MB · مطلوب",screensUpload:"لقطات الشاشة (1–3) *",screensHelp:"ارفع لقطة واحدة على الأقل وبحد أقصى 3 لقطات · 5MB لكل صورة",guestBrowse:"تصفح الموقع بحرية. سجل الدخول فقط عند الحاجة.",signInPi:"تسجيل الدخول باستخدام Pi",signOut:"تسجيل الخروج",categories:{AI:"ذكاء اصطناعي",Tools:"أدوات",Shopping:"تسوق",Games:"ألعاب",Business:"أعمال",Education:"تعليم"}
+    yes:"نعم", no:"لا", cancel:"إلغاء", sendReview:"إرسال للمراجعة", open:"فتح", saved:"محفوظ", save:"حفظ", noResults:"لا توجد تطبيقات مطابقة.", submitted:"تم إرسال التطبيق للمراجعة ✅",
+    featuredTitle:"✨ تطبيقات مميزة",featuredSub:"اختيارات بارزة من المجتمع والمطورين.",featuredDesc:"تجربة اكتشاف منتجات وخدمات من مجتمع Pi في واجهة سريعة ومبسطة.",sponsored:"إعلان مميز",sortTrending:"الأكثر رواجًا",sortRating:"الأعلى تقييمًا",sortNewest:"الأحدث",back:"رجوع",categoryPageSub:"اكتشف أفضل التطبيقات في هذا التصنيف.",readyToLaunch:"جاهز لفتح التطبيق؟",readyToLaunchSub:"سيتم فتح رابط التطبيق المنشور في صفحة الإدراج.",check1:"تم التحقق من بيانات الإدراج",check1Sub:"صفحة التطبيق تحتوي على معلومات أساسية مكتملة.",check2:"تنبيه أمان للمستخدم",check2Sub:"لا تدخل عبارة مرور المحفظة خارج تطبيق Wallet الرسمي.",continueDemo:"فتح التطبيق",welcomeTitle:"مرحبًا في AppHub",welcomeSub:"اكتشف، قيّم واحفظ أفضل تطبيقات مجتمع Pi من مكان واحد.",benefit1:"تسجيل دخول بحساب Pi",benefit1Sub:"يتم تسجيل الدخول باستخدام Pi.",benefit2:"احفظ وصوّت للتطبيقات",benefit2Sub:"التصويت والحفظ والمراجعات مرتبطة بحساب Pi عند تسجيل الدخول.",continueWithPi:"متابعة باستخدام Pi",continueGuest:"المتابعة كزائر",reviewPlaceholder:"اكتب رأيك...",publishReview:"نشر المراجعة",filters:"فلاتر",profile:"حسابي",openApp:"فتح التطبيق",upvote:"تصويت",aboutApp:"عن التطبيق",screenshots:"لقطات",communityReviews:"تقييمات المجتمع",filterApps:"فلترة التطبيقات",reset:"إعادة ضبط",apply:"تطبيق",savedApps:"محفوظ",savedAppsSub:"ارجع للتطبيقات اللي عجبتك",reviews:"مراجعات",developerDashboard:"لوحة المطور",developerDashboardSub:"إحصائيات تطبيقاتك",notifications:"الإشعارات",notificationsSub:"",backToSite:"العودة للموقع",dashboardTitle:"لوحة تحكم المطور",dashboardSub:"بيانات أداء تطبيقاتك من الاستخدام الفعلي.",editListing:"تعديل صفحة التطبيق",views:"المشاهدات",openClicks:"فتح التطبيق",traffic7days:"الزيارات آخر 7 أيام",topSources:"أفضل مصادر الزيارات",logoUpload:"شعار التطبيق *",logoHelp:"PNG/JPG/WebP · حد أقصى 3MB · مطلوب",screensUpload:"لقطات الشاشة (1–3) *",screensHelp:"ارفع لقطة واحدة على الأقل وبحد أقصى 3 لقطات · 5MB لكل صورة",guestBrowse:"تصفح الموقع بحرية. سجل الدخول فقط عند الحاجة.",signInPi:"تسجيل الدخول باستخدام Pi",signOut:"تسجيل الخروج",education:"تعليم",loading:"جاري التحميل...",noReviews:"لا توجد مراجعات حتى الآن.",noNotifications:"لا توجد إشعارات",selectApp:"اختر التطبيق",appStatus:"حالة التطبيق",categories:{AI:"ذكاء اصطناعي",Tools:"أدوات",Shopping:"تسوق",Games:"ألعاب",Business:"أعمال",Education:"تعليم"}
   },
   en:{
     brandSub:"Discover Pi community apps", navDiscover:"Discover", navCategories:"Categories", navTop:"Top Apps", navNew:"New",
@@ -1474,21 +1488,21 @@ const data = {
     searchPlaceholder:"Search apps, games, tools...", exploreApps:"Explore apps", launchApp:"Launch your app", spotlight:"Spotlight",
     live:"Live now", spotlightTitle:"A shopping experience for the Pi ecosystem", spotlightDesc:"Discover products and services from the Pi community in a clean, simple interface.",
     apps:"Apps", votes:"Votes", rating:"Rating", browseCategories:"Browse by category", browseCategoriesSub:"Choose a category and start discovering.",
-    trending:"🔥 Trending now", trendingSub:"Apps getting strong community engagement.", viewAll:"View all", all:"All", tools:"Tools", shopping:"Shopping", games:"Games", business:"Business",
-    weeklyTop:"🏆 Top apps this week", weeklyTopSub:"Ranking based on ratings and recent engagement.", developerTitle:"Building on Pi?",
-    developerText:"Showcase your app, collect reviews and start growing your community.", submitNow:"Submit your app", prototype:"Local UI prototype",
+    trending:"🔥 Most engaged", trendingSub:"Apps with the strongest votes and ratings.", viewAll:"View all", all:"All", tools:"Tools", shopping:"Shopping", games:"Games", business:"Business",
+    weeklyTop:"🏆 Top apps", weeklyTopSub:"Ranking based on ratings and votes.", developerTitle:"Building on Pi?",
+    developerText:"Showcase your app, collect reviews and start growing your community.", submitNow:"Submit your app", platformTag:"Community platform for discovering Pi apps",
     disclaimer:"Independent community project. Not officially affiliated with Pi Network.", home:"Home", search:"Search", top:"Top", submit:"Submit",
-    submitModalTitle:"Submit a new app", submitModalSub:"Demo form — nothing will be sent yet.", appName:"App name", category:"Category",
+    submitModalTitle:"Submit a new app", submitModalSub:"Enter your app details and submit it for review.", appName:"App name", category:"Category",
     appUrl:"App URL", description:"Description", descriptionPlaceholder:"Write a short app description...", network:"Network", payments:"Supports Pi Payments?",
-    yes:"Yes", no:"No", cancel:"Cancel", sendReview:"Send for review", open:"Open", saved:"Saved", save:"Save", noResults:"No matching apps found.", submitted:"Demo submission saved ✅",
-    featuredTitle:"✨ Featured apps",featuredSub:"Standout picks from the community and developers.",featuredDesc:"Discover products and services from the Pi community in a fast, simple experience.",sponsored:"Sponsored",sortTrending:"Trending",sortRating:"Top rated",sortNewest:"Newest",back:"Back",categoryPageSub:"Discover the best apps in this category.",readyToLaunch:"Ready to open this app?",readyToLaunchSub:"The real version will use the app URL and the appropriate Pi environment. This is a frontend-only demo screen.",check1:"Listing details checked",check1Sub:"The app page includes the core information required for discovery.",check2:"User safety reminder",check2Sub:"Never enter your wallet passphrase outside the official Wallet app.",continueDemo:"Continue demo",welcomeTitle:"Welcome to PiApps Hub",welcomeSub:"Discover, rate and save the best Pi community apps in one place.",benefit1:"Sign in with Pi",benefit1Sub:"This interface is ready to connect to Pi SDK later.",benefit2:"Save and upvote apps",benefit2Sub:"All interactions in this version are local demo data.",continueWithPi:"Continue with Pi",continueGuest:"Continue as guest",reviewPlaceholder:"Write your review...",publishReview:"Publish review",filters:"Filters",profile:"Profile",openApp:"Open app",upvote:"Upvote",aboutApp:"About the app",screenshots:"Screenshots",communityReviews:"Community reviews",review1:"Fast interface and a very useful idea for the Pi community.",review2:"Simple and clear experience on mobile.",filterApps:"Filter apps",reset:"Reset",apply:"Apply",savedApps:"Saved",savedAppsSub:"Return to apps you liked",reviews:"Reviews",developerDashboard:"Developer dashboard",developerDashboardSub:"Demo analytics for your app",notifications:"Notifications",notificationsSub:"3 new updates",notif1:"Pi Market has a new update",notif1Sub:"15 minutes ago",notif2:"Pioneer AI entered trending",notif2Sub:"1 hour ago",notif3:"Pi Quest developer replied to a review",notif3Sub:"Yesterday",backToSite:"Back to site",dashboardTitle:"Developer dashboard",dashboardSub:"A demo overview of your app performance.",editListing:"Edit app listing",views:"Views",openClicks:"App opens",traffic7days:"Traffic — last 7 days",topSources:"Top traffic sources",logoUpload:"App logo *",logoHelp:"PNG/JPG/WebP · max 3 MB · required",screensUpload:"Screenshots (1–3) *",screensHelp:"Upload at least 1 and at most 3 screenshots · max 5 MB each",guestBrowse:"Browse freely. Sign in only when needed.",signInPi:"Sign in with Pi",signOut:"Sign out",categories:{AI:"AI",Tools:"Tools",Shopping:"Shopping",Games:"Games",Business:"Business",Education:"Education"}
+    yes:"Yes", no:"No", cancel:"Cancel", sendReview:"Send for review", open:"Open", saved:"Saved", save:"Save", noResults:"No matching apps found.", submitted:"App submitted for review ✅",
+    featuredTitle:"✨ Featured apps",featuredSub:"Standout picks from the community and developers.",featuredDesc:"Discover products and services from the Pi community in a fast, simple experience.",sponsored:"Sponsored",sortTrending:"Trending",sortRating:"Top rated",sortNewest:"Newest",back:"Back",categoryPageSub:"Discover the best apps in this category.",readyToLaunch:"Ready to open this app?",readyToLaunchSub:"The published app URL will open from this listing.",check1:"Listing details checked",check1Sub:"The app page includes the core information required for discovery.",check2:"User safety reminder",check2Sub:"Never enter your wallet passphrase outside the official Wallet app.",continueDemo:"Open app",welcomeTitle:"Welcome to AppHub",welcomeSub:"Discover, rate and save the best Pi community apps in one place.",benefit1:"Sign in with Pi",benefit1Sub:"Sign-in uses Pi.",benefit2:"Save and upvote apps",benefit2Sub:"Votes, saves and reviews are linked to your Pi account after sign-in.",continueWithPi:"Continue with Pi",continueGuest:"Continue as guest",reviewPlaceholder:"Write your review...",publishReview:"Publish review",filters:"Filters",profile:"Profile",openApp:"Open app",upvote:"Upvote",aboutApp:"About the app",screenshots:"Screenshots",communityReviews:"Community reviews",filterApps:"Filter apps",reset:"Reset",apply:"Apply",savedApps:"Saved",savedAppsSub:"Return to apps you liked",reviews:"Reviews",developerDashboard:"Developer dashboard",developerDashboardSub:"Analytics for your apps",notifications:"Notifications",notificationsSub:"",backToSite:"Back to site",dashboardTitle:"Developer dashboard",dashboardSub:"Live performance data for your apps.",editListing:"Edit app listing",views:"Views",openClicks:"App opens",traffic7days:"Traffic — last 7 days",topSources:"Top traffic sources",logoUpload:"App logo *",logoHelp:"PNG/JPG/WebP · max 3 MB · required",screensUpload:"Screenshots (1–3) *",screensHelp:"Upload at least 1 and at most 3 screenshots · max 5 MB each",guestBrowse:"Browse freely. Sign in only when needed.",signInPi:"Sign in with Pi",signOut:"Sign out",education:"Education",loading:"Loading...",noReviews:"No reviews yet.",noNotifications:"No notifications",selectApp:"Select app",appStatus:"App status",categories:{AI:"AI",Tools:"Tools",Shopping:"Shopping",Games:"Games",Business:"Business",Education:"Education"}
   }
 };
 
 const apps = [];
 
-let lang = localStorage.getItem("piapps-lang") || "en";
-let theme = localStorage.getItem("piapps-theme") || "light";
+let lang = localStorage.getItem("apphub-lang") || "en";
+let theme = localStorage.getItem("apphub-theme") || "light";
 let filter = "all";
 const voted = new Set();
 const saved = new Set();
@@ -1496,7 +1510,7 @@ const saved = new Set();
 function applyTheme(){
   document.documentElement.dataset.theme = theme;
   document.getElementById("themeBtn").innerHTML = theme === "dark" ? icons.sun : icons.moon;
-  localStorage.setItem("piapps-theme",theme);
+  localStorage.setItem("apphub-theme",theme);
 }
 function applyLang(){
   const t=data[lang];
@@ -1518,11 +1532,12 @@ function applyLang(){
   renderCategories();
   renderApps();
   renderRank();
-  localStorage.setItem("piapps-lang",lang);
+  localStorage.setItem("apphub-lang",lang);
 }
 
 function renderCategories(){
-  const counts={AI:9,Tools:14,Shopping:11,Games:8,Business:6,Education:7};
+  const keys=["AI","Tools","Shopping","Games","Business","Education"];
+  const counts=Object.fromEntries(keys.map(k=>[k,apps.filter(a=>a.category===k).length]));
   const grid=document.getElementById("categoryGrid");
   grid.innerHTML=Object.keys(counts).map(k=>`
     <button class="cat" onclick="openCategoryPage('${k}')" style="text-align:${lang==='ar'?'right':'left'}">
@@ -1537,6 +1552,18 @@ function updateProfileCounts(){
   const s=document.getElementById("savedCount"),v=document.getElementById("voteCount");
   if(s)s.textContent=saved.size;if(v)v.textContent=voted.size;
 }
+
+function appIconHtml(a){
+  if(a.logoUrl) return `<img class="app-logo-img" src="${escapeHtml(a.logoUrl)}" alt="${escapeHtml(a.name)} logo" loading="lazy">`;
+  return escapeHtml(a.letter || (a.name||"A").slice(0,2).toUpperCase());
+}
+function appVerifiedHtml(a){
+  return a.verified ? `<span class="verified" title="Verified"><svg viewBox="0 0 24 24" fill="none"><path d="m7 12 3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/></svg></span>` : "";
+}
+function appById(id){return apps.find(a=>a.id===id)}
+function toggleVoteById(id){const a=appById(id);if(a)return syncVote(a.name)}
+function toggleSaveById(id){const a=appById(id);if(a)return syncSave(a.name)}
+
 function renderApps(){
   const q=document.getElementById("searchInput").value.trim().toLowerCase();
   let list=apps.filter(a=>(filter==="all"||a.category===filter) && (a.name.toLowerCase().includes(q) || (lang==="ar"?a.descAr:a.descEn).toLowerCase().includes(q)));
@@ -1547,39 +1574,41 @@ function renderApps(){
   const rc=document.getElementById("resultCount");
   if(rc)rc.textContent=`${list.length} ${data[lang].apps}`;
   const grid=document.getElementById("appsGrid");
-  if(!list.length){grid.innerHTML=`<div style="grid-column:1/-1;padding:32px;text-align:center;color:var(--muted)">${data[lang].noResults}</div>`;return}
   updateProfileCounts();
-  grid.innerHTML=list.map((a,i)=>`
-    <article class="app-card" onclick="openAppDetail('${a.name}')">${i===0?`<span class="sponsored">${data[lang].sponsored}</span>`:""}
+  if(!list.length){grid.innerHTML=`<div style="grid-column:1/-1;padding:32px;text-align:center;color:var(--muted)">${data[lang].noResults}</div>`;return}
+  grid.innerHTML=list.map(a=>`
+    <article class="app-card" onclick="openAppDetailById('${a.id}')">${a.sponsored?`<span class="sponsored">${data[lang].sponsored}</span>`:""}
       <div class="app-top">
-        <div class="app-icon">${a.letter}</div>
+        <div class="app-icon">${appIconHtml(a)}</div>
         <div class="app-info">
-          <h3>${a.name} ${["Pi Browser Tools","Pioneer AI","Pi Market"].includes(a.name)?`<span class="verified"><svg viewBox="0 0 24 24" fill="none"><path d="m7 12 3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/></svg></span>`:""}</h3>
-          <p>${data[lang].categories[a.category]} · ${a.tag}</p>
+          <h3>${escapeHtml(a.name)} ${appVerifiedHtml(a)}</h3>
+          <p>${escapeHtml(data[lang].categories[a.category]||a.category)} · ${escapeHtml(a.tag)}</p>
         </div>
-        <span class="badge">${a.tag}</span>
+        <span class="badge">${escapeHtml(a.tag)}</span>
       </div>
-      <p class="app-desc">${lang==="ar"?a.descAr:a.descEn}</p>
+      <p class="app-desc">${escapeHtml(lang==="ar"?a.descAr:a.descEn)}</p>
       <div class="app-meta">
-        <span class="rating">${icons.star}<span>${a.rating}</span><span style="color:var(--muted)">(${a.votes})</span></span>
+        <span class="rating">${icons.star}<span>${Number(a.rating||0).toFixed(1)}</span><span style="color:var(--muted)">(${a.reviewsCount||0})</span></span>
         <div class="meta-actions">
-          <button class="mini-btn ${voted.has(a.name)?'voted':''}" onclick="event.stopPropagation();toggleVote('${a.name}',this)">${icons.up}<span>${voted.has(a.name)?a.votes+1:a.votes}</span></button>
-          <button class="mini-btn" onclick="event.stopPropagation();toggleSave('${a.name}',this)">${icons.bookmark}<span>${saved.has(a.name)?data[lang].saved:data[lang].save}</span></button>
+          <button class="mini-btn ${voted.has(a.name)?'voted':''}" onclick="event.stopPropagation();toggleVoteById('${a.id}')">${icons.up}<span>${a.votes}</span></button>
+          <button class="mini-btn" onclick="event.stopPropagation();toggleSaveById('${a.id}')">${icons.bookmark}<span>${saved.has(a.name)?data[lang].saved:data[lang].save}</span></button>
         </div>
       </div>
     </article>`).join("");
 }
 function renderRank(){
-  const list=[...apps].sort((a,b)=>b.votes-a.votes).slice(0,5);
-  document.getElementById("rankList").innerHTML=list.map((a,i)=>`
-    <div class="rank-item">
+  const list=[...apps].sort((a,b)=>(b.votes + b.rating*10)-(a.votes + a.rating*10)).slice(0,5);
+  const el=document.getElementById("rankList");
+  if(!list.length){el.innerHTML=`<div class="empty-state">${data[lang].noResults}</div>`;return}
+  el.innerHTML=list.map((a,i)=>`
+    <div class="rank-item" onclick="openAppDetailById('${a.id}')" style="cursor:pointer">
       <div class="rank-num">#${i+1}</div>
       <div class="rank-main">
-        <div class="app-icon">${a.letter}</div>
-        <div><b>${a.name}</b><small>${data[lang].categories[a.category]} · ${a.tag}</small></div>
+        <div class="app-icon">${appIconHtml(a)}</div>
+        <div><b>${escapeHtml(a.name)}</b><small>${escapeHtml(data[lang].categories[a.category]||a.category)} · ${escapeHtml(a.tag)}</small></div>
       </div>
       <div class="score">▲ ${a.votes}</div>
-      <span class="rating">${icons.star}${a.rating}</span>
+      <span class="rating">${icons.star}${Number(a.rating||0).toFixed(1)}</span>
     </div>`).join("");
 }
 function setFilter(cat){
@@ -1613,9 +1642,6 @@ const modal=document.getElementById("submitModal");
 ["submitBtn","heroSubmit","ctaSubmit","mobileSubmit"].forEach(id=>document.getElementById(id).onclick=()=>modal.classList.add("show"));
 ["closeModal","cancelModal"].forEach(id=>document.getElementById(id).onclick=()=>modal.classList.remove("show"));
 modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("show")});
-document.getElementById("submitForm").addEventListener("submit",e=>{
-  e.preventDefault();modal.classList.remove("show");showToast(data[lang].submitted);e.target.reset();
-});
 document.addEventListener("keydown",e=>{
   if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openSearch()}
   if(e.key==="Escape")modal.classList.remove("show");
@@ -1624,33 +1650,63 @@ document.addEventListener("keydown",e=>{
 
 let currentDetailApp=null;
 
-function openAppDetail(name){
-  const a=apps.find(x=>x.name===name); if(!a)return;
+async function openAppDetailById(id){
+  const a=appById(id); if(!a)return;
   currentDetailApp=a;
-  document.getElementById("detailIcon").textContent=a.letter;
+  const icon=document.getElementById("detailIcon");
+  icon.innerHTML=appIconHtml(a);
   document.getElementById("detailName").textContent=a.name;
-  document.getElementById("detailMeta").textContent=`${data[lang].categories[a.category]} · ${a.tag}`;
+  document.getElementById("detailMeta").textContent=`${data[lang].categories[a.category]||a.category} · ${a.tag}`;
   document.getElementById("detailDesc").textContent=lang==="ar"?a.descAr:a.descEn;
-  document.getElementById("detailRating").textContent=a.rating;
-  document.getElementById("detailVotes").textContent=a.votes+(voted.has(a.name)?1:0);
+  document.getElementById("detailRating").textContent=Number(a.rating||0).toFixed(1);
+  document.getElementById("detailVotes").textContent=a.votes;
   document.getElementById("detailVote").classList.toggle("btn-primary",voted.has(a.name));
   document.getElementById("detailSave").textContent=saved.has(a.name)?data[lang].saved:data[lang].save;
+  const shots=document.getElementById("detailScreenshots");
+  const images=(a.screenshots||[]).map(x=>typeof x==="string"?x:x.publicUrl).filter(Boolean);
+  shots.innerHTML=images.length?images.map(url=>`<div class="shot"><img class="real-shot" src="${escapeHtml(url)}" alt="${escapeHtml(a.name)} screenshot" loading="lazy"></div>`).join(""):`<div class="empty-state" style="grid-column:1/-1">${data[lang].noResults}</div>`;
   document.getElementById("detailModal").classList.add("show");
+  const viewKey=`apphub_viewed_${a.id}`;
+  if(!sessionStorage.getItem(viewKey)){
+    sessionStorage.setItem(viewKey,"1");
+    apiCall("event",{method:"POST",auth:false,body:{appId:a.id,type:"view"}}).catch(()=>{});
+  }
+  await loadAppReviews(a.id);
 }
+function openAppDetail(name){
+  const a=apps.find(x=>x.name===name); if(a) return openAppDetailById(a.id);
+}
+
+async function loadAppReviews(appId){
+  const el=document.getElementById("detailReviews");
+  el.innerHTML=`<div class="empty-state">${data[lang].loading}</div>`;
+  try{
+    const result=await apiCall("reviews",{auth:false,params:{appId}});
+    const rows=result.reviews||[];
+    if(!rows.length){el.innerHTML=`<div class="empty-state">${data[lang].noReviews}</div>`;return}
+    el.innerHTML=rows.map(r=>`
+      <div class="review">
+        <div class="review-head">
+          <div class="review-user"><span class="avatar">${escapeHtml((r.username||"P").slice(0,2).toUpperCase())}</span>${escapeHtml(r.username||"Pioneer")}</div>
+          <span class="rating">★ ${r.rating}</span>
+        </div>
+        <p>${escapeHtml(r.body)}</p>
+      </div>`).join("");
+  }catch(e){el.innerHTML=`<div class="empty-state">${escapeHtml(e.message)}</div>`}
+}
+
 document.getElementById("closeDetail").onclick=()=>document.getElementById("detailModal").classList.remove("show");
 document.getElementById("detailModal").addEventListener("click",e=>{if(e.target.id==="detailModal")e.currentTarget.classList.remove("show")});
-document.getElementById("detailVote").onclick=()=>{
+document.getElementById("detailVote").onclick=async()=>{
   if(!currentDetailApp)return;
-  if(voted.has(currentDetailApp.name))voted.delete(currentDetailApp.name);else voted.add(currentDetailApp.name);
-  renderApps();openAppDetail(currentDetailApp.name);showToast(voted.has(currentDetailApp.name)?"Upvoted ▲":"Vote removed");
+  await syncVote(currentDetailApp.name);
+  await openAppDetailById(currentDetailApp.id);
 };
-document.getElementById("detailSave").onclick=()=>{
+document.getElementById("detailSave").onclick=async()=>{
   if(!currentDetailApp)return;
-  if(saved.has(currentDetailApp.name))saved.delete(currentDetailApp.name);else saved.add(currentDetailApp.name);
-  renderApps();openAppDetail(currentDetailApp.name);showToast(saved.has(currentDetailApp.name)?(lang==="ar"?"تم الحفظ ★":"Saved ★"):(lang==="ar"?"تمت الإزالة":"Removed"));
+  await syncSave(currentDetailApp.name);
+  await openAppDetailById(currentDetailApp.id);
 };
-document.getElementById("openDemoApp").onclick=()=>showToast(lang==="ar"?"فتح التطبيق سيتم ربطه لاحقًا بـ Pi Browser":"App launch will be connected to Pi Browser later");
-
 function openSearch(){
   const o=document.getElementById("searchOverlay");o.classList.add("show");
   const input=document.getElementById("bigSearchInput");input.value="";renderSearchResults("");setTimeout(()=>input.focus(),80);
@@ -1659,9 +1715,9 @@ function renderSearchResults(q){
   q=(q||"").trim().toLowerCase();
   const list=apps.filter(a=>!q||a.name.toLowerCase().includes(q)||(lang==="ar"?a.descAr:a.descEn).toLowerCase().includes(q));
   document.getElementById("searchResults").innerHTML=list.length?list.map(a=>`
-    <div class="search-result" onclick="document.getElementById('searchOverlay').classList.remove('show');openAppDetail('${a.name}')">
-      <div class="app-icon">${a.letter}</div><div><b>${a.name}</b><small>${data[lang].categories[a.category]} · ${a.tag}</small></div>
-      <span class="result-meta">★ ${a.rating}</span>
+    <div class="search-result" onclick="document.getElementById('searchOverlay').classList.remove('show');openAppDetailById('${a.id}')">
+      <div class="app-icon">${appIconHtml(a)}</div><div><b>${escapeHtml(a.name)}</b><small>${escapeHtml(data[lang].categories[a.category]||a.category)} · ${escapeHtml(a.tag)}</small></div>
+      <span class="result-meta">★ ${Number(a.rating||0).toFixed(1)}</span>
     </div>`).join(""):`<div class="empty-state"><b>${data[lang].noResults}</b></div>`;
 }
 document.getElementById("mobileSearchBtn").onclick=openSearch;
@@ -1681,7 +1737,7 @@ function renderFilterOptions(){
     document.querySelectorAll(".filter-option").forEach(x=>x.classList.remove("active"));b.classList.add("active");
   });
 }
-document.getElementById("filterBtn").onclick=()=>{renderFilterOptions();document.getElementById("filterSheet").classList.add("show")};
+
 document.getElementById("filterSheet").addEventListener("click",e=>{if(e.target.id==="filterSheet")e.currentTarget.classList.remove("show")});
 document.getElementById("resetFilters").onclick=()=>{filter="all";renderFilterOptions()};
 document.getElementById("applyFilters").onclick=()=>{
@@ -1705,13 +1761,13 @@ document.getElementById("savedAppsBtn").onclick=()=>{
   const box=document.getElementById("drawerDynamic");
   const list=apps.filter(a=>saved.has(a.name));
   box.innerHTML=list.length?`<div class="drawer-list">${list.map(a=>`
-    <button class="drawer-item" onclick="closeDrawer('profileDrawer');openAppDetail('${a.name}')">
-      <span class="app-icon" style="width:38px;height:38px;border-radius:11px;font-size:12px">${a.letter}</span>
-      <div><b>${a.name}</b><small>${data[lang].categories[a.category]}</small></div>
+    <button class="drawer-item" onclick="closeDrawer('profileDrawer');openAppDetailById('${a.id}')">
+      <span class="app-icon" style="width:38px;height:38px;border-radius:11px;font-size:12px">${appIconHtml(a)}</span>
+      <div><b>${escapeHtml(a.name)}</b><small>${escapeHtml(data[lang].categories[a.category]||a.category)}</small></div>
     </button>`).join("")}</div>`:`<div class="empty-state"><b>${lang==="ar"?"لا توجد تطبيقات محفوظة":"No saved apps yet"}</b><span>${lang==="ar"?"اضغط حفظ على أي تطبيق وسيظهر هنا.":"Save an app and it will appear here."}</span></div>`;
 };
 
-document.getElementById("dashboardBtn").onclick=()=>{closeDrawer("profileDrawer");document.getElementById("dashboard").classList.add("show")};
+document.getElementById("dashboardBtn").onclick=()=>openDeveloperDashboard();
 document.getElementById("closeDashboard").onclick=()=>document.getElementById("dashboard").classList.remove("show");
 
 const originalApplyLang=applyLang;
@@ -1736,12 +1792,12 @@ function openCategoryPage(cat){
   const page=document.getElementById("categoryPage");
   document.getElementById("categoryPageTitle").textContent=data[lang].categories[cat]||cat;
   const list=apps.filter(a=>a.category===cat);
-  document.getElementById("categoryPageGrid").innerHTML=list.map(a=>`
-    <article class="app-card" onclick="document.getElementById('categoryPage').classList.remove('show');openAppDetail('${a.name}')">
-      <div class="app-top"><div class="app-icon">${a.letter}</div><div class="app-info"><h3>${a.name}</h3><p>${data[lang].categories[a.category]} · ${a.tag}</p></div><span class="badge">${a.tag}</span></div>
-      <p class="app-desc">${lang==="ar"?a.descAr:a.descEn}</p>
-      <div class="app-meta"><span class="rating">${icons.star}<span>${a.rating}</span></span><span class="mini-btn">${data[lang].open}</span></div>
-    </article>`).join("");
+  document.getElementById("categoryPageGrid").innerHTML=list.length?list.map(a=>`
+    <article class="app-card" onclick="document.getElementById('categoryPage').classList.remove('show');openAppDetailById('${a.id}')">
+      <div class="app-top"><div class="app-icon">${appIconHtml(a)}</div><div class="app-info"><h3>${escapeHtml(a.name)} ${appVerifiedHtml(a)}</h3><p>${escapeHtml(data[lang].categories[a.category]||a.category)} · ${escapeHtml(a.tag)}</p></div><span class="badge">${escapeHtml(a.tag)}</span></div>
+      <p class="app-desc">${escapeHtml(lang==="ar"?a.descAr:a.descEn)}</p>
+      <div class="app-meta"><span class="rating">${icons.star}<span>${Number(a.rating||0).toFixed(1)}</span></span><span class="mini-btn">${data[lang].open}</span></div>
+    </article>`).join(""):`<div class="empty-state" style="grid-column:1/-1">${data[lang].noResults}</div>`;
   page.classList.add("show");
 }
 document.getElementById("closeCategoryPage").onclick=()=>document.getElementById("categoryPage").classList.remove("show");
@@ -1759,7 +1815,7 @@ document.querySelectorAll(".star-btn").forEach(btn=>btn.onclick=(e)=>{
 document.getElementById("submitReview").onclick=()=>{
   const txt=document.getElementById("reviewText").value.trim();
   if(!selectedReviewStars||!txt){showToast(lang==="ar"?"اختار تقييم واكتب مراجعة":"Choose a rating and write a review");return}
-  showToast(lang==="ar"?"تم نشر المراجعة تجريبيًا ✅":"Demo review published ✅");
+  showToast(lang==="ar"?"تم نشر المراجعة ✅":"Review published ✅");
   document.getElementById("reviewText").value="";selectedReviewStars=0;
   document.querySelectorAll(".star-btn").forEach(s=>s.classList.remove("active"));
 };
@@ -1767,21 +1823,21 @@ document.getElementById("submitReview").onclick=()=>{
 function openLaunchScreen(){
   if(!currentDetailApp)return;
   document.getElementById("detailModal").classList.remove("show");
-  document.getElementById("launchIcon").textContent=currentDetailApp.letter;
+  document.getElementById("launchIcon").innerHTML=appIconHtml(currentDetailApp);
   document.getElementById("launchName").textContent=currentDetailApp.name;
   document.getElementById("launchMeta").textContent=`${data[lang].categories[currentDetailApp.category]} · ${currentDetailApp.tag}`;
   document.getElementById("launchScreen").classList.add("show");
 }
-document.getElementById("openDemoApp").onclick=openLaunchScreen;
+document.getElementById("openAppBtn").onclick=openLaunchScreen;
 document.getElementById("closeLaunch").onclick=()=>document.getElementById("launchScreen").classList.remove("show");
 document.getElementById("confirmLaunch").onclick=()=>showToast(lang==="ar"?"هنا سيتم فتح التطبيق الحقيقي بعد ربط Pi SDK":"The real app will open here after Pi SDK integration");
 
 const onboarding=document.getElementById("onboarding");
 /* Guest browsing is default; no automatic login/onboarding popup. */
 function finishOnboarding(msg){
-  localStorage.setItem("piapps-onboarded","1");onboarding.classList.remove("show");showToast(msg);
+  localStorage.setItem("apphub-onboarded","1");onboarding.classList.remove("show");showToast(msg);
 }
-document.getElementById("piLoginDemo").onclick=()=>finishOnboarding(lang==="ar"?"تم تسجيل الدخول التجريبي بحساب Pi ✅":"Demo Pi sign-in complete ✅");
+document.getElementById("piLoginBtn").onclick=()=>finishOnboarding(lang==="ar"?"تم تسجيل الدخول بحساب Pi ✅":"Signed in with Pi ✅");
 document.getElementById("skipLogin").onclick=()=>finishOnboarding(lang==="ar"?"أهلاً بك كزائر":"Welcome, guest");
 
 const oldApplyLangFinal=applyLang;
@@ -1804,7 +1860,7 @@ document.addEventListener("keydown",e=>{
 });
 
 
-/* ===== PiApps Hub real backend / Pi SDK integration ===== */
+/* ===== AppHub backend / Pi SDK integration ===== */
 const BACKEND = "/api";
 let piSdkReady = false;
 let piAccessToken = sessionStorage.getItem("pi_access_token") || "";
@@ -1813,10 +1869,11 @@ let serverConfig = {
   prices: { featured_1d: 1, featured_7d: 5, pro_month: 2 }
 };
 
-async function apiCall(action, {method="GET", body=null, auth=true} = {}) {
+async function apiCall(action, {method="GET", body=null, auth=true, params={}} = {}) {
   const headers = {"Content-Type":"application/json"};
   if (auth && piAccessToken) headers.Authorization = `Bearer ${piAccessToken}`;
-  const url = `${BACKEND}?action=${encodeURIComponent(action)}`;
+  const qs=new URLSearchParams({action,...params});
+  const url = `${BACKEND}?${qs.toString()}`;
   const res = await fetch(url, {
     method,
     headers,
@@ -1832,7 +1889,7 @@ async function loadServerConfig() {
     const cfg = await apiCall("config", {auth:false});
     serverConfig = {...serverConfig, ...cfg};
   } catch (e) {
-    console.warn("Using local config fallback:", e.message);
+    console.warn("Using cached configuration:", e.message);
   }
   if (window.Pi && !piSdkReady) {
     window.Pi.init({version:"2.0", sandbox: !!serverConfig.piSandbox});
@@ -1854,15 +1911,18 @@ async function hydrateAppsFromBackend() {
       descEn:a.description_en || a.description_ar || "",
       rating:Number(a.rating_avg || 0) || 0,
       votes:Number(a.votes_count || 0),
-      letter:(a.name || "P").slice(0,2).toUpperCase(),
+      reviewsCount:Number(a.reviews_count || 0),
+      letter:(a.name || "A").slice(0,2).toUpperCase(),
       appUrl:a.app_url || "",
+      logoUrl:a.logo_url || "",
+      screenshots:Array.isArray(a.screenshots)?a.screenshots:[],
       verified:!!a.verified,
       sponsored:!!a.sponsored
     }));
     apps.splice(0, apps.length, ...mapped);
     renderApps(); renderRank(); renderCategories();
   } catch (e) {
-    console.warn("Backend unavailable; demo apps remain visible:", e.message);
+    console.warn("Backend unavailable:", e.message);
   }
 }
 
@@ -1943,9 +2003,9 @@ async function submitRealReview() {
     showToast(lang==="ar" ? "اختار تقييم واكتب مراجعة" : "Choose a rating and write a review");
     return;
   }
-  if (!piAccessToken) { await realPiLogin(); }
+  if (!piAccessToken) { await realPiLogin({requirePayments:false}); }
   if (!currentDetailApp?.id) {
-    showToast(lang==="ar" ? "هذا تطبيق تجريبي محلي" : "This is a local demo app");
+    showToast(lang==="ar" ? "هذا التطبيق غير متاح" : "This app is unavailable");
     return;
   }
   try {
@@ -1961,45 +2021,71 @@ async function submitRealReview() {
   } catch(e){ showToast(e.message); }
 }
 
-async function submitRealApp(form) {
-  if (!piAccessToken) await realPiLogin({requirePayments:true});
-  const els = form.elements;
-  const payload = {
-    name: els[0]?.value?.trim(),
-    category: els[1]?.value,
-    appUrl: els[2]?.value?.trim(),
-    descriptionEn: els[3]?.value?.trim(),
-    descriptionAr: els[3]?.value?.trim(),
-    network: els[4]?.value,
-    supportsPayments: (els[5]?.value || "").toLowerCase().includes("yes") || (els[5]?.value || "").includes("نعم")
-  };
-  const result = await apiCall("submit-app", {method:"POST", body:payload});
-  showToast(lang==="ar" ? "تم إرسال التطبيق للمراجعة ✅" : "App submitted for review ✅");
-  return result;
+let developerApps=[];
+let selectedDeveloperAppId=null;
+
+async function openDeveloperDashboard(){
+  closeDrawer("profileDrawer");
+  if(!piAccessToken){await realPiLogin({requirePayments:false});}
+  try{
+    const result=await apiCall("developer-summary");
+    developerApps=result.apps||[];
+    const select=document.getElementById("developerAppSelect");
+    select.innerHTML=developerApps.map(a=>`<option value="${a.id}">${escapeHtml(a.name)}</option>`).join("");
+    document.getElementById("dashboard").classList.add("show");
+    if(!developerApps.length){
+      selectedDeveloperAppId=null;
+      renderDeveloperSummary(null);
+      return;
+    }
+    selectedDeveloperAppId=developerApps[0].id;
+    renderDeveloperSummary(developerApps[0]);
+  }catch(e){showToast(e.message)}
 }
+function renderDeveloperSummary(a){
+  document.getElementById("devViews").textContent=a?.views||0;
+  document.getElementById("devOpens").textContent=a?.opens||0;
+  document.getElementById("devVotes").textContent=a?.votes||0;
+  document.getElementById("devRating").textContent=Number(a?.rating||0).toFixed(1);
+  const chart=document.getElementById("developerChart");
+  const days=a?.dailyViews||[0,0,0,0,0,0,0];
+  const max=Math.max(1,...days);
+  chart.innerHTML=days.map(v=>`<div class="bar" title="${v}" style="height:${Math.max(6,Math.round((v/max)*100))}%"></div>`).join("");
+  const info=document.getElementById("developerAppInfo");
+  info.innerHTML=a?`
+    <div class="dash-row"><b>Status</b><span>${escapeHtml(a.status)}</span></div>
+    <div class="dash-row"><b>Reviews</b><span>${a.reviews||0}</span></div>
+    <div class="dash-row"><b>Network</b><span>${escapeHtml(a.network||"")}</span></div>
+  `:`<div class="empty-state">${lang==="ar"?"لا توجد تطبيقات مرتبطة بحسابك.":"No apps are linked to your account."}</div>`;
+}
+document.getElementById("developerAppSelect")?.addEventListener("change",e=>{
+  selectedDeveloperAppId=e.target.value;
+  renderDeveloperSummary(developerApps.find(a=>a.id===selectedDeveloperAppId));
+});
 
 async function startPiPayment(product) {
   try {
     await loadServerConfig();
-    if (!piAccessToken) await realPiLogin();
+    if (!piAccessToken) await realPiLogin({requirePayments:true});
     if (!window.Pi || !piSdkReady) throw new Error("Pi SDK unavailable.");
     await ensurePaymentPermission();
+    if(product.startsWith("featured_") && !selectedDeveloperAppId) throw new Error(lang==="ar"?"اختر تطبيقًا أولاً":"Select an app first");
     const amount = Number(serverConfig.prices?.[product]);
     if (!amount || amount <= 0) throw new Error("Invalid product price.");
     const memoMap = {
-      featured_1d:"PiApps Hub Featured placement — 1 day",
-      featured_7d:"PiApps Hub Featured placement — 7 days",
-      pro_month:"PiApps Hub Developer Pro — 1 month"
+      featured_1d:"AppHub Featured placement — 1 day",
+      featured_7d:"AppHub Featured placement — 7 days",
+      pro_month:"AppHub Developer Pro — 1 month"
     };
     window.Pi.createPayment({
       amount,
-      memo:memoMap[product] || "PiApps Hub purchase",
-      metadata:{product, appId:currentDetailApp?.id || null}
+      memo:memoMap[product] || "AppHub purchase",
+      metadata:{product, appId:product.startsWith("featured_") ? selectedDeveloperAppId : null}
     }, {
       onReadyForServerApproval: async (paymentId) => {
         await apiCall("payment-approve", {
           method:"POST",
-          body:{paymentId, product, appId:currentDetailApp?.id || null}
+          body:{paymentId, product, appId:product.startsWith("featured_") ? selectedDeveloperAppId : null}
         });
       },
       onReadyForServerCompletion: async (paymentId, txid) => {
@@ -2019,8 +2105,8 @@ async function startPiPayment(product) {
   } catch(e){ showToast(e.message); }
 }
 
-// Replace demo hooks with live hooks.
-const loginBtnLive = document.getElementById("piLoginDemo");
+// Connect UI hooks to backend actions.
+const loginBtnLive = document.getElementById("piLoginBtn");
 if (loginBtnLive) loginBtnLive.onclick = ()=>realPiLogin({requirePayments:false});
 
 const oldToggleVote = toggleVote;
@@ -2060,6 +2146,7 @@ if (confirmLaunchLive) confirmLaunchLive.onclick = () => {
   try {
     const parsed = new URL(url);
     if (!["https:"].includes(parsed.protocol)) throw new Error("Only HTTPS app URLs are allowed.");
+    apiCall("event",{method:"POST",auth:false,body:{appId:currentDetailApp.id,type:"open"}}).catch(()=>{});
     window.open(parsed.href, "_blank", "noopener,noreferrer");
   } catch(e){ showToast(e.message); }
 };
@@ -2232,8 +2319,8 @@ document.querySelectorAll(".admin-tab").forEach(btn=>btn.onclick=()=>{
 });
 
 const originalRealPiLoginForAdmin = realPiLogin;
-realPiLogin = async function(){
-  const result = await originalRealPiLoginForAdmin();
+realPiLogin = async function(options={}){
+  const result = await originalRealPiLoginForAdmin(options);
   await checkAdminAccess();
   return result;
 };
@@ -2248,7 +2335,7 @@ function updateSignedInUI(user=null){
   document.getElementById("profileLoginBtn").style.display=signed?"none":"inline-flex";
   document.getElementById("profileLogoutBtn").style.display=signed?"inline-flex":"none";
   document.getElementById("profileStats").style.display=signed?"grid":"none";
-  ["savedAppsBtn","dashboardBtn","drawerNotifBtn"].forEach(id=>{
+  ["savedAppsBtn","dashboardBtn"].forEach(id=>{
     const el=document.getElementById(id); if(el) el.style.display=signed?"flex":"none";
   });
 }
@@ -2348,8 +2435,8 @@ async function ensurePaymentPermission(){
 
 
 const ADMIN_I18N={
-  en:{backSite:"Back to site",overview:"Overview",apps:"Apps",users:"Users",pricing:"Pricing",overviewSub:"Moderation and platform status.",refresh:"Refresh",totalUsers:"Total users",approvedApps:"Approved apps",pendingReview:"Pending review",completedPayments:"Completed payments",pendingApps:"Pending apps",noPending:"No pending apps.",app:"App",developer:"Developer",network:"Network",actions:"Actions",approveLaunch:"Approve & launch",reject:"Reject",status:"Status",verified:"Verified",created:"Created",launch:"Launch",unverify:"Unverify",verify:"Verify",hide:"Hide",delete:"Delete",role:"Role",pro:"Pro",ban:"Ban",unban:"Unban",makeAdmin:"Make admin",removeAdmin:"Remove admin",noApps:"No apps found.",noUsers:"No users found."},
-  ar:{backSite:"العودة للموقع",overview:"نظرة عامة",apps:"التطبيقات",users:"المستخدمون",pricing:"الأسعار",overviewSub:"المراجعة وحالة المنصة.",refresh:"تحديث",totalUsers:"إجمالي المستخدمين",approvedApps:"التطبيقات المعتمدة",pendingReview:"قيد المراجعة",completedPayments:"المدفوعات المكتملة",pendingApps:"التطبيقات المعلقة",noPending:"لا توجد تطبيقات معلقة.",app:"التطبيق",developer:"المطور",network:"الشبكة",actions:"الإجراءات",approveLaunch:"اعتماد وإطلاق",reject:"رفض",status:"الحالة",verified:"موثق",created:"تاريخ الإضافة",launch:"إطلاق",unverify:"إلغاء التوثيق",verify:"توثيق",hide:"إخفاء",delete:"حذف",role:"الدور",pro:"برو",ban:"حظر",unban:"فك الحظر",makeAdmin:"تعيين أدمن",removeAdmin:"إزالة الأدمن",noApps:"لا توجد تطبيقات.",noUsers:"لا يوجد مستخدمون."}
+  en:{adminTitle:"AppHub Admin",backSite:"Back to site",overview:"Overview",apps:"Apps",users:"Users",pricing:"Pricing",overviewSub:"Moderation and platform status.",refresh:"Refresh",totalUsers:"Total users",approvedApps:"Approved apps",pendingReview:"Pending review",completedPayments:"Completed payments",pendingApps:"Pending apps",noPending:"No pending apps.",app:"App",developer:"Developer",network:"Network",actions:"Actions",approveLaunch:"Approve & launch",reject:"Reject",status:"Status",verified:"Verified",created:"Created",launch:"Launch",unverify:"Unverify",verify:"Verify",hide:"Hide",delete:"Delete",role:"Role",pro:"Pro",ban:"Ban",unban:"Unban",makeAdmin:"Make admin",removeAdmin:"Remove admin",noApps:"No apps found.",noUsers:"No users found."},
+  ar:{adminTitle:"إدارة AppHub",backSite:"العودة للموقع",overview:"نظرة عامة",apps:"التطبيقات",users:"المستخدمون",pricing:"الأسعار",overviewSub:"المراجعة وحالة المنصة.",refresh:"تحديث",totalUsers:"إجمالي المستخدمين",approvedApps:"التطبيقات المعتمدة",pendingReview:"قيد المراجعة",completedPayments:"المدفوعات المكتملة",pendingApps:"التطبيقات المعلقة",noPending:"لا توجد تطبيقات معلقة.",app:"التطبيق",developer:"المطور",network:"الشبكة",actions:"الإجراءات",approveLaunch:"اعتماد وإطلاق",reject:"رفض",status:"الحالة",verified:"موثق",created:"تاريخ الإضافة",launch:"إطلاق",unverify:"إلغاء التوثيق",verify:"توثيق",hide:"إخفاء",delete:"حذف",role:"الدور",pro:"برو",ban:"حظر",unban:"فك الحظر",makeAdmin:"تعيين أدمن",removeAdmin:"إزالة الأدمن",noApps:"لا توجد تطبيقات.",noUsers:"لا يوجد مستخدمون."}
 };
 function at(k){return ADMIN_I18N[lang]?.[k]||ADMIN_I18N.en[k]||k}
 function renderAdminStatic(){
